@@ -1,3 +1,4 @@
+import 'package:app_cyclone/w2-d1/W2D1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import "package:go_router/go_router.dart";
@@ -9,32 +10,17 @@ void main() {
   runApp(const MyMaterialApp());
 }
 
-final GoRouter _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const Page1();
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'details',
-          builder: (BuildContext context, GoRouterState state) {
-            return const Page2();
-          },
-        ),
-      ],
-    ),
-  ],
-);
-
 class MyMaterialApp extends StatelessWidget {
   const MyMaterialApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: _router,
+    return MaterialApp(
+      title: 'Flutter Workshop',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const W2D1(),
     );
   }
 }
