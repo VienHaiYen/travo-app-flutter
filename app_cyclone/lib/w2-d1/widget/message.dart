@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class _Message extends StatelessWidget {
   const _Message(
       {super.key,
-        required this.message,
-        required this.color,
-        required this.borderRadius,
-        required this.textColor});
+      required this.message,
+      required this.color,
+      required this.borderRadius,
+      required this.textColor});
 
   final String message;
   final Color color;
