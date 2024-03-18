@@ -1,5 +1,6 @@
 import 'package:app_cyclone/w2-d1/W2D1.dart';
 import 'package:app_cyclone/w2-d2/W2D2.dart';
+import 'package:app_cyclone/w2-d3/W2D3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import "package:go_router/go_router.dart";
@@ -21,7 +22,7 @@ class MyMaterialApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const W2D2(),
+      home: const W2D3(),
     );
   }
 }
