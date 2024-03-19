@@ -1,0 +1,9 @@
+{
+  "theme":"theme",
+  "dark_mode":"Dark Mode",
+  "light_mode":"Light Mode",
+  "change_mode":"Change Mode",
+  "mode":"Mode",
+  "english":"English",
+  "vietnamese":"Vietnamese"
+}

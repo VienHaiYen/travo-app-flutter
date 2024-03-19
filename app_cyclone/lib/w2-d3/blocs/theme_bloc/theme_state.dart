@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ThemeState {
   final Color textColor;
@@ -14,14 +13,14 @@ class ThemeState {
     return ThemeState(
       backgroundColor: const Color(0xFF000000),
       textColor: const Color(0xFFFFFFFF),
-      name: "Dark mode",
+      name: "dart",
     );
   }
   factory ThemeState.light() {
     return ThemeState(
       backgroundColor: const Color(0xFFFFFFFF),
       textColor: const Color(0xFF000000),
-      name: "Light mode",
+      name: "light",
     );
   }
 }
