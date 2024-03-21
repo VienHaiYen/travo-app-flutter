@@ -1,4 +1,4 @@
-import 'package:app_cyclone/w2-d3/blocs/language_bloc/language_bloc.dart';
+import 'package:app_cyclone/blocs/language_bloc/language_bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

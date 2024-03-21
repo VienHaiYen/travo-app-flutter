@@ -1,8 +1,8 @@
-import 'package:app_cyclone/w2-d1/widget/my_app_bar.dart';
-import 'package:app_cyclone/w2-d2/counter_bloc/counter_bloc.dart';
-import 'package:app_cyclone/w2-d2/counter_bloc/counter_event.dart';
-import 'package:app_cyclone/w2-d2/counter_bloc/counter_provider.dart';
-import 'package:app_cyclone/w2-d2/counter_bloc/counter_state.dart';
+import 'package:app_cyclone/daily_exercise/w2-d1/widget/my_app_bar.dart';
+import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_bloc.dart';
+import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_event.dart';
+import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_provider.dart';
+import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -17,6 +17,7 @@ dependencies:
   flutter_localization: ^0.2.0
   intl: any
   shared_preferences: ^2.2.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

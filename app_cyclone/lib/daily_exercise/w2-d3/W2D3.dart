@@ -1,14 +1,14 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:app_cyclone/w2-d1/widget/my_app_bar.dart';
-import 'package:app_cyclone/w2-d3/blocs/language_bloc/language_bloc.dart';
-import 'package:app_cyclone/w2-d3/blocs/language_bloc/language_event.dart';
-import 'package:app_cyclone/w2-d3/blocs/theme_bloc/theme_bloc.dart';
-import 'package:app_cyclone/w2-d3/blocs/theme_bloc/theme_event.dart';
-import 'package:app_cyclone/w2-d3/blocs/theme_bloc/theme_provider.dart';
-import 'package:app_cyclone/w2-d3/blocs/theme_bloc/theme_state.dart';
+import 'package:app_cyclone/daily_exercise/w2-d1/widget/my_app_bar.dart';
+import 'package:app_cyclone/blocs/language_bloc/language_bloc.dart';
+import 'package:app_cyclone/blocs/language_bloc/language_event.dart';
+import 'package:app_cyclone/blocs/theme_bloc/theme_bloc.dart';
+import 'package:app_cyclone/blocs/theme_bloc/theme_event.dart';
+import 'package:app_cyclone/blocs/theme_bloc/theme_provider.dart';
+import 'package:app_cyclone/blocs/theme_bloc/theme_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:app_cyclone/w2-d3/blocs/custom_multi_bloc_provider.dart';
+import 'package:app_cyclone/blocs/custom_multi_bloc_provider.dart';
 
 class W2D3 extends StatelessWidget {
   const W2D3({super.key});

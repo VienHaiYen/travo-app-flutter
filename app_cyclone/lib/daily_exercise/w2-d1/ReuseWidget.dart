@@ -1,5 +1,5 @@
-import 'package:app_cyclone/w2-d1/widget/message_row.dart';
-import 'package:app_cyclone/w2-d1/widget/my_app_bar.dart';
+import 'package:app_cyclone/daily_exercise/w2-d1/widget/message_row.dart';
+import 'package:app_cyclone/daily_exercise/w2-d1/widget/my_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ReuseWidget extends StatelessWidget {

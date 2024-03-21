@@ -1,4 +1,4 @@
-import 'package:app_cyclone/w2-d1/widget/message.dart';
+import 'package:app_cyclone/daily_exercise/w2-d1/widget/message.dart';
 import 'package:flutter/material.dart';
 
 class MessageRow extends StatelessWidget {
