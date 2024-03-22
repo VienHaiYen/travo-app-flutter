@@ -1,3 +1,4 @@
+import 'package:app_cyclone/widgets/button.dart';
 import "package:carousel_slider/carousel_controller.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -52,26 +53,38 @@ class CarouselDemo extends StatelessWidget {
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(),
-        body: CarouselSlider(
-          items: list.map((data) {
-            return _carousel_page(data: data, context: context);
-          }).toList(),
-          carouselController: buttonCarouselController,
-          options: CarouselOptions(
-            height: double.maxFinite,
-            padEnds: true,
-            autoPlay: false,
-            enlargeCenterPage: true,
-            viewportFraction: 1,
-            initialPage: 0,
-          ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(),
+      backgroundColor: Color.fromARGB(255, 244, 244, 244),
+      body: CarouselSlider(
+        items: list.map((data) {
+          return _carousel_page(data: data, context: context);
+        }).toList(),
+        carouselController: buttonCarouselController,
+        options: CarouselOptions(
+          height: double.maxFinite,
+          padEnds: true,
+          autoPlay: false,
+          enlargeCenterPage: true,
+          viewportFraction: 1,
+          initialPage: 0,
         ),
-      );
+      ),
+    );
+  }
 
   Widget _carousel_page(
       {required BuildContext context, required CarouselData data}) {
+    void onPressed() {
+      if (data.isEndPage) {
+        Navigator.of(context).pushNamed('/log-in');
+      } else {
+        buttonCarouselController.nextPage(
+            duration: Duration(milliseconds: 300), curve: Curves.linear);
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -108,27 +121,10 @@ class CarouselDemo extends StatelessWidget {
                   height: 30,
                 ),
                 Container(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(143, 105, 1, 232),
-                    ),
-                    onPressed: () => {
-                      if (data.isEndPage)
-                        {Navigator.of(context).pushNamed('/splash-screen')}
-                      else
-                        {
-                          buttonCarouselController.nextPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.linear)
-                        }
-                    },
-                    child: Text(
-                      data.isEndPage ? "Get Started" : "Next",
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                )
+                    alignment: Alignment.centerRight,
+                    child: Button(
+                        text: data.isEndPage ? "Get Started" : "Next",
+                        onPressed: onPressed))
               ],
             ),
           ),

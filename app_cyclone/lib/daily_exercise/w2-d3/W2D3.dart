@@ -1,5 +1,5 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:app_cyclone/daily_exercise/w2-d1/widget/my_app_bar.dart';
+import 'package:app_cyclone/widgets/my_app_bar.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_bloc.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_event.dart';
 import 'package:app_cyclone/blocs/theme_bloc/theme_bloc.dart';

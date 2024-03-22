@@ -3,6 +3,8 @@ import 'package:app_cyclone/blocs/language_bloc/language_state.dart';
 import 'package:app_cyclone/blocs/theme_bloc/theme_bloc.dart';
 import 'package:app_cyclone/daily_exercise/w3-d1/W3D1.dart';
 import 'package:app_cyclone/routes/routes.dart';
+import 'package:app_cyclone/travo_app_ac/screens/authen_screen/authen_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/authen_screen/login_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/onboarding_screen/onboarding_carousel.dart';
 import 'package:app_cyclone/travo_app_ac/screens/splash_screen/splash__screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +51,7 @@ class MyMaterialApp extends StatelessWidget {
             ),
             onGenerateRoute: Routes.instance.routePage,
             initialRoute: '/splash-screen',
-            home: const SplashScreen(),
+            home: SplashScreen(),
           );
         }));
   }

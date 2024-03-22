@@ -1,4 +1,4 @@
-import 'package:app_cyclone/daily_exercise/w2-d1/widget/my_app_bar.dart';
+import 'package:app_cyclone/widgets/my_app_bar.dart';
 import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_bloc.dart';
 import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_event.dart';
 import 'package:app_cyclone/daily_exercise/w2-d2/counter_bloc/counter_provider.dart';
