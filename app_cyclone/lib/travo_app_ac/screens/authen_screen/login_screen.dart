@@ -1,153 +1,125 @@
+import 'package:app_cyclone/providers/auth_provider.dart';
+import 'package:app_cyclone/routes/route_name.dart';
+import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/authen_screen.dart';
 import 'package:app_cyclone/widgets/button.dart';
+import 'package:app_cyclone/widgets/common_textfield.dart';
+import 'package:app_cyclone/widgets/custom_checkbox.dart';
 import 'package:app_cyclone/widgets/custom_icon_button.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:app_cyclone/widgets/password_textfiled.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<MyAuthProvider>();
     return AuthenScreen(
       title: 'Login',
       subTitle: 'Hi, Welcome back!',
-      form: _form(context),
+      form: _form(context, authProvider),
     );
   }
 
-  TextEditingController _emailController = TextEditingController();
-
-  TextEditingController _passwordController = TextEditingController();
-
-  bool hidePassword = true;
-  bool remember = true;
-
-  // ValueListenable<bool> rememberMe = ValueNotifier<bool>(true);
-  // ValueListenable<bool> _hide = ValueNotifier<bool>(true);
-
-  Widget _form(BuildContext context) {
+  Widget _form(BuildContext context, MyAuthProvider authProvider) {
+    ValueNotifier<bool> isRemember = ValueNotifier<bool>(true);
     return Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(children: [
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.only(top: 5),
-            child: TextField(
-              autofocus: false,
-              style: const TextStyle(
-                  fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
-              decoration: InputDecoration(
-                labelText: "Email",
-                filled: true,
-                fillColor: Colors.white,
-                hintText: '',
-                contentPadding:
-                    const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.only(top: 5),
-            child: TextField(
-              autofocus: false,
-              obscureText: hidePassword,
-              style: TextStyle(
-                  fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
-                  icon: !hidePassword
-                      ? Icon(Icons.remove_red_eye)
-                      : Icon(Icons.visibility_off),
-                ),
-                labelText: "Password",
-                filled: true,
-                fillColor: Colors.white,
-                hintText: '',
-                contentPadding:
-                    const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
+          CommonTextfield(label: 'Email', controller: _emailController),
+          PasswordTextfield(controller: _passwordController),
+          const SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(
               children: [
-                Checkbox(
-                    value: remember,
-                    onChanged: (value) {
-                      setState(() {
-                        remember = value!;
-                      });
-                    }),
-                Text('Remember me'),
+                CustomCheckbox(isCheck: isRemember),
+                const Text(
+                  'Remember me',
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamed('/forgot-password');
               },
-              child: Text(
+              child: const Text(
                 'Forgot password?',
-                style: TextStyle(color: Colors.purple),
+                style: TextStyle(color: Colors.purple, fontSize: 12),
               ),
             )
           ]),
+          const SizedBox(height: 20),
           Button(
-            onPressed: () {},
+            onPressed: () async {
+              try {
+                User? user = (await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text
+                            // email: "wifevim707@mnsaf.com",
+                            // password: "123456"
+                            ))
+                    .user;
+                String token = "";
+
+                user?.getIdToken().then((result) {
+                  token = result.toString();
+                  if (token.length > 0) {
+                    var currUser = UserInfo_(email: _emailController.text);
+                    authProvider.logIn(currUser, token);
+                  }
+                  // print(token);
+                });
+                print(token);
+
+                if (user != null) {
+                  print("Login");
+                  Navigator.of(context).pushNamed('/home');
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.home,
+                    (route) => false,
+                  );
+                } else {
+                  // print("failed");
+                }
+              } catch (e) {
+                print(e);
+                // _emailController.text = "";
+                // _passwordController.text = "";
+              }
+            },
             text: 'Log In',
             isFullWidth: true,
           ),
-          SizedBox(height: 30),
-          Text('or log in with'),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
+          const Text('or log in with'),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomIconButton(
                   text: "Google",
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.mail,
                     color: Colors.black,
                   ),
                   color: Colors.white,
                   textColor: Colors.black),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               CustomIconButton(
                   text: "Facebook",
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.facebook_sharp,
                     color: Colors.white,
                   ),
@@ -155,16 +127,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   textColor: Colors.white),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Don\'t have an account?'),
+              const Text('Don\'t have an account?'),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/sign-up');
                 },
-                child: Text(
+                child: const Text(
                   'Sign Up',
                   style: TextStyle(color: Color.fromARGB(255, 14, 90, 148)),
                 ),

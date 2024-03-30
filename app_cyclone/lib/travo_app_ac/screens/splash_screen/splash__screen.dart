@@ -1,5 +1,5 @@
 import 'package:app_cyclone/routes/route_name.dart';
-import 'package:app_cyclone/routes/routes.dart';
+// import 'package:app_cyclone/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {

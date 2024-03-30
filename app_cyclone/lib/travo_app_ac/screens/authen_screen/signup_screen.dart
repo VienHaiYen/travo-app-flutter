@@ -1,9 +1,13 @@
+import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/authen_screen.dart';
 import 'package:app_cyclone/widgets/button.dart';
+import 'package:app_cyclone/widgets/common_textfield.dart';
+import 'package:app_cyclone/widgets/custom_dropdown_button.dart';
 import 'package:app_cyclone/widgets/custom_icon_button.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app_cyclone/widgets/password_textfiled.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({Key? key}) : super(key: key);
@@ -22,60 +26,35 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final ValueNotifier<String> _countryController = ValueNotifier<String>('US');
+  final TextEditingController _phoneController = TextEditingController();
 
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  bool hidePassword = true;
+  final List<String> _countries = [
+    "US",
+    "Vietnam",
+  ];
 
   Widget _form(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(children: [
-          inputTextField('Name'),
+          CommonTextfield(label: "Name", controller: _nameController),
           const SizedBox(height: 20),
-          inputTextField('Country'),
-          const SizedBox(height: 20),
-          inputTextField('Phone number'),
-          const SizedBox(height: 20),
-          inputTextField('Email'),
-          const SizedBox(height: 20),
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.only(top: 5),
-            child: TextField(
-              autofocus: false,
-              obscureText: hidePassword,
-              style: TextStyle(
-                  fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
-              decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      hidePassword = !hidePassword;
-                    });
-                  },
-                  icon: !hidePassword
-                      ? Icon(Icons.remove_red_eye)
-                      : Icon(Icons.visibility_off),
-                ),
-                labelText: "Password",
-                filled: true,
-                fillColor: Colors.white,
-                hintText: '',
-                contentPadding:
-                    const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-              ),
-            ),
+          CustomDropdownButton(
+            items: _countries,
+            label: "Country",
+            selectItem: _countryController,
           ),
+          const SizedBox(height: 20),
+          CommonTextfield(label: "Phone number", controller: _phoneController),
+          const SizedBox(height: 20),
+          CommonTextfield(label: "Email", controller: _emailController),
+          const SizedBox(height: 20),
+          PasswordTextfield(controller: _passwordController),
           const SizedBox(height: 20),
           const SizedBox(height: 20),
           const Text(
@@ -83,7 +62,30 @@ class _SignupScreenState extends State<SignupScreen> {
               textAlign: TextAlign.center),
           const SizedBox(height: 20),
           Button(
-            onPressed: () {},
+            onPressed: () async {
+              try {
+                User? user = (await FirebaseAuth.instance
+                        .createUserWithEmailAndPassword(
+                            email: _emailController.text,
+                            password: _passwordController.text))
+                    .user;
+                if (user != null) {
+                  await FirebaseAuth.instance.currentUser
+                      ?.updateProfile(displayName: user.displayName);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Sign up successfully')),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Failed')),
+                  );
+                }
+              } catch (e) {
+                print(e);
+                _emailController.text = "";
+                _passwordController.text = "";
+              }
+            },
             text: 'Sign Up',
             isFullWidth: true,
           ),
@@ -106,7 +108,7 @@ class _SignupScreenState extends State<SignupScreen> {
               CustomIconButton(
                   text: "Facebook",
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.facebook_sharp,
                     color: Colors.white,
                   ),
@@ -114,35 +116,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   textColor: Colors.white),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ]));
-  }
-
-  Widget inputTextField(String text) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.only(top: 5),
-      child: TextField(
-        obscureText: true,
-        autofocus: false,
-        style: TextStyle(fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
-        decoration: InputDecoration(
-          labelText: text,
-          filled: true,
-          fillColor: Colors.white,
-          hintText: '',
-          contentPadding:
-              const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(7),
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-            borderRadius: BorderRadius.circular(7),
-          ),
-        ),
-      ),
-    );
   }
 }

@@ -1,9 +1,11 @@
+import 'package:app_cyclone/providers/auth_provider.dart';
 import 'package:app_cyclone/widgets/button.dart';
 import "package:carousel_slider/carousel_controller.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class CarouselData {
   final String title;
@@ -54,12 +56,14 @@ class CarouselDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<MyAuthProvider>();
     return Scaffold(
       // appBar: AppBar(),
       backgroundColor: Color.fromARGB(255, 244, 244, 244),
       body: CarouselSlider(
         items: list.map((data) {
-          return _carousel_page(data: data, context: context);
+          return _carousel_page(
+              data: data, context: context, authProvider: authProvider);
         }).toList(),
         carouselController: buttonCarouselController,
         options: CarouselOptions(
@@ -75,10 +79,16 @@ class CarouselDemo extends StatelessWidget {
   }
 
   Widget _carousel_page(
-      {required BuildContext context, required CarouselData data}) {
+      {required BuildContext context,
+      required CarouselData data,
+      required MyAuthProvider authProvider}) {
     void onPressed() {
       if (data.isEndPage) {
-        Navigator.of(context).pushNamed('/log-in');
+        if (authProvider.token.isNotEmpty) {
+          Navigator.of(context).pushNamed('/home');
+        } else {
+          Navigator.of(context).pushNamed('/log-in');
+        }
       } else {
         buttonCarouselController.nextPage(
             duration: Duration(milliseconds: 300), curve: Curves.linear);

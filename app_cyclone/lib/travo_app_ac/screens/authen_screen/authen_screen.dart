@@ -1,3 +1,4 @@
+import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,13 +22,8 @@ class AuthenScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _header(
-              title: title,
-              subTitle: subTitle,
-              context: context,
-            ),
-            SizedBox(height: 20),
-            // _loginForm(),
+            MyHeader(context: context, title: title, subTitle: subTitle),
+            const SizedBox(height: 20),
             form,
           ],
         ),
