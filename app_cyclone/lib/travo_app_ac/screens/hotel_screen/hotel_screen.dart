@@ -1,80 +1,63 @@
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
-import 'package:app_cyclone/widgets/button.dart';
-import 'package:app_cyclone/widgets/custom_search_bar.dart';
+import 'package:app_cyclone/travo_app_ac/service/hotel_service.dart';
 import 'package:app_cyclone/widgets/hotel_list_item.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
-import 'package:app_cyclone/widgets/vertical_icon_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class HotelScreen extends StatelessWidget {
+class HotelScreen extends StatefulWidget {
   HotelScreen({super.key});
 
-  TextEditingController _searchController = TextEditingController();
+  @override
+  State<HotelScreen> createState() => _HotelScreenState();
+}
 
-  final List<Hotel> listHotel = [
-    Hotel(
-        image: "https://picsum.photos/seed/3cxEKyXWh/640/480",
-        name: 'Royal Palm Heritage',
-        location: 'Purwokerto, Jateng',
-        awayKilometer: '364 m',
-        rating: 4.5,
-        totalReview: 3241,
-        price: 143,
-        locationDescription:
-            "Golden Horizon Retreat is perched on Santorini island in Greece",
-        information:
-            "Experience the magic of Santorini at the Golden Horizon Retreat. Perched on the cliffs with panoramic views of the Aegean Sea, this retreat is a sanctuary of elegance and beauty. Enjoy Greek cuisine, bask in the sunsets, and let the charm of Santorini enchant your senses."),
-    Hotel(
-        image: "https://picsum.photos/seed/3cxEKyXWh/640/480",
-        name: 'Grand Luxury\'s',
-        location: 'Banyumas, Jateng',
-        awayKilometer: '2.3 km',
-        rating: 4.2,
-        totalReview: 3241,
-        locationDescription:
-            "Golden Horizon Retreat is perched on Santorini island in Greece",
-        price: 234,
-        information:
-            "Experience the magic of Santorini at the Golden Horizon Retreat. Perched on the cliffs with panoramic views of the Aegean Sea, this retreat is a sanctuary of elegance and beauty. Enjoy Greek cuisine, bask in the sunsets, and let the charm of Santorini enchant your senses."),
-    Hotel(
-        image: "https://picsum.photos/seed/3cxEKyXWh/640/480",
-        name: 'The Orlando House',
-        location: 'Ajibarang, Jateng',
-        awayKilometer: '1.1 km',
-        rating: 3.8,
-        totalReview: 1234,
-        price: 132,
-        locationDescription:
-            "Golden Horizon Retreat is perched on Santorini island in Greece",
-        information:
-            "Experience the magic of Santorini at the Golden Horizon Retreat. Perched on the cliffs with panoramic views of the Aegean Sea, this retreat is a sanctuary of elegance and beauty. Enjoy Greek cuisine, bask in the sunsets, and let the charm of Santorini enchant your senses."),
-  ];
+class _HotelScreenState extends State<HotelScreen> {
+  TextEditingController _searchController = TextEditingController();
+  final ValueNotifier<List<Hotel>> _hotels = ValueNotifier<List<Hotel>>([]);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void getHotels() async {
+    _hotels.value = await HotelService.fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
+    getHotels();
+
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 244, 244),
-        body: SingleChildScrollView(
-          child: Stack(children: [
-            Column(
-              children: [
-                MyHeader(
-                  context: context,
-                  title: 'Hotels',
-                ),
-                const SizedBox(height: 20),
-                ...listHotel
-                    .map((item) => HotelListItem(
-                          item: item,
-                          onTap: () {
-                            Navigator.of(context).pushNamed("/room");
-                          },
-                        ))
-                    .toList()
-              ],
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        body: Column(
+          children: [
+            MyHeader(
+              context: context,
+              title: 'Hotels',
             ),
-          ]),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ValueListenableBuilder<List<Hotel>>(
+                  valueListenable: _hotels,
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                        physics: const ScrollPhysics(),
+                        itemCount: _hotels.value.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return HotelListItem(
+                            item: _hotels.value[index],
+                            onTap: () {
+                              Navigator.of(context).pushNamed("/room");
+                            },
+                          );
+                        });
+                  }),
+            )
+          ],
         ));
   }
 }

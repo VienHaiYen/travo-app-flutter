@@ -58,7 +58,14 @@ class RoomListItem extends StatelessWidget {
               ),
             ],
           ),
-          const HotelUtilList(),
+          HotelUtilList(
+            services: [
+              "FREE_WIFI",
+              "NON_REFUNDABLE",
+              "FREE_BREAKFAST",
+              "NON_SMOKING"
+            ],
+          ),
           Row(
             children: [
               Expanded(

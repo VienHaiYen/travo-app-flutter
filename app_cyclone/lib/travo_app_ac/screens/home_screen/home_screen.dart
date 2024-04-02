@@ -1,14 +1,14 @@
-import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
-import 'package:app_cyclone/blocs/log_in_bloc/log_in_event.dart';
+import 'dart:math' as math;
+
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
+import 'package:app_cyclone/travo_app_ac/service/place_service.dart';
 import 'package:app_cyclone/widgets/custom_search_bar.dart';
+import 'package:app_cyclone/widgets/favorite_icon.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/vertical_icon_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Tile extends StatelessWidget {
@@ -33,6 +33,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _searchController = TextEditingController();
+  final ValueNotifier<List<Place>> _places = ValueNotifier<List<Place>>([]);
 
   @override
   void initState() {
@@ -40,57 +41,49 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  List<Place> places = [
-    Place(
-        image: "https://picsum.photos/seed/tDjV6pT4zk/640/480",
-        name: "USA",
-        rating: 4.8),
-    Place(
-        image: "https://loremflickr.com/640/480?lock=6165916672851968",
-        name: "Autralia",
-        rating: 4.8),
-    Place(
-        image: "https://picsum.photos/seed/NHbxnKgXO/640/480",
-        name: "Itay",
-        rating: 4.9)
-  ];
+  void getPlaces() async {
+    _places.value = await PlaceService.fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(places[0].image);
-    var tmp = BlocProvider.of<LogInBloc>(context).state.currentUser?.token;
+    getPlaces();
+
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 244, 244),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              MyHeader(
-                  context: context, title: 'Home', subTitle: 'Welcome to Home'),
-              const SizedBox(height: 20),
-              BigButtunList(),
-              Container(
-                width: 500,
-                height: 2000,
-                child: MasonryGridView.count(
-                  clipBehavior: Clip.none,
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
-                  itemCount: places.length,
-                  itemBuilder: (context, index) {
-                    return Image.network(
-                      places[index].image,
-                      fit: BoxFit.cover,
-                    );
-                  },
-                ),
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        body: Column(
+          children: [
+            MyHeader(
+                context: context, title: 'Home', subTitle: 'Welcome to Home'),
+            const SizedBox(height: 20),
+            _bigButtunList(),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ValueListenableBuilder<List<Place>>(
+                valueListenable: _places,
+                builder: (context, value, child) {
+                  return MasonryGridView.count(
+                    physics: const ScrollPhysics(),
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+                    itemCount: _places.value.length,
+                    itemBuilder: (context, index) {
+                      return placeItem(_places.value[index]);
+                      // return Image.network(
+                      //   _places.value[index].image,
+                      //   fit: BoxFit.cover,
+                      // );
+                    },
+                  );
+                },
               ),
-            ],
-          ),
+            )
+          ],
         ));
   }
 
-  Widget BigButtunList() {
+  Widget _bigButtunList() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -114,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
             text: "Flights",
             onPressed: () {},
             padding: 30,
-            color: Color.fromARGB(255, 255, 183, 157),
+            color: const Color.fromARGB(255, 255, 183, 157),
+            angle: math.pi / 6,
             icon: const Icon(
               Icons.flight,
               size: 30,
@@ -137,40 +131,58 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget placeItem(Place item) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-          item.image,
-        )),
-      ),
-      child: Column(
+      child: Stack(
         children: [
-          const Icon(
-            Icons.favorite,
-            color: Colors.red,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              item.image,
+              fit: BoxFit.cover,
+            ),
           ),
-          Column(
-            children: [
-              Text(
-                item.name,
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
+          Positioned(
+              right: 0,
+              child: GestureDetector(
+                  onTap: () {}, child: FavoriteIcon(isInterested: false))
+              // child: const FavoriteIcon(isInterested: true)),
               ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.start,
-                    color: Colors.yellow,
+          Positioned(
+            bottom: 0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: Text(
+                    item.name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
-                  Text(
-                    item.rating.toString(),
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  )
-                ],
-              )
-            ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(right: 5),
+                  margin: const EdgeInsets.all(5),
+                  color: Colors.white.withOpacity(0.5),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.star,
+                        color: Color.fromARGB(255, 254, 218, 38),
+                      ),
+                      Text(
+                        item.rating.toString(),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.black),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),

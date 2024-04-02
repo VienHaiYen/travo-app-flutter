@@ -6,10 +6,10 @@ class Hotel {
   String? location;
   String? locationDescription;
   String? name;
-  double? price;
+  int? price;
   double? rating;
   int? totalReview;
-  String? awayKilometer;
+  // String? awayKilometer;
 
   Hotel(
       {this.image,
@@ -19,7 +19,7 @@ class Hotel {
       this.name,
       this.price,
       this.totalReview,
-      this.awayKilometer,
+      // this.awayKilometer,
       this.rating});
 
   factory Hotel.fromFirestore(DocumentSnapshot doc) {
@@ -28,12 +28,12 @@ class Hotel {
       image: data['image'],
       information: data['information'],
       location: data['location'],
-      locationDescription: data['location-description'],
+      locationDescription: data['location_description'],
       name: data['name'],
       price: data['price'],
-      totalReview: data['total-review'],
+      totalReview: data['total_review'],
       rating: data['rating'],
-      awayKilometer: data['awayKilometer'],
+      // awayKilometer: data['awayKilometer'],
     );
   }
 }

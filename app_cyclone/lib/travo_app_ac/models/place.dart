@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Place {
+  // String id;
   String image;
   String name;
   double rating;

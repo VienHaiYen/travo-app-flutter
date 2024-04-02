@@ -25,7 +25,8 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
           Positioned.fill(
             child: Image.network(
               widget.item.image ?? "",
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
+              alignment: Alignment.center,
             ),
           ),
           Positioned(
@@ -65,8 +66,8 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                   ),
                   color: Colors.white,
                 ),
-                padding: EdgeInsets.all(8),
-                child: Icon(
+                padding: const EdgeInsets.all(8),
+                child: const Icon(
                   FontAwesomeIcons.solidHeart,
                   size: 10,
                   color: Colors.red,
@@ -76,7 +77,7 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
           ),
           DraggableScrollableSheet(
             initialChildSize: 0.3,
-            minChildSize: 0.05,
+            minChildSize: 0.2,
             maxChildSize: 0.8,
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
@@ -150,9 +151,9 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                                     widget.item.location ?? "",
                                     style: TextStyle(fontSize: 16),
                                   ),
-                                  Text(
-                                    ' - ${widget.item.awayKilometer} from destination',
-                                  ),
+                                  // Text(
+                                  //   ' - ${widget.item.awayKilometer} from destination',
+                                  // ),
                                 ],
                               ),
                               Row(
@@ -195,7 +196,9 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                                 widget.item.information ?? "no",
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const HotelUtilList(),
+                              HotelUtilList(
+                                services: [],
+                              ),
                               const SizedBox(
                                 height: 10,
                               ),

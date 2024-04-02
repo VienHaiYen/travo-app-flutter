@@ -32,11 +32,13 @@ class HotelListItem extends StatelessWidget {
                 height: 150,
                 margin: const EdgeInsets.only(right: 30),
                 child: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.only(topLeft: Radius.circular(20)),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
                   child: Image.network(
                     item.image ?? "",
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
                   ),
                 )),
             Padding(
@@ -66,7 +68,7 @@ class HotelListItem extends StatelessWidget {
                       Text(
                         item.location ?? "",
                       ),
-                      Text(item.awayKilometer ?? " ")
+                      // Text(item.awayKilometer ?? " ")
                     ],
                   ),
                   const SizedBox(
@@ -89,6 +91,9 @@ class HotelListItem extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Row(
                     children: [
                       Expanded(
@@ -98,7 +103,7 @@ class HotelListItem extends StatelessWidget {
                             Text(
                               '\$${item.price.toString()}',
                               style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
+                                  fontSize: 25, fontWeight: FontWeight.w500),
                             ),
                             const SizedBox(
                               height: 10,

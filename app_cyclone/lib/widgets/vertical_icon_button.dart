@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class VerticalIconButton extends StatelessWidget {
-  const VerticalIconButton({
-    Key? key,
-    this.text,
-    required this.onPressed,
-    required this.color,
-    this.textColor,
-    required this.icon,
-    this.padding,
-  }) : super(key: key);
+  const VerticalIconButton(
+      {Key? key,
+      this.text,
+      required this.onPressed,
+      required this.color,
+      this.textColor,
+      required this.icon,
+      this.padding,
+      this.angle})
+      : super(key: key);
 
   final String? text;
   final Function onPressed;
@@ -17,6 +18,7 @@ class VerticalIconButton extends StatelessWidget {
   final Color? textColor;
   final Icon icon;
   final double? padding;
+  final double? angle;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class VerticalIconButton extends StatelessWidget {
             padding: padding != null
                 ? EdgeInsets.all(padding!)
                 : const EdgeInsets.all(10),
-            child: icon,
+            child: Transform.rotate(angle: angle ?? 0, child: icon),
           ),
           const SizedBox(
             height: 10,

@@ -4,7 +4,7 @@ import 'package:app_cyclone/blocs/log_in_bloc/log_in_state.dart';
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/authen_screen.dart';
-import 'package:app_cyclone/ultils/validate_string.dart';
+import 'package:app_cyclone/utils/validate_string.dart';
 import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/common_textfield.dart';
 import 'package:app_cyclone/widgets/custom_checkbox.dart';
