@@ -70,7 +70,7 @@ class MyWidget extends StatelessWidget {
                             .add(ChangeLanguage("en"));
                       },
                       child: Text(AppLocalizations.of(context)!.english,
-                          style: TextStyle(color: Colors.white)),
+                          style: const TextStyle(color: Colors.white)),
                     ),
                     const SizedBox(width: 10),
                     ElevatedButton(
@@ -82,7 +82,7 @@ class MyWidget extends StatelessWidget {
                             .add(ChangeLanguage("vi"));
                       },
                       child: Text(AppLocalizations.of(context)!.vietnamese,
-                          style: TextStyle(color: Colors.white)),
+                          style: const TextStyle(color: Colors.white)),
                     ),
                   ],
                 )

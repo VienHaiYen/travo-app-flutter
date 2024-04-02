@@ -1,3 +1,4 @@
+import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
 import 'package:app_cyclone/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_bloc.dart';
@@ -37,36 +38,29 @@ class MyMaterialApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => MyAuthProvider(),
-        ),
-      ],
-      child: MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (BuildContext context) => ThemeBloc()),
-            BlocProvider(create: (BuildContext context) => LanguageBloc())
-          ],
-          child: BlocBuilder<LanguageBloc, LanguageState>(
-              builder: (context, state) {
-            return MaterialApp(
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: const [
-                Locale('en'), // English
-                Locale('vi'), // Vietnamese
-              ],
-              locale:
-                  Locale(BlocProvider.of<LanguageBloc>(context).state.locale),
-              title: 'Flutter Workshop',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              onGenerateRoute: Routes.instance.routePage,
-              initialRoute: '/splash-screen',
-              home: SplashScreen(),
-            );
-          })),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (BuildContext context) => ThemeBloc()),
+          BlocProvider(create: (BuildContext context) => LanguageBloc()),
+          BlocProvider(create: (BuildContext context) => LogInBloc()),
+        ],
+        child:
+            BlocBuilder<LanguageBloc, LanguageState>(builder: (context, state) {
+          return MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: const [
+              Locale('en'), // English
+              Locale('vi'), // Vietnamese
+            ],
+            locale: Locale(BlocProvider.of<LanguageBloc>(context).state.locale),
+            title: 'Flutter Workshop',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            onGenerateRoute: Routes.instance.routePage,
+            initialRoute: '/splash-screen',
+            home: const SplashScreen(),
+          );
+        }));
   }
 }

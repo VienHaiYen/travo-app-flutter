@@ -1,5 +1,6 @@
 class UserInfo_ {
   final String email;
+  final String token;
 
-  UserInfo_({required this.email});
+  UserInfo_({this.token = "", this.email = ""});
 }

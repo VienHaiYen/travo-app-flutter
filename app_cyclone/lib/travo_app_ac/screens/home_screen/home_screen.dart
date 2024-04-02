@@ -1,3 +1,5 @@
+import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
+import 'package:app_cyclone/blocs/log_in_bloc/log_in_event.dart';
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
 import 'package:app_cyclone/widgets/custom_search_bar.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class Tile extends StatelessWidget {
@@ -55,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     print(places[0].image);
+    var tmp = BlocProvider.of<LogInBloc>(context).state.currentUser?.token;
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 244, 244, 244),
         body: SingleChildScrollView(
