@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PasswordTextfield extends StatefulWidget {
-  PasswordTextfield({super.key, required this.controller});
+  PasswordTextfield({super.key, required this.controller, this.validate});
   TextEditingController controller;
+  final Function(String)? validate;
 
   @override
   _PasswordTextfieldState createState() => _PasswordTextfieldState();
@@ -20,8 +21,17 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
           return Container(
             color: Colors.white,
             padding: const EdgeInsets.only(top: 7),
-            child: TextField(
+            child: TextFormField(
               controller: widget.controller,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                if (widget.validate != null) {
+                  return widget.validate!(value);
+                }
+                return null;
+              },
               autofocus: false,
               obscureText: value,
               style: const TextStyle(
@@ -55,6 +65,10 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: const BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.red),
                   borderRadius: BorderRadius.circular(7),
                 ),
               ),
