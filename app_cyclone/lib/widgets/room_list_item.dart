@@ -4,27 +4,28 @@ import "package:app_cyclone/widgets/hotel_util_list.dart";
 import "package:flutter/material.dart";
 
 class RoomListItem extends StatelessWidget {
-  const RoomListItem({
-    Key? key,
-    required this.item,
-    this.onTap,
-    this.numberOfRoom,
-  }) : super(key: key);
+  const RoomListItem(
+      {Key? key,
+      required this.item,
+      this.onTap,
+      this.numberOfRoom,
+      this.haveButton})
+      : super(key: key);
 
   final Room item;
   final Function()? onTap;
   final int? numberOfRoom;
+  final bool? haveButton;
 
   @override
   Widget build(BuildContext context) {
-    print(item.services?.join(","));
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
       margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -71,37 +72,61 @@ class RoomListItem extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '\$${item.price.toString()}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 25),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      '/night',
-                    )
-                  ],
-                ),
+                child: haveButton == true
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '\$${item.price.toString()}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            '/night',
+                          )
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                '\$${item.price.toString()}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 25),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                '/night',
+                              )
+                            ],
+                          ),
+                          Text("1 room")
+                        ],
+                      ),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Expanded(
-                child: numberOfRoom == null
-                    ? Button(
-                        text: 'Choose',
-                        onPressed: onTap ?? () {},
-                      )
-                    : Text(
-                        '$numberOfRoom room',
-                        textAlign: TextAlign.end,
-                      ),
-              )
+              haveButton == true
+                  ? Expanded(
+                      child: numberOfRoom == null
+                          ? Button(
+                              text: 'Choose',
+                              onPressed: onTap ?? () {},
+                            )
+                          : Text(
+                              '$numberOfRoom room',
+                              textAlign: TextAlign.end,
+                            ),
+                    )
+                  : Container()
             ],
           ),
         ],

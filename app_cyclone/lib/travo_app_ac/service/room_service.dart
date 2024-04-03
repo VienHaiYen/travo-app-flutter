@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoomService {
   static Future<List<Room>> fetchData(String hotelId) async {
-    print("roomee " + hotelId);
     try {
       final snapshots = await FirebaseFirestore.instance
           .collection('room')

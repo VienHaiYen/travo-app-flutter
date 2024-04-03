@@ -40,13 +40,6 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
                 suffixIcon: IconButton(
                   onPressed: () {
                     hidePassword.value = !value;
-                    if (value) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Password is hidden")));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Password is visible")));
-                    }
                   },
                   icon: !hidePassword.value
                       ? const Icon(Icons.remove_red_eye)

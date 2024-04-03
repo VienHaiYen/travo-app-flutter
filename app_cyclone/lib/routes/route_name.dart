@@ -8,4 +8,5 @@ class RouteName {
   static const String hotel = '/hotel';
   static const String hotelDetail = '/hotel-detail';
   static const String room = '/room';
+  static const String checkOut = '/check-out';
 }

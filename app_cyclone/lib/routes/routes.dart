@@ -1,9 +1,11 @@
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/layouts/bottom_navigation_layout/bottom_navigation_layout.dart';
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
+import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/forgot_password.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/login_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/signup_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/check_out_screen/check_out_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/detail_hotel_screen/detail_hotel_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/home_screen/home_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/hotel_screen/hotel_screen.dart';
@@ -48,6 +50,8 @@ class Routes {
         return getRoute(DetailHotelScreen(item: args as Hotel));
       case RouteName.room:
         return getRoute(RoomScreen(hotelId: args as String));
+      case RouteName.checkOut:
+        return getRoute(CheckOutScreen(room: args as Room));
       default:
         return getRoute(const SplashScreen());
     }

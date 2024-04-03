@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Room {
   Room(
       {required this.hotel,
+      required this.id,
       this.typePrice,
       this.image,
       this.name,
@@ -14,6 +15,7 @@ class Room {
       this.total});
 
   final String hotel;
+  final String id;
   final String? image;
   final int? maxGuest;
   final String? name;
@@ -23,8 +25,10 @@ class Room {
   final String? typePrice;
 
   factory Room.fromFirestore(DocumentSnapshot doc) {
+    String id = doc.reference.id;
     Map data = doc.data() as Map;
     return Room(
+      id: id,
       hotel: data['hotel'],
       image: data['image'],
       maxGuest: data['max_guest'],

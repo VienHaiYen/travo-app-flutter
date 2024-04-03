@@ -36,7 +36,6 @@ class _RoomScreenState extends State<RoomScreen> {
               context: context,
               title: 'Select Room',
             ),
-            const SizedBox(height: 20),
             Expanded(
               child: ValueListenableBuilder<List<Room>>(
                   valueListenable: _rooms,
@@ -46,9 +45,11 @@ class _RoomScreenState extends State<RoomScreen> {
                         itemCount: _rooms.value.length,
                         itemBuilder: (BuildContext context, int index) {
                           return RoomListItem(
+                            haveButton: true,
                             item: _rooms.value[index],
                             onTap: () {
-                              // Navigator.of(context).pushNamed("/room");
+                              Navigator.of(context).pushNamed("/check-out",
+                                  arguments: _rooms.value[index]);
                             },
                           );
                         });

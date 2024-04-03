@@ -29,6 +29,7 @@ class CommonTextfield extends StatelessWidget {
           return null;
         },
         autofocus: false,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(
             fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
         decoration: InputDecoration(
