@@ -118,7 +118,12 @@ class HotelListItem extends StatelessWidget {
                       Expanded(
                         child: Button(
                           text: 'Book a room',
-                          onPressed: onTap ?? () {},
+                          onPressed: onTap ??
+                              () {
+                                print("Book a room");
+                                // Navigator.of(context)
+                                //     .pushNamed('/room', arguments: item.id);
+                              },
                         ),
                       )
                     ],

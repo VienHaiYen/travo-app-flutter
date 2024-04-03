@@ -6,14 +6,10 @@ class HotelService {
     try {
       final snapshots =
           await FirebaseFirestore.instance.collection('hotel').get();
-      print("snapshots.docs.length" + snapshots.docs.length.toString());
       List<Hotel> hotels = snapshots.docs.map((doc) {
-        // Map<String, dynamic> data = doc.data();
+        // print(doc.reference.id);
         return Hotel.fromFirestore(doc);
       }).toList();
-
-      print("hotels[100].image");
-      print(hotels.length);
 
       return hotels;
     } catch (e) {

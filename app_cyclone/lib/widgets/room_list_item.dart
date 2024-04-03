@@ -17,6 +17,7 @@ class RoomListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(item.services?.join(","));
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -37,13 +38,14 @@ class RoomListItem extends StatelessWidget {
                   children: [
                     Text(
                       item.name ?? "no name",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      'Room Size: ${item.maxGuest} m2',
+                      'Room Size: ${item.maxGuest} guests',
                       maxLines: 2,
                     ),
                     const SizedBox(
@@ -54,17 +56,17 @@ class RoomListItem extends StatelessWidget {
               ),
               Expanded(
                 flex: 3,
-                child: Image.network(item.image ?? ""),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(item.image ?? "")),
               ),
             ],
           ),
+          const SizedBox(
+            height: 5,
+          ),
           HotelUtilList(
-            services: [
-              "FREE_WIFI",
-              "NON_REFUNDABLE",
-              "FREE_BREAKFAST",
-              "NON_SMOKING"
-            ],
+            services: item.services ?? [],
           ),
           Row(
             children: [
@@ -74,7 +76,8 @@ class RoomListItem extends StatelessWidget {
                   children: [
                     Text(
                       '\$${item.price.toString()}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 25),
                     ),
                     const SizedBox(
                       height: 10,

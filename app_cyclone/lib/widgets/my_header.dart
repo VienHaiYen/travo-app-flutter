@@ -45,13 +45,15 @@ class MyHeader extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text(
-              subTitle ?? "",
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.white,
-              ),
-            ),
+            subTitle == null
+                ? Container()
+                : Text(
+                    subTitle ?? "",
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  ),
           ],
         ));
   }

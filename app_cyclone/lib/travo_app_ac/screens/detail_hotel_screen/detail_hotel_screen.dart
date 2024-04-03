@@ -224,7 +224,8 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                               Button(
                                 text: "Select Room",
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed("/room");
+                                  Navigator.of(context).pushNamed('/room',
+                                      arguments: widget.item.id);
                                 },
                                 isFullWidth: true,
                               ),

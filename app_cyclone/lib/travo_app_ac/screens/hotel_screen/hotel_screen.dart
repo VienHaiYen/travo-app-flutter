@@ -51,7 +51,8 @@ class _HotelScreenState extends State<HotelScreen> {
                           return HotelListItem(
                             item: _hotels.value[index],
                             onTap: () {
-                              Navigator.of(context).pushNamed("/room");
+                              Navigator.of(context).pushNamed("/room",
+                                  arguments: _hotels.value[index].id);
                             },
                           );
                         });

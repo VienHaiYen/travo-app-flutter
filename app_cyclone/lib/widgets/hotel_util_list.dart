@@ -41,6 +41,13 @@ class HotelUtilList extends StatelessWidget {
         ),
         name: "24-hour\nFront Desk",
         iconBgColor: const Color.fromARGB(255, 202, 230, 203)),
+    "ROOM_SERVICE": HotelUtil(
+        icon: const Icon(
+          Icons.room_service,
+          color: Color.fromARGB(255, 20, 20, 116),
+        ),
+        name: "24-hour\nFront Desk",
+        iconBgColor: Color.fromARGB(255, 165, 191, 240)),
     "more": HotelUtil(
         icon: const Icon(
           Icons.more,
@@ -58,6 +65,7 @@ class HotelUtilList extends StatelessWidget {
     return Column(
       children: [
         Container(
+            margin: const EdgeInsets.symmetric(horizontal: 18),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
@@ -88,7 +96,7 @@ class HotelUtilList extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: _list
                     .map((item) => _buildHotelUtilList(
                         icon: item!.icon,

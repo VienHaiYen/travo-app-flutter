@@ -1,10 +1,14 @@
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
+import 'package:app_cyclone/travo_app_ac/service/room_service.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/room_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class RoomScreen extends StatefulWidget {
-  const RoomScreen({Key? key}) : super(key: key);
+  const RoomScreen({Key? key, required this.hotelId}) : super(key: key);
+
+  final String hotelId;
 
   static const String routeName = '/rooms_screen';
 
@@ -13,47 +17,45 @@ class RoomScreen extends StatefulWidget {
 }
 
 class _RoomScreenState extends State<RoomScreen> {
-  final List<Room> listRoom = [
-    Room(
-        image: "https://picsum.photos/seed/HV7Gq/640/480",
-        name: 'Executive Suite',
-        maxGuest: 4,
-        services: [
-          "FREE_WIFI",
-          "NON_REFUNDABLE",
-          "FREE_BREAKFAST",
-          "NON_SMOKING"
-        ],
-        price: 500,
-        total: 5),
-    Room(
-        image: "https://picsum.photos/seed/HV7Gq/640/480",
-        name: 'Executive Suite',
-        maxGuest: 4,
-        services: [
-          "FREE_WIFI",
-          "NON_REFUNDABLE",
-          "FREE_BREAKFAST",
-          "NON_SMOKING"
-        ],
-        price: 500,
-        total: 5),
-  ];
+  final ValueNotifier<List<Room>> _rooms = ValueNotifier<List<Room>>([]);
+
+  void getRooms() async {
+    _rooms.value = await RoomService.fetchData(widget.hotelId);
+    print('get');
+    print(_rooms.value.length);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getRooms();
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 244, 244, 244),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              MyHeader(
-                context: context,
-                title: 'Select Room',
-              ),
-              const SizedBox(height: 20),
-              ...listRoom.map((item) => RoomListItem(item: item)).toList()
-            ],
-          ),
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        body: Column(
+          children: [
+            MyHeader(
+              context: context,
+              title: 'Select Room',
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: ValueListenableBuilder<List<Room>>(
+                  valueListenable: _rooms,
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                        physics: const ScrollPhysics(),
+                        itemCount: _rooms.value.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return RoomListItem(
+                            item: _rooms.value[index],
+                            onTap: () {
+                              // Navigator.of(context).pushNamed("/room");
+                            },
+                          );
+                        });
+                  }),
+            ),
+            // ...listRoom.map((item) => RoomListItem(item: item)).toList()
+          ],
         ));
   }
 }

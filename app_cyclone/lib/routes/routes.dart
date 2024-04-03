@@ -47,7 +47,7 @@ class Routes {
       case RouteName.hotelDetail:
         return getRoute(DetailHotelScreen(item: args as Hotel));
       case RouteName.room:
-        return getRoute(const RoomScreen());
+        return getRoute(RoomScreen(hotelId: args as String));
       default:
         return getRoute(const SplashScreen());
     }
