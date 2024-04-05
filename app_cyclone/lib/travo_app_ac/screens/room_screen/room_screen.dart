@@ -1,9 +1,12 @@
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/service/room_service.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/room_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoomScreen extends StatefulWidget {
   const RoomScreen({Key? key, required this.hotelId}) : super(key: key);
@@ -48,6 +51,8 @@ class _RoomScreenState extends State<RoomScreen> {
                             haveButton: true,
                             item: _rooms.value[index],
                             onTap: () {
+                              BlocProvider.of<BookingInfoBloc>(context).add(
+                                  UpdateRoomEvent(room: _rooms.value[index]));
                               Navigator.of(context).pushNamed("/check-out",
                                   arguments: _rooms.value[index]);
                             },

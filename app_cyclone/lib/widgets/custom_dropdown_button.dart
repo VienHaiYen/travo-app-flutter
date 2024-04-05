@@ -31,6 +31,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
               style: const TextStyle(fontSize: 12),
             ),
             DropdownButton<String>(
+              underline: Container(),
               disabledHint: Text(
                 widget.label ?? '',
                 style: const TextStyle(fontSize: 12),
@@ -43,7 +44,8 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
               value: dropdownValue,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
+              style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold),
               onChanged: (String? value_) {
                 widget.selectItem.value = value_!;
               },

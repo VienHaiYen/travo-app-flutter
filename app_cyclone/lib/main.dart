@@ -1,6 +1,5 @@
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
-import 'package:app_cyclone/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_bloc.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_state.dart';
 import 'package:app_cyclone/blocs/theme_bloc/theme_bloc.dart';
@@ -40,9 +39,12 @@ class MyMaterialApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          //
+          BlocProvider(create: (BuildContext context) => LogInBloc()),
+          //
           BlocProvider(create: (BuildContext context) => ThemeBloc()),
           BlocProvider(create: (BuildContext context) => LanguageBloc()),
-          BlocProvider(create: (BuildContext context) => LogInBloc()),
+          BlocProvider(create: (BuildContext context) => BookingInfoBloc()),
         ],
         child:
             BlocBuilder<LanguageBloc, LanguageState>(builder: (context, state) {

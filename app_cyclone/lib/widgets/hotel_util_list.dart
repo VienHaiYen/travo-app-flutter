@@ -58,10 +58,10 @@ class HotelUtilList extends StatelessWidget {
 
     return services.isNotEmpty
         ? Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: _list
                     .map((item) => ColorIcon(
                         color: item!.color,

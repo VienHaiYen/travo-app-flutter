@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 
 class MyHeader extends StatelessWidget {
   const MyHeader(
-      {super.key, required this.context, required this.title, this.subTitle});
+      {super.key,
+      required this.context,
+      required this.title,
+      this.subTitle,
+      this.stepLine});
 
   final BuildContext context;
   final String title;
   final String? subTitle;
+  final Widget? stepLine;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +59,7 @@ class MyHeader extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
+            stepLine ?? Container()
           ],
         ));
   }

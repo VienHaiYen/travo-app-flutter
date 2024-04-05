@@ -16,7 +16,8 @@ class CommonTextfield extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.only(top: 7),
-      color: Colors.white,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
         controller: controller,
         validator: (value) {
@@ -31,7 +32,9 @@ class CommonTextfield extends StatelessWidget {
         autofocus: false,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(
-            fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            color: Color.fromARGB(255, 33, 34, 34)),
         decoration: InputDecoration(
           labelText: label,
           floatingLabelBehavior: FloatingLabelBehavior.always,

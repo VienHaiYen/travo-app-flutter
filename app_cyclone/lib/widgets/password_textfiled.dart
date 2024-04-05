@@ -35,7 +35,9 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
               autofocus: false,
               obscureText: value,
               style: const TextStyle(
-                  fontSize: 15, color: Color.fromARGB(255, 33, 34, 34)),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Color.fromARGB(255, 33, 34, 34)),
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                   onPressed: () {

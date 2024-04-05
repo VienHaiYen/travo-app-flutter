@@ -1,28 +1,46 @@
 import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Booking {
   Booking({
-    required this.dateEnd,
-    required this.dateStart,
-    required this.email,
-    required this.guest,
-    required this.hotel,
+    this.date_end,
+    this.date_start,
+    this.email = "",
+    this.guest = const [],
+    this.hotel = "",
     this.payment_card_info,
-    this.promo_code,
-    required this.room,
-    required this.typePayment,
-    required this.userId,
+    this.promo_code = "",
+    this.room = "",
+    this.typePayment = "",
+    this.userId = "",
   });
 
-  final DateTime dateEnd;
-  final DateTime dateStart;
+  final DateTime? date_end;
+  final DateTime? date_start;
   final String email;
-  final List<Guest> guest;
+  final List<Guest>? guest;
   final String hotel;
   final PaymentCardInfo? payment_card_info;
   final String? promo_code;
   final String room;
-  final String typePayment;
+  final String? typePayment;
   final String userId;
+
+  Map<String, dynamic> toMap() {
+    print(guest!.length);
+    return {
+      'date_end': date_end != null ? Timestamp.fromDate(date_end!) : null,
+      'date_start': date_start != null ? Timestamp.fromDate(date_start!) : null,
+      'email': email,
+      'guest': guest != [] ? guest!.map((guest) => guest.toMap()).toList() : [],
+      'hotel': hotel,
+      'payment_card_info':
+          payment_card_info != null ? payment_card_info!.toMap() : null,
+      'promo_code': promo_code,
+      'room': room,
+      'typePayment': typePayment,
+      'userId': userId,
+    };
+  }
 }

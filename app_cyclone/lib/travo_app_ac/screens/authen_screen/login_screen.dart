@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -22,6 +23,22 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  void saveAccount(String password, String email) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('password', password);
+    prefs.setString('email', email);
+  }
+
+  Future<String?> getPassword() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('password');
+  }
+
+  Future<String?> getEmail() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('email');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +53,8 @@ class LoginScreen extends StatelessWidget {
 
   Widget _form(BuildContext context) {
     ValueNotifier<bool> isRemember = ValueNotifier<bool>(true);
+    // _emailController.text= getPassword();
+    // getEmail();
 
     return Padding(
         padding: const EdgeInsets.all(20),
@@ -146,6 +165,8 @@ class LoginScreen extends StatelessWidget {
                           RouteName.home,
                           (route) => false,
                         );
+                        // saveAccount(
+                        //     _emailController.text, _passwordController.text);
                       }
                     } catch (e) {
                       notCorrectAccount.value = true;
