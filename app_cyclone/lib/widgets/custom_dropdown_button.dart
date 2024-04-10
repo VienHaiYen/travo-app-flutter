@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -16,7 +18,7 @@ class CustomDropdownButton extends StatefulWidget {
 class _CustomDropdownButtonState extends State<CustomDropdownButton> {
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = widget.items.first;
+    widget.selectItem.value = widget.items.first;
     return ValueListenableBuilder(
       valueListenable: widget.selectItem,
       builder: (context, value, child) => Container(
@@ -41,7 +43,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
                 style: const TextStyle(fontSize: 12),
               ),
               isExpanded: true,
-              value: dropdownValue,
+              value: widget.selectItem.value,
               icon: const Icon(Icons.arrow_downward),
               elevation: 16,
               style: const TextStyle(

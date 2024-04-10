@@ -5,11 +5,13 @@ class CommonTextfield extends StatelessWidget {
       {super.key,
       required this.label,
       required this.controller,
+      this.changeable,
       this.validate});
 
   final String label;
   final TextEditingController controller;
   final Function(String)? validate;
+  final bool? changeable;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class CommonTextfield extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
         controller: controller,
+        enabled: changeable ?? true,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
@@ -48,6 +51,10 @@ class CommonTextfield extends StatelessWidget {
             borderRadius: BorderRadius.circular(7),
           ),
           enabledBorder: UnderlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          disabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(7),
           ),

@@ -168,9 +168,15 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                                   Text(
                                     widget.item.rating.toString(),
                                   ),
-                                  Text(
-                                    ' (${widget.item.totalReview} reviews)',
-                                    style: const TextStyle(fontSize: 16),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamed('/review');
+                                    },
+                                    child: Text(
+                                      ' (${widget.item.totalReview} reviews)',
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
                                   ),
                                   const Spacer(),
                                   const Text(

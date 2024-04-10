@@ -5,6 +5,7 @@ import 'package:app_cyclone/utils/validate_string.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDatePicker.dart';
 import 'package:app_cyclone/widgets/button.dart';
+import 'package:app_cyclone/widgets/common_icon_textfield.dart';
 import 'package:app_cyclone/widgets/common_textfield.dart';
 import 'package:app_cyclone/widgets/custom_dropdown_button.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
@@ -56,30 +57,20 @@ class AddCardScreenState extends State<AddCardScreen> {
                       validate: ValidateRegex.isName,
                     ),
                     const SizedBox(height: 10),
-                    Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Row(
-                        children: [
-                          ColorIcon(
-                              icon: Icons.credit_card_sharp,
-                              color: const Color.fromRGBO(254, 156, 94, 1),
-                              bgColor: const Color.fromARGB(68, 254, 155, 94)),
-                          Flexible(
-                            child: CommonTextfield(
-                                label: "Card number",
-                                controller: _cardController),
-                          ),
-                        ],
-                      ),
-                    ),
+                    CommonIconTextfield(
+                        icon: ColorIcon(
+                            icon: Icons.credit_card_sharp,
+                            color: const Color.fromRGBO(254, 156, 94, 1),
+                            bgColor: const Color.fromARGB(68, 254, 155, 94)),
+                        controller: _cardController,
+                        label: "Card Number"),
                     const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.only(right: 20),
+                            padding: const EdgeInsets.only(right: 20),
                             child: MyDatePicker(
                               selectedDate: _expDateController,
                               title: "Exp. Date",

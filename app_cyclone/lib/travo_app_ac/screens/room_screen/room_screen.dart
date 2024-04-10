@@ -24,8 +24,8 @@ class _RoomScreenState extends State<RoomScreen> {
 
   void getRooms() async {
     _rooms.value = await RoomService.fetchData(widget.hotelId);
-    print('get');
-    print(_rooms.value.length);
+    // print('get');
+    // print(_rooms.value.length);
   }
 
   @override

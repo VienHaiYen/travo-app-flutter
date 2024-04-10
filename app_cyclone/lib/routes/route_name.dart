@@ -14,4 +14,7 @@ class RouteName {
   static const String contactDetails = '/contact-details';
   static const String promoCode = '/promo-code';
   static const String addCard = '/add-card';
+  static const String review = '/review';
+  static const String flightDetail = '/flight-detail';
+  static const String ticket = '/ticket';
 }

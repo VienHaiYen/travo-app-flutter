@@ -11,12 +11,15 @@ import 'package:app_cyclone/travo_app_ac/screens/check_out_3_screen/check_out_3_
 import 'package:app_cyclone/travo_app_ac/screens/check_out_screen/check_out_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/contact_details_screen/contact_details_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/detail_hotel_screen/detail_hotel_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/flight_screen/flight_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/home_screen/home_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/hotel_screen/hotel_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/onboarding_screen/onboarding_carousel.dart';
 import 'package:app_cyclone/travo_app_ac/screens/promo_code_screen/promo_code_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/review_screen/review_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/room_screen/room_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/splash_screen/splash__screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/ticket_screen/ticket_screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
@@ -67,6 +70,12 @@ class Routes {
         return getRoute(CheckOut3Screen());
       case RouteName.addCard:
         return getRoute(AddCardScreen());
+      case RouteName.review:
+        return getRoute(ReviewScreen());
+      case RouteName.flightDetail:
+        return getRoute(FlightScreen());
+      case RouteName.ticket:
+        return getRoute(TicketScreen());
       default:
         return getRoute(const SplashScreen());
     }

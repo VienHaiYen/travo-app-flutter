@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MyHeader(
                 context: context, title: 'Home', subTitle: 'Welcome to Home'),
             const SizedBox(height: 20),
-            _bigButtunList(),
+            _bigButtunList(context),
             const SizedBox(height: 20),
             Expanded(
               child: ValueListenableBuilder<List<Place>>(
@@ -71,10 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: _places.value.length,
                     itemBuilder: (context, index) {
                       return placeItem(_places.value[index]);
-                      // return Image.network(
-                      //   _places.value[index].image,
-                      //   fit: BoxFit.cover,
-                      // );
                     },
                   );
                 },
@@ -84,29 +80,28 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  Widget _bigButtunList() {
+  Widget _bigButtunList(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).pushNamed('/hotel');
-          },
-          child: VerticalIconButton(
-              text: "Hotels",
-              onPressed: () {},
-              padding: 30,
-              color: const Color.fromARGB(255, 255, 216, 157),
-              icon: const Icon(
-                Icons.apartment,
-                size: 30,
-                color: Colors.orange,
-              )),
-        ),
+        VerticalIconButton(
+            text: "Hotels",
+            onPressed: () {
+              Navigator.of(context).pushNamed('/hotel');
+            },
+            padding: 30,
+            color: const Color.fromARGB(255, 255, 216, 157),
+            icon: const Icon(
+              Icons.apartment,
+              size: 30,
+              color: Colors.orange,
+            )),
         const SizedBox(width: 30),
         VerticalIconButton(
             text: "Flights",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/flight-detail');
+            },
             padding: 30,
             color: const Color.fromARGB(255, 255, 183, 157),
             angle: math.pi / 6,
