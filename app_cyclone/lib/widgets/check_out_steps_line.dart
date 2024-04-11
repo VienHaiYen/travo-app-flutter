@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CheckOutStepsLine extends StatelessWidget {
-  CheckOutStepsLine({Key? key, required this.stepNum}) : super(key: key);
+  CheckOutStepsLine({Key? key, required this.stepNum, required this.steps})
+      : super(key: key);
 
   final int stepNum;
-  List<String> steps = [
-    'Book and Review',
-    'Payment',
-    'Confirm',
-  ];
+  List<String> steps;
 
   @override
   Widget build(BuildContext context) {

@@ -1,23 +1,29 @@
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/layouts/bottom_navigation_layout/bottom_navigation_layout.dart';
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
-import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/screens/add_card_screen/add_card_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/add_passenger/add_passenger.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/forgot_password.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/login_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/signup_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/check_out_2_screen/check_out_2_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/check_out_3_screen/check_out_3_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/check_out_screen/check_out_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_2.dart';
+import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/check_out_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_1.dart';
+import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_3.dart';
 import 'package:app_cyclone/travo_app_ac/screens/contact_details_screen/contact_details_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/detail_hotel_screen/detail_hotel_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/facilities/facilities.dart';
+import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/check_out_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/screen_1.dart';
+import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/screen_2.dart';
+import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/screen_3.dart';
 import 'package:app_cyclone/travo_app_ac/screens/flight_screen/flight_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/home_screen/home_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/hotel_screen/hotel_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/onboarding_screen/onboarding_carousel.dart';
 import 'package:app_cyclone/travo_app_ac/screens/promo_code_screen/promo_code_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/review_screen/review_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/room_screen/room_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/sort_by/sort_by.dart';
 import 'package:app_cyclone/travo_app_ac/screens/splash_screen/splash__screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/ticket_screen/ticket_screen.dart';
 import 'package:flutter/material.dart';
@@ -59,23 +65,53 @@ class Routes {
       case RouteName.room:
         return getRoute(RoomScreen(hotelId: args as String));
       case RouteName.checkOut:
-        return getRoute(CheckOutScreen());
+        return getRoute(CheckOutScreen(
+          step: 1,
+          screen: const Screen1BookingRoom(),
+        ));
       case RouteName.contactDetails:
-        return getRoute(ContactDetailsScreen());
+        return getRoute(const ContactDetailsScreen());
       case RouteName.promoCode:
-        return getRoute(PromoCodeScreen());
+        return getRoute(const PromoCodeScreen());
       case RouteName.checkOut2:
-        return getRoute(CheckOut2Screen());
+        return getRoute(CheckOutScreen(
+          step: 2,
+          screen: const Screen2BookingRoom(),
+        ));
       case RouteName.checkOut3:
-        return getRoute(CheckOut3Screen());
+        return getRoute(CheckOutScreen(
+          step: 3,
+          screen: const Screen3BookingRoom(),
+        ));
       case RouteName.addCard:
         return getRoute(AddCardScreen());
+      case RouteName.addPassenger:
+        return getRoute(AddPassengerScreen());
       case RouteName.review:
         return getRoute(ReviewScreen());
       case RouteName.flightDetail:
         return getRoute(FlightScreen());
       case RouteName.ticket:
         return getRoute(TicketScreen());
+      case RouteName.flightCheckout:
+        return getRoute(FlightCheckOutScreen(
+          step: 1,
+          screen: const Screen1BookingFlight(),
+        ));
+      case RouteName.flightCheckout2:
+        return getRoute(FlightCheckOutScreen(
+          step: 2,
+          screen: const Screen2BookingFlight(),
+        ));
+      case RouteName.flightCheckout3:
+        return getRoute(FlightCheckOutScreen(
+          step: 3,
+          screen: const Screen3BookingFlight(),
+        ));
+      case RouteName.facilities:
+        return getRoute(Facilities());
+      case RouteName.sortBy:
+        return getRoute(SortBy());
       default:
         return getRoute(const SplashScreen());
     }

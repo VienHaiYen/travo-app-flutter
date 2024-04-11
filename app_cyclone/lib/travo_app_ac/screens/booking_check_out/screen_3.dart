@@ -1,28 +1,21 @@
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
-import 'package:app_cyclone/travo_app_ac/models/booking.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/service/booking_service.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDateDisplay.dart';
-import 'package:app_cyclone/widgets/MyDatePicker.dart';
 import 'package:app_cyclone/widgets/button.dart';
-import 'package:app_cyclone/widgets/check_out_steps_line.dart';
-import 'package:app_cyclone/widgets/my_header.dart';
-import 'package:app_cyclone/widgets/room_list_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class CheckOut3Screen extends StatefulWidget {
-  const CheckOut3Screen({super.key});
+class Screen3BookingRoom extends StatefulWidget {
+  const Screen3BookingRoom({super.key});
 
   @override
-  _CheckOut3ScreenState createState() => _CheckOut3ScreenState();
+  _Screen3BookingRoomState createState() => _Screen3BookingRoomState();
 }
 
-class _CheckOut3ScreenState extends State<CheckOut3Screen> {
+class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
   int calculateDaysDifference(DateTime startDate, DateTime endDate) {
     // Chuyển đổi cả hai ngày thành số ngày kể từ Epoch (1/1/1970)
     final startMilliseconds = startDate.millisecondsSinceEpoch;
@@ -38,10 +31,9 @@ class _CheckOut3ScreenState extends State<CheckOut3Screen> {
     return daysDifference;
   }
 
+  Room get room => BlocProvider.of<BookingInfoBloc>(context).state.room;
   @override
   Widget build(BuildContext context) {
-    print(BlocProvider.of<BookingInfoBloc>(context).state.room.price);
-    Room room = BlocProvider.of<BookingInfoBloc>(context).state.room;
     DateTime? start = BlocProvider.of<BookingInfoBloc>(context)
             .state
             .currentBooking
@@ -55,45 +47,27 @@ class _CheckOut3ScreenState extends State<CheckOut3Screen> {
 
     int daysDifference = calculateDaysDifference(end, start);
 
-    return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-        body: SingleChildScrollView(
-          child: Column(children: [
-            MyHeader(
-              context: context,
-              title: 'Checkout',
-              stepLine: CheckOutStepsLine(
-                stepNum: 3,
-              ),
-            ),
-            _roomItem(
-              item: room,
-            ),
-            _buildBill(
-                daysDifference,
-                BlocProvider.of<BookingInfoBloc>(context).state.room.price ??
-                    0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Button(
-                text: "Done",
-                onPressed: () {
-                  print(BlocProvider.of<BookingInfoBloc>(context)
-                      .state
-                      .currentBooking
-                      .toMap());
-
-                  BookingService.addDataToFirestore(
-                      BlocProvider.of<BookingInfoBloc>(context)
-                          .state
-                          .currentBooking
-                          .toMap());
-                },
-                isFullWidth: true,
-              ),
-            )
-          ]),
-        ));
+    return Column(children: [
+      _roomItem(
+        item: room,
+      ),
+      _buildBill(daysDifference,
+          BlocProvider.of<BookingInfoBloc>(context).state.room.price ?? 0),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Button(
+          text: "Done",
+          onPressed: () {
+            BookingService.addDataToFirestore(
+                BlocProvider.of<BookingInfoBloc>(context)
+                    .state
+                    .currentBooking
+                    .toMap());
+          },
+          isFullWidth: true,
+        ),
+      )
+    ]);
   }
 
   Widget _buildBill(int days, int priceADay) {

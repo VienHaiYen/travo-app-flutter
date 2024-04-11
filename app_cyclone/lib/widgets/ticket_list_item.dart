@@ -10,14 +10,6 @@ class TicketListItem extends StatelessWidget {
 
   final Flight item;
 
-  static const airlineImg = {
-    'LionAir': 'assets/images/lion_air.png',
-    'BatikAir': 'assets/images/batik_air.png',
-    'Citilink': 'assets/images/citillink.png',
-    'Garuna': 'assets/images/garuda.png',
-    'AirAsia': 'assets/images/air_asia.png',
-  };
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,9 +22,9 @@ class TicketListItem extends StatelessWidget {
               height: double.infinity,
               width: 120,
               padding: const EdgeInsets.all(10),
-              child: Image.asset(airlineImg[item.airline]!)),
+              child: Image.asset(Flight.airlineImg[item.airline]!)),
           const DottedLine(
-              dashColor: const Color.fromARGB(255, 196, 195, 195),
+              dashColor: Color.fromARGB(255, 196, 195, 195),
               dashLength: 8,
               lineLength: 100,
               lineThickness: 1,
@@ -81,33 +73,7 @@ class TicketListItem extends StatelessWidget {
                           )
                         ],
                       ),
-                    ])
-
-                //  GridView.count(
-                //   primary: false,
-                //   padding: const EdgeInsets.all(20),
-                //   crossAxisSpacing: 10,
-                //   mainAxisSpacing: 10,
-                //   crossAxisCount: 2,
-                //   children: <Widget>[
-                //     Container(
-                //       padding: const EdgeInsets.all(8),
-                //       color: Colors.teal[100],
-                //       child: const Text("He'd have you all unravel at the"),
-                //     ),
-                //     Container(
-                //       padding: const EdgeInsets.all(8),
-                //       color: Colors.teal[200],
-                //       child: const Text('Heed not the rabble'),
-                //     ),
-                //     Container(
-                //       padding: const EdgeInsets.all(8),
-                //       color: Colors.teal[300],
-                //       child: const Text('Sound of screams but the'),
-                //     ),
-                //   ],
-                // )
-                ),
+                    ])),
           )
         ],
       ),

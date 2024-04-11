@@ -38,4 +38,12 @@ class Flight {
       // awayKilometer: data['awayKilometer'],
     );
   }
+
+  static const airlineImg = {
+    'LionAir': 'assets/images/lion_air.png',
+    'BatikAir': 'assets/images/batik_air.png',
+    'Citilink': 'assets/images/citillink.png',
+    'Garuna': 'assets/images/garuda.png',
+    'AirAsia': 'assets/images/air_asia.png',
+  };
 }

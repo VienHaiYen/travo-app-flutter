@@ -1,6 +1,11 @@
+import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/screens/flight_screen/flight_screen.dart';
 import 'package:app_cyclone/travo_app_ac/service/flight_service.dart';
+import 'package:app_cyclone/widgets/ColorIcon.dart';
+import 'package:app_cyclone/widgets/RangeSlider.dart';
+import 'package:app_cyclone/widgets/button.dart';
+import 'package:app_cyclone/widgets/check_out_option.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/ticket_list_item.dart';
 import 'package:flutter/material.dart';
@@ -14,30 +19,141 @@ class TicketScreen extends StatelessWidget {
     _flights.value = await FlightService.fetchData();
   }
 
+  ValueNotifier<int> typeFlightBooking = ValueNotifier<int>(0);
+
   @override
   Widget build(BuildContext context) {
     getFlight();
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-        body: Column(children: [
-          MyHeader(
-            context: context,
-            title: 'Review',
-          ),
-          Expanded(
-            child: ValueListenableBuilder<List<Flight>>(
-                valueListenable: _flights,
-                builder: (context, value, child) {
-                  return ListView.builder(
-                      physics: const ScrollPhysics(),
-                      itemCount: _flights.value.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return TicketListItem(
-                          item: _flights.value[index],
-                        );
-                      });
-                }),
-          ),
-        ]));
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Column(children: [
+                MyHeader(
+                  context: context,
+                  title: 'Review',
+                ),
+                ElevatedButton(
+                    child: Text("pop"),
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 800,
+                            color: const Color.fromRGBO(240, 242, 246, 1),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 30),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Text(
+                                  'Choose Your Filter',
+                                  style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const Text('Transit'),
+                                ValueListenableBuilder(
+                                  valueListenable: typeFlightBooking,
+                                  builder: (context, value, child) => Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Button(
+                                        text: "One way",
+                                        onPressed: () {
+                                          typeFlightBooking.value = 0;
+                                        },
+                                        color: const Color.fromRGBO(
+                                            254, 156, 94, 1),
+                                      ),
+                                      Button(
+                                        text: "Rounded trip",
+                                        onPressed: () {
+                                          typeFlightBooking.value = 1;
+                                        },
+                                        color: const Color.fromRGBO(
+                                            254, 156, 94, 1),
+                                      ),
+                                      Button(
+                                        text: "Multi-City",
+                                        onPressed: () {
+                                          typeFlightBooking.value = 2;
+                                        },
+                                        color: const Color.fromRGBO(
+                                            254, 156, 94, 1),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const CustomRangeSlider(max: 1000),
+                                CheckOutOption(
+                                  hasButton: false,
+                                  icon: ColorIcon(
+                                      icon: Icons.luggage,
+                                      color:
+                                          const Color.fromRGBO(254, 156, 94, 1),
+                                      bgColor: const Color.fromARGB(
+                                          68, 254, 155, 94)),
+                                  title: "Facilities",
+                                  subAdd: "",
+                                  onWidgetTap: () => {
+                                    Navigator.pushNamed(
+                                        context, RouteName.facilities)
+                                  },
+                                ),
+                                CheckOutOption(
+                                  hasButton: false,
+                                  icon: ColorIcon(
+                                      icon: Icons.sort_sharp,
+                                      color:
+                                          const Color.fromRGBO(62, 200, 188, 1),
+                                      bgColor:
+                                          Color.fromARGB(44, 68, 254, 155)),
+                                  title: "Sort By",
+                                  subAdd: "",
+                                  onWidgetTap: () => {
+                                    Navigator.pushNamed(
+                                        context, RouteName.sortBy)
+                                  },
+                                ),
+                                Button(
+                                  text: "Apply",
+                                  isFullWidth: true,
+                                  onPressed: () => Navigator.pop(context),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }),
+                Expanded(
+                  child: ValueListenableBuilder<List<Flight>>(
+                      valueListenable: _flights,
+                      builder: (context, value, child) {
+                        return ListView.builder(
+                            physics: const ScrollPhysics(),
+                            itemCount: _flights.value.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return TicketListItem(
+                                item: _flights.value[index],
+                              );
+                            });
+                      }),
+                ),
+                Button(
+                    text: "go to checkout",
+                    onPressed: () {
+                      Navigator.pushNamed(context, RouteName.flightCheckout);
+                    })
+              ]),
+            )
+          ],
+        ));
   }
 }

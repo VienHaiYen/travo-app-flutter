@@ -43,7 +43,7 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                   ),
                   color: Colors.white,
                 ),
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: const Icon(
                   FontAwesomeIcons.arrowLeft,
                   size: 10,
