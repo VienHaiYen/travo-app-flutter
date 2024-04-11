@@ -168,23 +168,23 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                                   Text(
                                     widget.item.rating.toString(),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushNamed('/review');
-                                    },
-                                    child: Text(
-                                      ' (${widget.item.totalReview} reviews)',
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
+                                  Text(
+                                    ' (${widget.item.totalReview} reviews)',
+                                    style: const TextStyle(fontSize: 16),
                                   ),
                                   const Spacer(),
-                                  const Text(
-                                    'See All',
-                                    style: TextStyle(
-                                        color: Colors.purple,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w400),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed('/review',
+                                          arguments: widget.item.id);
+                                    },
+                                    child: const Text(
+                                      'See All',
+                                      style: TextStyle(
+                                          color: Colors.purple,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                   ),
                                 ],
                               ),

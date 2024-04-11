@@ -88,7 +88,7 @@ class Routes {
       case RouteName.addPassenger:
         return getRoute(AddPassengerScreen());
       case RouteName.review:
-        return getRoute(ReviewScreen());
+        return getRoute(ReviewScreen(hotelId: args as String));
       case RouteName.flightDetail:
         return getRoute(FlightScreen());
       case RouteName.ticket:

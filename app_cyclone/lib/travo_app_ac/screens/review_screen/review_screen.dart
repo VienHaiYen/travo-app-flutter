@@ -1,10 +1,13 @@
 import 'package:app_cyclone/widgets/my_header.dart';
+import 'package:app_cyclone/widgets/review_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ReviewScreen extends StatefulWidget {
-  const ReviewScreen({Key? key}) : super(key: key);
+  const ReviewScreen({super.key, required this.hotelId});
+
+  final String hotelId;
 
   @override
   _ReviewScreenState createState() => _ReviewScreenState();
@@ -53,8 +56,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           ],
                         ),
                       ),
-                    )
-                  ]))
+                    ),
+                  ])),
+              ReviewItem()
             ])),
           ),
         ]));
