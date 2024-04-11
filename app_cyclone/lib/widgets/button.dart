@@ -5,6 +5,7 @@ class Button extends StatelessWidget {
       {super.key,
       required this.text,
       required this.onPressed,
+      this.textColor,
       this.color,
       this.isFullWidth = false});
 
@@ -12,6 +13,7 @@ class Button extends StatelessWidget {
   final Function onPressed;
   final bool isFullWidth;
   final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class Button extends StatelessWidget {
       onPressed: () => {onPressed()},
       child: Text(
         text,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: textColor ?? Colors.white),
       ),
     );
   }

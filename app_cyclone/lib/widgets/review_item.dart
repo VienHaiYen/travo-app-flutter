@@ -1,16 +1,30 @@
+import 'package:app_cyclone/travo_app_ac/models/review.dart';
 import 'package:app_cyclone/widgets/star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 class ReviewItem extends StatelessWidget {
-  const ReviewItem({Key? key}) : super(key: key);
+  ReviewItem({super.key, required this.item});
+
+  final Review item;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(20),
-        margin: const EdgeInsets.all(20),
-        color: Colors.white,
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          // boxShadow: const [
+          //   BoxShadow(
+          //       color: Colors.black12,
+          //       offset: Offset(0, 2),
+          //       blurRadius: 2,
+          //       spreadRadius: 1)
+          // ]
+        ),
         child: Column(
           children: [
             Row(
@@ -20,7 +34,7 @@ class ReviewItem extends StatelessWidget {
                   "https://cdn-icons-png.flaticon.com/512/149/149071.png",
                   width: 50,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Expanded(
@@ -28,53 +42,57 @@ class ReviewItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "James Christin",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        item.user,
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      Text("5 hours ago")
+                      Text(DateFormat('yyyy-MM-dd')
+                          .format(item.rated_time!.toDate()))
                     ],
                   ),
                 ),
                 StarRating(
-                  rating: 4.5,
+                  rating: item.rating!.toDouble(),
                 )
               ],
             ),
             Text(
-                "I’m very happy with the services. I think this is the best hotel in Seo…"),
-            // Row(
-            //   children: [
-            //     ClipRRect(
-            //       borderRadius: BorderRadius.circular(20),
-            //       child: Image.network(
-            //         "https://firebasestorage.googleapis.com/v0/b/travoapps.appspot.com/o/images%2Fcomments%2Fcaptiankien%40gmail.com%2Fdata%2Fuser%2F0%2Fcom.aci.travoapp.dev%2Fcache%2F7fad70e1-4561-4157-9b3b-bfd9dceaa58b%2Fhotel2.jpg?alt=media&token=57bb6f13-afb4-4f3d-a124-594923a730ec",
-            //         width: 50,
-            //         height: 50,
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //     const SizedBox(
-            //       width: 10,
-            //     ),
-            //     Image.network(
-            //       "https://firebasestorage.googleapis.com/v0/b/travoapps.appspot.com/o/images%2Fcomments%2Fcaptiankien%40gmail.com%2Fdata%2Fuser%2F0%2Fcom.aci.travoapp.dev%2Fcache%2F7fad70e1-4561-4157-9b3b-bfd9dceaa58b%2Fhotel2.jpg?alt=media&token=57bb6f13-afb4-4f3d-a124-594923a730ec",
-            //       width: 50,
-            //       height: 50,
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ],
-            // ),
+              item.comment ?? "",
+              style: const TextStyle(fontSize: 15),
+              maxLines: 2,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               children: [
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Icon(Icons.thumb_up)),
-                Text("25"),
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Icon(Icons.thumb_down)),
-                Text("25"),
+                ...item.photos!.map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        e,
+                        width: 75,
+                        height: 75,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                const Padding(
+                    padding: EdgeInsets.all(10), child: Icon(Icons.thumb_up)),
+                // Text("25"),
+                const Padding(
+                    padding: EdgeInsets.all(10), child: Icon(Icons.thumb_down)),
+                // Text("25"),
                 Expanded(
                   child: Container(),
                 ),

@@ -6,12 +6,14 @@ class MyHeader extends StatelessWidget {
       required this.context,
       required this.title,
       this.subTitle,
-      this.stepLine});
+      this.stepLine,
+      this.rightButton});
 
   final BuildContext context;
   final String title;
   final String? subTitle;
   final Widget? stepLine;
+  final Widget? rightButton;
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +30,24 @@ class MyHeader extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            Navigator.canPop(context)
-                ? Align(
-                    alignment: Alignment.topLeft,
-                    child: FloatingActionButton(
-                      mini: true,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  )
-                : Container(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Navigator.canPop(context)
+                    ? Align(
+                        alignment: Alignment.topLeft,
+                        child: FloatingActionButton(
+                          mini: true,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.arrow_back),
+                        ),
+                      )
+                    : Container(),
+                rightButton ?? Container()
+              ],
+            ),
             const SizedBox(height: 20),
             Text(
               title,

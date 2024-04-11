@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Flight {
   Flight(
       {this.airline = "",
-      this.id = "",
+      required this.id,
       this.arrive_time,
       this.departure_time,
       this.from_place = "",
@@ -13,7 +13,7 @@ class Flight {
       this.to_place = ""});
 
   String? airline;
-  String? id;
+  String id;
   Timestamp? arrive_time;
   Timestamp? departure_time;
   String? from_place;

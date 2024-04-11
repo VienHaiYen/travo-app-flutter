@@ -21,6 +21,7 @@ class FlightScreen extends StatefulWidget {
 class _FlightScreenState extends State<FlightScreen> {
   final TextEditingController _fromController = TextEditingController();
   final TextEditingController _toController = TextEditingController();
+
   final TextEditingController _numberPassengerController =
       TextEditingController(text: "1 Passenger");
 
@@ -34,12 +35,15 @@ class _FlightScreenState extends State<FlightScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _fromController.text = "US";
+    _toController.text = "Australia";
+
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         body: Column(children: [
           MyHeader(
             context: context,
-            title: 'Review',
+            title: 'Book Your Flight',
           ),
           Expanded(
               child: Padding(
@@ -52,43 +56,61 @@ class _FlightScreenState extends State<FlightScreen> {
                     height: 20,
                   ),
                   ValueListenableBuilder(
+                    valueListenable: typeFlightBooking,
+                    builder: (context, value, child) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Button(
+                          text: "One way",
+                          onPressed: () {
+                            typeFlightBooking.value = 0;
+                          },
+                          textColor: typeFlightBooking.value == 0
+                              ? Colors.black
+                              : null,
+                          color: typeFlightBooking.value == 0
+                              ? const Color.fromRGBO(224, 221, 245, 1)
+                              : const Color.fromRGBO(254, 156, 94, 1),
+                        ),
+                        Button(
+                          text: "Rounded trip",
+                          onPressed: () {
+                            typeFlightBooking.value = 1;
+                          },
+                          textColor: typeFlightBooking.value == 1
+                              ? Colors.black
+                              : null,
+                          color: typeFlightBooking.value == 1
+                              ? const Color.fromRGBO(224, 221, 245, 1)
+                              : const Color.fromRGBO(254, 156, 94, 1),
+                        ),
+                        Button(
+                          text: "Multi-City",
+                          onPressed: () {
+                            typeFlightBooking.value = 2;
+                          },
+                          textColor: typeFlightBooking.value == 2
+                              ? Colors.black
+                              : null,
+                          color: typeFlightBooking.value == 2
+                              ? const Color.fromRGBO(224, 221, 245, 1)
+                              : const Color.fromRGBO(254, 156, 94, 1),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ValueListenableBuilder(
                       valueListenable: typeFlightBooking,
                       builder: (context, value, child) => value == 2
                           ? const Column(
                               children: [
-                                Text("Flight 1"),
                                 SizedBox(
                                   height: 10,
                                 ),
+                                Text("Flight 1"),
                               ],
                             )
                           : Container()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Button(
-                        text: "One way",
-                        onPressed: () {
-                          typeFlightBooking.value = 0;
-                        },
-                        color: const Color.fromRGBO(254, 156, 94, 1),
-                      ),
-                      Button(
-                        text: "Rounded trip",
-                        onPressed: () {
-                          typeFlightBooking.value = 1;
-                        },
-                        color: const Color.fromRGBO(254, 156, 94, 1),
-                      ),
-                      Button(
-                        text: "Multi-City",
-                        onPressed: () {
-                          typeFlightBooking.value = 2;
-                        },
-                        color: const Color.fromRGBO(254, 156, 94, 1),
-                      ),
-                    ],
-                  ),
                   const SizedBox(
                     height: 20,
                   ),

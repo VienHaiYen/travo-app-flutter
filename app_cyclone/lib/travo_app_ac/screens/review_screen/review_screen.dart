@@ -1,3 +1,5 @@
+import 'package:app_cyclone/travo_app_ac/models/review.dart';
+import 'package:app_cyclone/travo_app_ac/service/review_service.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/review_item.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,8 +16,18 @@ class ReviewScreen extends StatefulWidget {
 }
 
 class _ReviewScreenState extends State<ReviewScreen> {
+  final ValueNotifier<List<Review>> _reviews = ValueNotifier<List<Review>>([]);
+
+  void getReviews() async {
+    _reviews.value = await ReviewService.fetchData(widget.hotelId);
+    // print('get');
+    // print(_rooms.value.length);
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.hotelId);
+    getReviews();
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         body: Column(children: [
@@ -24,8 +36,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             title: 'Review',
           ),
           Expanded(
-            child: SingleChildScrollView(
-                child: Column(children: [
+            child: Column(children: [
               Container(
                   color: Colors.white,
                   padding: EdgeInsets.all(20),
@@ -58,8 +69,21 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       ),
                     ),
                   ])),
-              ReviewItem()
-            ])),
+              Expanded(
+                child: ValueListenableBuilder(
+                    valueListenable: _reviews,
+                    builder: (context, value, child) {
+                      return ListView.builder(
+                          physics: const ScrollPhysics(),
+                          itemCount: _reviews.value.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ReviewItem(
+                              item: _reviews.value[index],
+                            );
+                          });
+                    }),
+              ),
+            ]),
           ),
         ]));
   }
