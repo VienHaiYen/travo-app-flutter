@@ -1,4 +1,7 @@
 import 'dart:math' as math;
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
+import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDatePicker.dart';
 import 'package:app_cyclone/widgets/button.dart';
@@ -10,6 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FlightScreen extends StatefulWidget {
   const FlightScreen({Key? key}) : super(key: key);
@@ -26,8 +30,11 @@ class _FlightScreenState extends State<FlightScreen> {
       TextEditingController(text: "1 Passenger");
 
   final ValueNotifier<DateTime?> _departureDateController =
-      ValueNotifier<DateTime?>(null);
+      ValueNotifier<DateTime?>(DateTime(2023, 10, 22, 0, 0, 0));
   final ValueNotifier<DateTime?> _returnDateController =
+      ValueNotifier<DateTime?>(null);
+
+  final ValueNotifier<DateTime?> _departureDateController2 =
       ValueNotifier<DateTime?>(null);
   final ValueNotifier<String> _classController = ValueNotifier<String>("");
 
@@ -35,7 +42,7 @@ class _FlightScreenState extends State<FlightScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _fromController.text = "US";
+    _fromController.text = "USA";
     _toController.text = "Australia";
 
     return Scaffold(
@@ -292,41 +299,41 @@ class _FlightScreenState extends State<FlightScreen> {
                                           MyDatePicker(
                                               title: "Departure",
                                               selectedDate:
-                                                  _departureDateController)
+                                                  _departureDateController2)
                                         ],
                                       )),
-                                  ValueListenableBuilder(
-                                    valueListenable: typeFlightBooking,
-                                    builder: (context, value, child) => value ==
-                                            1
-                                        ? Column(
-                                            children: [
-                                              const SizedBox(height: 10),
-                                              Container(
-                                                  color: Colors.white,
-                                                  padding:
-                                                      const EdgeInsets.all(20),
-                                                  child: Row(
-                                                    children: [
-                                                      ColorIcon(
-                                                          icon: Icons
-                                                              .calendar_month,
-                                                          color: const Color
-                                                              .fromRGBO(
-                                                              254, 156, 94, 1),
-                                                          bgColor: const Color
-                                                              .fromRGBO(254,
-                                                              155, 94, 0.315)),
-                                                      MyDatePicker(
-                                                          title: "Departure",
-                                                          selectedDate:
-                                                              _returnDateController)
-                                                    ],
-                                                  )),
-                                            ],
-                                          )
-                                        : Container(),
-                                  ),
+                                  // ValueListenableBuilder(
+                                  //   valueListenable: typeFlightBooking,
+                                  //   builder: (context, value, child) => value ==
+                                  //           1
+                                  //       ? Column(
+                                  //           children: [
+                                  //             const SizedBox(height: 10),
+                                  //             Container(
+                                  //                 color: Colors.white,
+                                  //                 padding:
+                                  //                     const EdgeInsets.all(20),
+                                  //                 child: Row(
+                                  //                   children: [
+                                  //                     ColorIcon(
+                                  //                         icon: Icons
+                                  //                             .calendar_month,
+                                  //                         color: const Color
+                                  //                             .fromRGBO(
+                                  //                             254, 156, 94, 1),
+                                  //                         bgColor: const Color
+                                  //                             .fromRGBO(254,
+                                  //                             155, 94, 0.315)),
+                                  //                     MyDatePicker(
+                                  //                         title: "Departure",
+                                  //                         selectedDate:
+                                  //                             _departureDateController3)
+                                  //                   ],
+                                  //                 )),
+                                  //           ],
+                                  //         )
+                                  //       : Container(),
+                                  // ),
                                   const SizedBox(height: 10),
                                   CommonIconTextfield(
                                       icon: const Icon(
@@ -369,8 +376,26 @@ class _FlightScreenState extends State<FlightScreen> {
                   Button(
                       text: "Search",
                       isFullWidth: true,
-                      onPressed: () {
-                        Navigator.of(context).pushNamed("/ticket");
+                      onPressed: () async {
+                        if (_fromController.text.isEmpty ||
+                            _toController.text.isEmpty ||
+                            _departureDateController.value == null ||
+                            _classController.value.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Please fill all the fields"),
+                            ),
+                          );
+                          return;
+                        }
+                        print(_departureDateController.value);
+
+                        SearchFlight searchFlight = SearchFlight(
+                            from: _fromController.text,
+                            to: _toController.text,
+                            date: _departureDateController.value!);
+                        Navigator.of(context)
+                            .pushNamed("/ticket", arguments: searchFlight);
                       }),
                   const SizedBox(height: 20),
                 ])),

@@ -1,5 +1,8 @@
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
+import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
+import 'package:app_cyclone/travo_app_ac/screens/add_card_screen/add_card_screen.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/check_out_option.dart';
@@ -38,11 +41,11 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
               subAdd: "",
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              selectedItem.value = 2;
-            },
-            child: CheckOutOption(
+          GestureDetector(onTap: () {
+            selectedItem.value = 2;
+          }, child: BlocBuilder<BookingInfoBloc, BookingInfoState>(
+              builder: (context, state) {
+            return CheckOutOption(
                 hasButton: true,
                 bgColor: selectedItem.value == 2
                     ? const Color.fromARGB(19, 167, 141, 220)
@@ -64,10 +67,18 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
                         .payment_card_info
                         .toString()
                     : "",
-                onPressed: () {
-                  Navigator.pushNamed(context, '/add-card');
-                }),
-          ),
+                onPressed: () async {
+                  final PaymentCardInfo card = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddCardScreen()),
+                  );
+                  if (card.cardNumber != "") {
+                    BlocProvider.of<BookingInfoBloc>(context)
+                        .add(UpdateBookingInfoEvent(payment_card_info: card));
+                  }
+                });
+          })),
           GestureDetector(
             onTap: () {
               selectedItem.value = 3;

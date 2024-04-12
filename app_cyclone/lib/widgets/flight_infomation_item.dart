@@ -1,9 +1,12 @@
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FlightInfomationItem extends StatelessWidget {
-  const FlightInfomationItem({Key? key}) : super(key: key);
+  const FlightInfomationItem({super.key, required this.flight});
+
+  final Flight flight;
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +15,12 @@ class FlightInfomationItem extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Column(
+            Column(
               children: [
                 Text(
-                  "JKT",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  flight.from_place ?? "",
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 )
               ],
             ),
@@ -61,11 +65,12 @@ class FlightInfomationItem extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
-            const Column(
+            Column(
               children: [
                 Text(
-                  "VN",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  flight.to_place ?? "",
+                  style: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 )
               ],
             )
@@ -78,20 +83,24 @@ class FlightInfomationItem extends StatelessWidget {
           height: 75,
           child: Row(
             children: [
-              Image.asset(Flight.airlineImg["AirAsia"]!),
+              Image.asset(
+                Flight.airlineImg[flight.airline]!,
+                width: 100,
+              ),
               const SizedBox(
                 width: 20,
               ),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Airline"),
+                  const Text("Airline"),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "AirAsia",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    flight.airline ?? "",
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -115,7 +124,7 @@ class FlightInfomationItem extends StatelessWidget {
             ],
           ),
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
@@ -126,7 +135,8 @@ class FlightInfomationItem extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "24 Mar 2020",
+                  DateFormat('d MMM yyyy')
+                      .format(flight.departure_time!.toDate()),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -137,30 +147,32 @@ class FlightInfomationItem extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "02:39pm",
+                  DateFormat('jmz').format(flight.departure_time!.toDate()),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Gate"),
-                SizedBox(
+                const Text("Gate"),
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "24A",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  "Undefined",
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Seat"),
-                SizedBox(
+                const Text("Seat"),
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                // fix sau
+                const Text(
                   "5A",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),

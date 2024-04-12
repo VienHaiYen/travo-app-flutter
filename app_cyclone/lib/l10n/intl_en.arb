@@ -5,5 +5,31 @@
   "change_mode":"Change Mode",
   "mode":"Mode",
   "english":"English",
-  "vietnamese":"Vietnamese"
+  "vietnamese":"Vietnamese",
+
+  "home":"Home",
+  "welcom_to_home":"Welcom to Home",
+  "hotel":"Hotel",
+  "flights":"Flights",
+  "all":"All",
+  "log_out":"Log out",
+
+  "review":"review",
+  "night":"night",
+  "book_a_room":"Book a room",
+  "room":"Room",
+  "room_size":"Room size",
+  "guest":"Guest",
+  "guests":"guests",
+  "choose":"Choose",
+  "select_room":"Select Room",
+
+  "contact_details":"Contact details",
+  "add_contact": "Add Contact",
+  "promo_caode": "Promo Code",
+  "add_promo_caode": "Add Promo Code",
+  "booking_date": "Booking Date",
+  "check_in": "Check-in",
+  "check_out": "Check-out",
+  "payment": "Payment"
 }

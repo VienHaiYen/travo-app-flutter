@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
@@ -5,7 +6,6 @@ import 'package:app_cyclone/travo_app_ac/service/room_service.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/room_list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoomScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _RoomScreenState extends State<RoomScreen> {
           children: [
             MyHeader(
               context: context,
-              title: 'Select Room',
+              title: AppLocalizations.of(context)!.select_room,
             ),
             Expanded(
               child: ValueListenableBuilder<List<Room>>(

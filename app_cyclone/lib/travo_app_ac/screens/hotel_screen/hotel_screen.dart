@@ -1,3 +1,5 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
 import 'package:app_cyclone/travo_app_ac/service/hotel_service.dart';
 import 'package:app_cyclone/widgets/hotel_list_item.dart';
@@ -37,7 +39,7 @@ class _HotelScreenState extends State<HotelScreen> {
           children: [
             MyHeader(
               context: context,
-              title: 'Hotels',
+              title: AppLocalizations.of(context)!.hotel,
             ),
             const SizedBox(height: 20),
             Expanded(

@@ -104,15 +104,15 @@ class AddCardScreenState extends State<AddCardScreen> {
                               const SnackBar(content: Text('Input Exp.Date')));
                           return;
                         }
-                        BlocProvider.of<BookingInfoBloc>(context).add(
-                            UpdateBookingInfoEvent(
-                                payment_card_info: PaymentCardInfo(
-                                    cardNumber: _cardController.text,
-                                    country: _countryController.value,
-                                    cvv: _cvvController.text,
-                                    exp_date: _expDateController.value,
-                                    name: _nameController.text)));
-                        Navigator.pushNamed(context, '/check-out-2');
+
+                        Navigator.pop(
+                            context,
+                            PaymentCardInfo(
+                                cardNumber: _cardController.text,
+                                country: _countryController.value,
+                                cvv: _cvvController.text,
+                                exp_date: _expDateController.value,
+                                name: _nameController.text));
                       },
                       isFullWidth: true,
                     )

@@ -1,4 +1,6 @@
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:app_cyclone/widgets/button.dart';
 import 'package:flutter/material.dart';
 
@@ -108,22 +110,17 @@ class HotelListItem extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            const Text(
-                              '/night',
-                              style: TextStyle(fontSize: 12),
+                            Text(
+                              '/${AppLocalizations.of(context)!.night}',
+                              style: const TextStyle(fontSize: 12),
                             )
                           ],
                         ),
                       ),
                       Expanded(
                         child: Button(
-                          text: 'Book a room',
-                          onPressed: onTap ??
-                              () {
-                                print("Book a room");
-                                // Navigator.of(context)
-                                //     .pushNamed('/room', arguments: item.id);
-                              },
+                          text: AppLocalizations.of(context)!.book_a_room,
+                          onPressed: onTap ?? () {},
                         ),
                       )
                     ],

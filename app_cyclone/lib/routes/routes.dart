@@ -1,6 +1,7 @@
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/layouts/bottom_navigation_layout/bottom_navigation_layout.dart';
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
+import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
 import 'package:app_cyclone/travo_app_ac/screens/add_card_screen/add_card_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/add_passenger/add_passenger.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/forgot_password.dart';
@@ -92,7 +93,9 @@ class Routes {
       case RouteName.flightDetail:
         return getRoute(FlightScreen());
       case RouteName.ticket:
-        return getRoute(TicketScreen());
+        return getRoute(TicketScreen(
+          searchData: args as SearchFlight,
+        ));
       case RouteName.flightCheckout:
         return getRoute(FlightCheckOutScreen(
           step: 1,

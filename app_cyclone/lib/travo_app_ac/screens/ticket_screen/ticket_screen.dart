@@ -1,5 +1,6 @@
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
+import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
 import 'package:app_cyclone/travo_app_ac/screens/flight_screen/flight_screen.dart';
 import 'package:app_cyclone/travo_app_ac/service/flight_service.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
@@ -12,11 +13,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class TicketScreen extends StatelessWidget {
-  TicketScreen({Key? key}) : super(key: key);
+  TicketScreen({super.key, required this.searchData});
+  final SearchFlight searchData;
+
   final ValueNotifier<List<Flight>> _flights = ValueNotifier<List<Flight>>([]);
 
   getFlight() async {
-    _flights.value = await FlightService.fetchData();
+    _flights.value = await FlightService.fetchData(searchData);
   }
 
   ValueNotifier<int> typeFlightBooking = ValueNotifier<int>(0);
@@ -141,17 +144,19 @@ class TicketScreen extends StatelessWidget {
                   child: ValueListenableBuilder<List<Flight>>(
                       valueListenable: _flights,
                       builder: (context, value, child) {
-                        return ListView.builder(
-                            physics: const ScrollPhysics(),
-                            itemCount: _flights.value.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return TicketListItem(
-                                item: _flights.value[index],
-                              );
-                            });
+                        return _flights.value.isNotEmpty
+                            ? ListView.builder(
+                                physics: const ScrollPhysics(),
+                                itemCount: _flights.value.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return TicketListItem(
+                                    item: _flights.value[index],
+                                  );
+                                })
+                            : Image.network(
+                                "https://cdn-icons-png.flaticon.com/512/6195/6195678.png");
                       }),
                 ),
-                Button(text: "go to checkout", onPressed: () {})
               ]),
             )
           ],

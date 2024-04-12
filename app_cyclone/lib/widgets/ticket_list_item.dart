@@ -1,9 +1,12 @@
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class TicketListItem extends StatelessWidget {
@@ -15,6 +18,9 @@ class TicketListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        BlocProvider.of<BookingFlightInfoBloc>(context)
+            .add(UpdateFlightEvent(flight: item));
+
         Navigator.pushNamed(context, RouteName.flightCheckout);
       },
       child: Container(
@@ -48,7 +54,7 @@ class TicketListItem extends StatelessWidget {
                             Text(
                               DateFormat('jmz')
                                   .format(item.departure_time!.toDate()),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             Expanded(child: Container()),
@@ -67,7 +73,7 @@ class TicketListItem extends StatelessWidget {
                             Text(
                               DateFormat('jmz')
                                   .format(item.arrive_time!.toDate()),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             Expanded(child: Container()),

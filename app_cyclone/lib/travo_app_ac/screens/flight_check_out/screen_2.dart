@@ -1,6 +1,11 @@
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_state.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/routes/route_name.dart';
+import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
+import 'package:app_cyclone/travo_app_ac/screens/add_card_screen/add_card_screen.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/check_out_option.dart';
@@ -39,11 +44,11 @@ class _Screen2BookingFlightState extends State<Screen2BookingFlight> {
               subAdd: "",
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              selectedItem.value = 2;
-            },
-            child: CheckOutOption(
+          GestureDetector(onTap: () {
+            selectedItem.value = 2;
+          }, child: BlocBuilder<BookingFlightInfoBloc, BookingFlightInfoState>(
+              builder: (context, state) {
+            return CheckOutOption(
                 hasButton: true,
                 bgColor: selectedItem.value == 2
                     ? const Color.fromARGB(19, 167, 141, 220)
@@ -54,21 +59,29 @@ class _Screen2BookingFlightState extends State<Screen2BookingFlight> {
                     bgColor: const Color.fromARGB(103, 247, 119, 119)),
                 title: "Credit / Debit Card",
                 subAdd: "Add Card",
-                data: BlocProvider.of<BookingInfoBloc>(context)
+                data: BlocProvider.of<BookingFlightInfoBloc>(context)
                             .state
                             .currentBooking
-                            .payment_card_info !=
+                            .card !=
                         null
-                    ? BlocProvider.of<BookingInfoBloc>(context)
+                    ? BlocProvider.of<BookingFlightInfoBloc>(context)
                         .state
                         .currentBooking
-                        .payment_card_info
+                        .card
                         .toString()
                     : "",
-                onPressed: () {
-                  Navigator.pushNamed(context, '/add-card');
-                }),
-          ),
+                onPressed: () async {
+                  final PaymentCardInfo card = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddCardScreen()),
+                  );
+                  if (card.cardNumber != "") {
+                    BlocProvider.of<BookingFlightInfoBloc>(context)
+                        .add(UpdateBookingFlightInfoEvent(card: card));
+                  }
+                });
+          })),
           GestureDetector(
             onTap: () {
               selectedItem.value = 3;
@@ -90,34 +103,31 @@ class _Screen2BookingFlightState extends State<Screen2BookingFlight> {
             child: Button(
               text: "Done",
               onPressed: () {
-                print(BlocProvider.of<BookingInfoBloc>(context)
-                    .state
-                    .currentBooking
-                    .toMap());
                 if (selectedItem.value == 2 &&
-                    BlocProvider.of<BookingInfoBloc>(context)
+                    BlocProvider.of<BookingFlightInfoBloc>(context)
                             .state
                             .currentBooking
-                            .payment_card_info ==
+                            .card ==
                         null) {
                   return;
                 }
                 if (selectedItem.value == 1) {
-                  BlocProvider.of<BookingInfoBloc>(context)
-                      .add(UpdateBookingInfoEvent(typePayment: "Mini Market"));
+                  BlocProvider.of<BookingFlightInfoBloc>(context).add(
+                      UpdateBookingFlightInfoEvent(typePayment: "Mini Market"));
                 }
                 if (selectedItem.value == 3) {
-                  BlocProvider.of<BookingInfoBloc>(context).add(
-                      UpdateBookingInfoEvent(typePayment: "Bank transfer"));
+                  BlocProvider.of<BookingFlightInfoBloc>(context).add(
+                      UpdateBookingFlightInfoEvent(
+                          typePayment: "Bank transfer"));
                 }
                 if (selectedItem.value == 2 &&
-                    BlocProvider.of<BookingInfoBloc>(context)
+                    BlocProvider.of<BookingFlightInfoBloc>(context)
                             .state
                             .currentBooking
-                            .payment_card_info !=
+                            .card !=
                         null) {
-                  BlocProvider.of<BookingInfoBloc>(context)
-                      .add(UpdateBookingInfoEvent(typePayment: "Card"));
+                  BlocProvider.of<BookingFlightInfoBloc>(context)
+                      .add(UpdateBookingFlightInfoEvent(typePayment: "Card"));
                 }
                 Navigator.pushNamed(context, RouteName.flightCheckout3);
               },

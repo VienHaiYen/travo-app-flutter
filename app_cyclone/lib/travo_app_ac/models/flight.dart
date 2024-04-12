@@ -30,7 +30,7 @@ class Flight {
       airline: data['airline'],
       arrive_time: data['arrive_time'],
       departure_time: data['departure_time'],
-      from_place: data['location_description'],
+      from_place: data['from_place'],
       no: data['no'],
       price: data['price'],
       seat: data['seat'],

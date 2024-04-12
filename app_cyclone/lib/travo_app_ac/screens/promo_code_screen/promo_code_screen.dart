@@ -4,6 +4,7 @@ import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PromoCodeScreen extends StatefulWidget {
   const PromoCodeScreen({super.key});
@@ -25,7 +26,7 @@ class _PromoCodeScreenState extends State<PromoCodeScreen> {
           child: Column(children: [
             MyHeader(
               context: context,
-              title: 'Promo Code',
+              title: AppLocalizations.of(context)!.promo_caode,
             ),
             Padding(
                 padding: const EdgeInsets.all(20),
@@ -37,18 +38,7 @@ class _PromoCodeScreenState extends State<PromoCodeScreen> {
                     Button(
                       text: "Done",
                       onPressed: () {
-                        // if (!_formKey.currentState!.validate()) {
-                        //   // return;
-                        // }
-
-                        print(BlocProvider.of<BookingInfoBloc>(context)
-                            .state
-                            .currentBooking
-                            .promo_code);
-                        Navigator.pushNamed(
-                          context,
-                          '/check-out',
-                        );
+                        Navigator.pop(context, _code.text);
                       },
                       isFullWidth: true,
                     )

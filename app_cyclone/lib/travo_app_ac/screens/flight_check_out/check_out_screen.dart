@@ -1,6 +1,9 @@
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
+import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/widgets/check_out_steps_line.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
@@ -24,7 +27,8 @@ class _FlightCheckOutScreenState extends State<FlightCheckOutScreen> {
     super.dispose();
   }
 
-  Room get room => BlocProvider.of<BookingInfoBloc>(context).state.room;
+  Flight get flight =>
+      BlocProvider.of<BookingFlightInfoBloc>(context).state.flight;
 
   List<String> steps = [
     'Book and Review',
@@ -36,6 +40,13 @@ class _FlightCheckOutScreenState extends State<FlightCheckOutScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    BlocProvider.of<BookingFlightInfoBloc>(context).add(
+        UpdateBookingFlightInfoEvent(
+            email:
+                BlocProvider.of<LogInBloc>(context).state.currentUser!.email));
+    BlocProvider.of<BookingFlightInfoBloc>(context)
+        .add(UpdateBookingFlightInfoEvent(flight: flight.id));
   }
 
   @override

@@ -8,7 +8,7 @@ abstract class BookingFlightInfoEvent {}
 
 class UpdateBookingFlightInfoEvent extends BookingFlightInfoEvent {
   PaymentCardInfo? card;
-  DateTime? created_at;
+  DateTime? createdAt;
   String email;
   String flight;
   Guest? guest;
@@ -18,9 +18,9 @@ class UpdateBookingFlightInfoEvent extends BookingFlightInfoEvent {
 
   UpdateBookingFlightInfoEvent({
     this.card,
-    this.created_at,
+    this.createdAt,
     this.email = "",
-    required this.flight,
+    this.flight = "",
     this.guest,
     this.promoCode,
     this.seat,

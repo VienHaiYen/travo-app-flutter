@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class ContactDetailsScreen extends StatefulWidget {
   const ContactDetailsScreen({super.key});
 
@@ -31,7 +33,7 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
           child: Column(children: [
             MyHeader(
               context: context,
-              title: 'Contact Details',
+              title: AppLocalizations.of(context)!.contact_details,
             ),
             Padding(
                 padding: const EdgeInsets.all(20),
@@ -67,15 +69,12 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
                           return;
                         }
 
-                        BlocProvider.of<BookingInfoBloc>(context)
-                            .add(UpdateBookingInfoEvent(guest: <Guest>[
-                          Guest(
-                              email: _emailController.text,
-                              name: _nameController.text,
-                              phone: _phoneController.text)
-                        ]));
-
-                        Navigator.pushNamed(context, '/check-out');
+                        Navigator.pop(
+                            context,
+                            Guest(
+                                email: _emailController.text,
+                                name: _nameController.text,
+                                phone: _phoneController.text));
                       },
                       isFullWidth: true,
                     )

@@ -10,4 +10,11 @@ class Seat {
       name: json['name'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'type': type,
+      'name': name,
+    };
+  }
 }

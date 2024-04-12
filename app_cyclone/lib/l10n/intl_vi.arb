@@ -5,5 +5,33 @@
   "change_mode":"Đổi chủ đề",
   "mode":"Chủ đề",
   "english":"Tiếng Anh",
-  "vietnamese":"Tiếng Việt"
+  "vietnamese":"Tiếng Việt",
+
+  "home": "Trang chủ",
+  "welcom_to_home": "Chào mừng đến Trang chủ",
+  "hotel": "Khách sạn",
+  "flights": "Chuyến bay",
+  "all": "Tất cả",
+  "log_out":"Đăng xuất",
+
+  "review": "đánh giá",
+  "night": "đêm",
+  "book_a_room": "Đặt phòng",
+  "room": "Phòng",
+  "room_size": "Kích thước phòng",
+  "guest": "Khách",
+  "guests": "khách",
+  "choose": "Chọn",
+  "select_room":"Chọn phòng",
+
+  "contact_details": "Chi tiết liên hệ",
+  "add_contact": "Thêm liên hệ",
+  "promo_code": "Mã khuyến mãi",
+  "add_promo_code": "Thêm mã khuyến mãi",
+  "booking_date": "Ngày đặt phòng",
+  "check_in": "Check-in",
+  "check_out": "Check-out",
+  "payment": "Thanh toán"
+
+
 }

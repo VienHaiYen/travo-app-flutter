@@ -13,7 +13,7 @@ class BookingFlightInfoBloc
       emit(BookingFlightInfoState(
           flight: state.flight,
           currentBooking: BookingFlight(
-            created_at: event.created_at ?? state.currentBooking.created_at,
+            createdAt: event.createdAt ?? state.currentBooking.createdAt,
             email: event.email == "" ? state.currentBooking.email : event.email,
             guest: event.guest == null || event.guest == []
                 ? state.currentBooking.guest

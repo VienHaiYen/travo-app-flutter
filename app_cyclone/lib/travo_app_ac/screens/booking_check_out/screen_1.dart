@@ -1,7 +1,9 @@
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
+import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
+import 'package:app_cyclone/travo_app_ac/screens/contact_details_screen/contact_details_screen.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDatePicker.dart';
 import 'package:app_cyclone/widgets/button.dart';
@@ -9,6 +11,8 @@ import 'package:app_cyclone/widgets/check_out_option.dart';
 import 'package:app_cyclone/widgets/room_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Screen1BookingRoom extends StatefulWidget {
   const Screen1BookingRoom({super.key});
@@ -36,9 +40,9 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
                 icon: Icons.people,
                 color: const Color.fromRGBO(97, 85, 204, 1),
                 bgColor: const Color.fromRGBO(224, 221, 245, 1)),
-            title: "Contact Details",
+            title: AppLocalizations.of(context)!.contact_details,
             hasButton: true,
-            subAdd: "Add Contact",
+            subAdd: AppLocalizations.of(context)!.add_contact,
             data: BlocProvider.of<BookingInfoBloc>(context)
                     .state
                     .currentBooking
@@ -50,7 +54,16 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
                     .guest![0]
                     .toString()
                 : "",
-            onPressed: () {
+            onPressed: () async {
+              final Guest guest = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ContactDetailsScreen()),
+              );
+              if (guest.email != "") {
+                BlocProvider.of<BookingInfoBloc>(context)
+                    .add(UpdateBookingInfoEvent(guest: [guest]));
+              }
               Navigator.pushNamed(context, '/contact-details');
             }),
         CheckOutOption(
@@ -59,14 +72,14 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
                 color: const Color.fromRGBO(254, 156, 94, 1),
                 bgColor: const Color.fromARGB(66, 254, 155, 94)),
             hasButton: true,
-            title: "Promo code",
+            title: AppLocalizations.of(context)!.promo_caode,
             subAdd: BlocProvider.of<BookingInfoBloc>(context)
                         .state
                         .currentBooking
                         .promo_code !=
                     ""
                 ? ""
-                : "Add Promo Code",
+                : AppLocalizations.of(context)!.add_promo_caode,
             data: BlocProvider.of<BookingInfoBloc>(context)
                 .state
                 .currentBooking
@@ -82,9 +95,9 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Booking Date",
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context)!.booking_date,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +109,7 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
                             icon: Icons.time_to_leave,
                             color: const Color.fromRGBO(247, 119, 119, 1),
                             bgColor: const Color.fromRGBO(237, 197, 197, 1)),
-                        title: "Check-in",
+                        title: AppLocalizations.of(context)!.check_in,
                       ),
                     ),
                     Expanded(
@@ -107,7 +120,7 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
                           color: const Color.fromRGBO(62, 200, 188, 1),
                           bgColor: const Color.fromRGBO(62, 200, 188, 0.477),
                         ),
-                        title: "Check-out",
+                        title: AppLocalizations.of(context)!.check_out,
                       ),
                     )
                   ],

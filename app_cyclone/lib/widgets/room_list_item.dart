@@ -2,6 +2,7 @@ import "package:app_cyclone/travo_app_ac/models/room.dart";
 import "package:app_cyclone/widgets/button.dart";
 import "package:app_cyclone/widgets/hotel_util_list.dart";
 import "package:flutter/material.dart";
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RoomListItem extends StatelessWidget {
   const RoomListItem(
@@ -46,7 +47,7 @@ class RoomListItem extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      'Room Size: ${item.maxGuest} guests',
+                      '${AppLocalizations.of(context)!.room_size}: ${item.maxGuest} ${AppLocalizations.of(context)!.guests}',
                       maxLines: 2,
                     ),
                     const SizedBox(
@@ -84,8 +85,8 @@ class RoomListItem extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          const Text(
-                            '/night',
+                          Text(
+                            '/${AppLocalizations.of(context)!.night}',
                           )
                         ],
                       )
@@ -102,12 +103,12 @@ class RoomListItem extends StatelessWidget {
                               const SizedBox(
                                 width: 10,
                               ),
-                              const Text(
-                                '/night',
+                              Text(
+                                '/${AppLocalizations.of(context)!.night}',
                               )
                             ],
                           ),
-                          Text("1 room")
+                          Text("1 ${AppLocalizations.of(context)!.room}")
                         ],
                       ),
               ),
@@ -118,11 +119,11 @@ class RoomListItem extends StatelessWidget {
                   ? Expanded(
                       child: numberOfRoom == null
                           ? Button(
-                              text: 'Choose',
+                              text: AppLocalizations.of(context)!.choose,
                               onPressed: onTap ?? () {},
                             )
                           : Text(
-                              '$numberOfRoom room',
+                              '$numberOfRoom ${AppLocalizations.of(context)!.room}',
                               textAlign: TextAlign.end,
                             ),
                     )

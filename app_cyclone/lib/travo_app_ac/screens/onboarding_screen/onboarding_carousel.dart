@@ -85,71 +85,69 @@ class CarouselDemo extends StatelessWidget {
     required BuildContext context,
     required CarouselData data,
   }) {
-    return BlocBuilder<LogInBloc, LogInState>(builder: (context, state) {
-      return Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 400,
-              child: Row(
-                mainAxisAlignment: data.direct,
-                children: [
-                  Image.asset(
-                    data.image,
-                    width: data.isFullScreen ? 350 : 300,
-                  ),
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 400,
+            child: Row(
+              mainAxisAlignment: data.direct,
+              children: [
+                Image.asset(
+                  data.image,
+                  width: data.isFullScreen ? 350 : 300,
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data.title,
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(data.description),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Container(
-                      alignment: Alignment.centerRight,
-                      child: Button(
-                          text: data.isEndPage ? "Get Started" : "Next",
-                          onPressed: () {
-                            String token = BlocProvider.of<LogInBloc>(context)
-                                    .state
-                                    .currentUser
-                                    ?.token ??
-                                "";
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  data.title,
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(data.description),
+                const SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    alignment: Alignment.centerRight,
+                    child: Button(
+                        text: data.isEndPage ? "Get Started" : "Next",
+                        onPressed: () {
+                          String token = BlocProvider.of<LogInBloc>(context)
+                                  .state
+                                  .currentUser
+                                  ?.token ??
+                              "";
 
-                            if (data.isEndPage) {
-                              if (token.isNotEmpty) {
-                                Navigator.of(context).pushNamed('/home');
-                              } else {
-                                Navigator.of(context).pushNamed('/log-in');
-                              }
+                          if (data.isEndPage) {
+                            if (token.isNotEmpty) {
+                              Navigator.of(context).pushNamed('/home');
                             } else {
-                              buttonCarouselController.nextPage(
-                                  duration: Duration(milliseconds: 300),
-                                  curve: Curves.linear);
+                              Navigator.of(context).pushNamed('/log-in');
                             }
-                          }))
-                ],
-              ),
+                          } else {
+                            buttonCarouselController.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.linear);
+                          }
+                        }))
+              ],
             ),
-          ],
-        ),
-      );
-    });
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
 import 'package:app_cyclone/travo_app_ac/service/place_service.dart';
 import 'package:app_cyclone/widgets/custom_search_bar.dart';
@@ -55,7 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             MyHeader(
-                context: context, title: 'Home', subTitle: 'Welcome to Home'),
+                context: context,
+                title: AppLocalizations.of(context)!.home,
+                subTitle: AppLocalizations.of(context)!.welcom_to_home),
             const SizedBox(height: 20),
             _bigButtunList(context),
             const SizedBox(height: 20),
@@ -85,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         VerticalIconButton(
-            text: "Hotels",
+            text: AppLocalizations.of(context)!.hotel,
             onPressed: () {
               Navigator.of(context).pushNamed('/hotel');
             },
@@ -98,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
         const SizedBox(width: 30),
         VerticalIconButton(
-            text: "Flights",
+            text: AppLocalizations.of(context)!.flights,
             onPressed: () {
               Navigator.of(context).pushNamed('/flight-detail');
             },
@@ -112,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )),
         const SizedBox(width: 30),
         VerticalIconButton(
-            text: "All",
+            text: AppLocalizations.of(context)!.all,
             onPressed: () {},
             padding: 30,
             color: const Color.fromARGB(255, 162, 216, 178),

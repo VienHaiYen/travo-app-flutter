@@ -1,6 +1,9 @@
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
+import 'package:app_cyclone/travo_app_ac/service/booking_flight_service.dart';
 import 'package:app_cyclone/travo_app_ac/service/booking_service.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDateDisplay.dart';
@@ -22,8 +25,14 @@ class Screen3BookingFlight extends StatefulWidget {
 }
 
 class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
+  Flight get flight =>
+      BlocProvider.of<BookingFlightInfoBloc>(context).state.flight;
   @override
   Widget build(BuildContext context) {
+    print(BlocProvider.of<BookingFlightInfoBloc>(context)
+        .state
+        .currentBooking
+        .toMap());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(children: [
@@ -32,28 +41,34 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
             child: flightInfo()),
-        _buildBill(),
-        MasterCard()
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        //   child: Button(
-        //     text: "Done",
-        //     onPressed: () {
-        //       BookingService.addDataToFirestore(
-        //           BlocProvider.of<BookingInfoBloc>(context)
-        //               .state
-        //               .currentBooking
-        //               .toMap());
-        //     },
-        //     isFullWidth: true,
-        //   ),
-        // )
+        _buildBill(flight.price!),
+        MasterCard(),
+        Button(
+            isFullWidth: true,
+            text: "Pay now",
+            onPressed: () {
+              BlocProvider.of<BookingFlightInfoBloc>(context)
+                  .add(UpdateBookingFlightInfoEvent(createdAt: DateTime.now()));
+              Map<String, dynamic> data =
+                  BlocProvider.of<BookingFlightInfoBloc>(context)
+                      .state
+                      .currentBooking
+                      .toMap();
+              print(data);
+
+              BookingFlightService.addDataToFirestore(data);
+            })
       ]),
     );
   }
 
   Widget flightInfo() {
-    return Column(children: [FlightInfomationItem(), QRDisplay()]);
+    return Column(children: [
+      FlightInfomationItem(
+        flight: flight,
+      ),
+      QRDisplay()
+    ]);
   }
 
   Widget QRDisplay() {
@@ -75,7 +90,7 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
     );
   }
 
-  Widget _buildBill() {
+  Widget _buildBill(int price) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.all(10),
@@ -85,7 +100,7 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text("1 Passenger"),
-            Text('\$215'),
+            Text('\$ $price'),
           ]),
           const SizedBox(
             height: 10,
@@ -105,7 +120,7 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
-              '\$215',
+              '\$ $price',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ])
