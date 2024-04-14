@@ -1,5 +1,6 @@
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_event.dart';
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
 import 'package:app_cyclone/widgets/favorite_icon.dart';
 import 'package:flutter/material.dart';
@@ -28,24 +29,25 @@ class PlaceListItem extends StatelessWidget {
               right: 0,
               child: GestureDetector(
                   onTap: () {},
-                  child: FavoriteIcon(
-                    isInterested: BlocProvider.of<FavoriteBloc>(context)
-                        .state
-                        .places
-                        .contains(item),
-                    onPressed: () {
-                      BlocProvider.of<FavoriteBloc>(context)
-                              .state
-                              .places
-                              .contains(item)
-                          ? BlocProvider.of<FavoriteBloc>(context)
-                              .add(RemoveFavoriteEvent(item))
-                          : BlocProvider.of<FavoriteBloc>(context)
-                              .add(AddFavoriteEvent(item));
-                    },
-                  ))
-              // child: const FavoriteIcon(isInterested: true)),
-              ),
+                  child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                      builder: (context, state) => FavoriteIcon(
+                            isInterested: BlocProvider.of<FavoriteBloc>(context)
+                                .state
+                                .places
+                                .map((item) => item.image)
+                                .contains(item.image),
+                            onPressed: () {
+                              BlocProvider.of<FavoriteBloc>(context)
+                                      .state
+                                      .places
+                                      .map((item) => item.image)
+                                      .contains(item.image)
+                                  ? BlocProvider.of<FavoriteBloc>(context)
+                                      .add(RemoveFavoriteEvent(item))
+                                  : BlocProvider.of<FavoriteBloc>(context)
+                                      .add(AddFavoriteEvent(item));
+                            },
+                          )))),
           Positioned(
             bottom: 0,
             child: Column(
@@ -57,6 +59,7 @@ class PlaceListItem extends StatelessWidget {
                     item.name,
                     style: const TextStyle(
                       fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
@@ -64,12 +67,12 @@ class PlaceListItem extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.only(right: 5),
                   margin: const EdgeInsets.all(5),
-                  color: Colors.white.withOpacity(0.5),
+                  color: const Color.fromARGB(175, 255, 255, 255),
                   child: Row(
                     children: [
                       const Icon(
                         Icons.star,
-                        color: Color.fromARGB(255, 254, 218, 38),
+                        color: Color.fromRGBO(255, 193, 7, 1),
                       ),
                       Text(
                         item.rating.toString(),

@@ -17,8 +17,8 @@ class VerticalIconButton extends StatelessWidget {
   final Color color;
   final Color? textColor;
   final Icon icon;
-  final double? padding;
   final double? angle;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +29,10 @@ class VerticalIconButton extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(25),
               color: color,
             ),
-            padding: padding != null
-                ? EdgeInsets.all(padding!)
-                : const EdgeInsets.all(10),
+            padding: padding ?? const EdgeInsets.all(10),
             child: Transform.rotate(angle: angle ?? 0, child: icon),
           ),
           const SizedBox(

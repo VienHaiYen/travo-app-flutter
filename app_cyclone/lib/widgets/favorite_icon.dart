@@ -6,22 +6,6 @@ class FavoriteIcon extends StatelessWidget {
 
   const FavoriteIcon({super.key, required this.isInterested, this.onPressed});
 
-  Widget buildFavorite(BuildContext context) {
-    if (isInterested) {
-      return const Icon(
-        Icons.favorite,
-        size: 24,
-        color: Colors.pink,
-      );
-    } else {
-      return const Icon(
-        Icons.favorite_border_sharp,
-        size: 24,
-        color: Colors.red,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -29,13 +13,13 @@ class FavoriteIcon extends StatelessWidget {
       icon: isInterested
           ? const Icon(
               Icons.favorite,
-              size: 24,
-              color: Colors.pink,
+              size: 28,
+              color: Color.fromRGBO(247, 119, 119, 1),
             )
           : const Icon(
-              Icons.favorite_border,
-              size: 24,
-              color: Colors.red,
+              Icons.favorite,
+              size: 28,
+              color: Colors.white,
             ),
     );
   }

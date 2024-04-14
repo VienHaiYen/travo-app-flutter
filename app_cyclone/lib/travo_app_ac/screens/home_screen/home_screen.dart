@@ -132,26 +132,55 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               context: context,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             _bigButtunList(context),
-            const SizedBox(height: 20),
+            // const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Popular Destinations",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  TextButton(
+                      onPressed: null,
+                      child: Text(
+                        "See all",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(97, 85, 204, 1),
+                            fontWeight: FontWeight.w600),
+                      ))
+                ],
+              ),
+            ),
             Expanded(
               child: ValueListenableBuilder<List<Place>>(
                 valueListenable: _places,
                 builder: (context, value, child) {
-                  return BlocBuilder<FavoriteBloc, FavoriteState>(
-                      builder: (context, state) {
-                    return MasonryGridView.count(
-                      physics: const ScrollPhysics(),
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                      itemCount: _places.value.length,
-                      itemBuilder: (context, index) {
-                        return PlaceListItem(item: _places.value[index]);
-                      },
-                    );
-                  });
+                  return _places.value.length == 0
+                      ? Column(
+                          children: [
+                            const CircularProgressIndicator(),
+                            Expanded(child: Container())
+                          ],
+                        )
+                      : BlocBuilder<FavoriteBloc, FavoriteState>(
+                          builder: (context, state) {
+                          return MasonryGridView.count(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            physics: const ScrollPhysics(),
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 4,
+                            crossAxisSpacing: 2,
+                            itemCount: _places.value.length,
+                            itemBuilder: (context, index) {
+                              return PlaceListItem(item: _places.value[index]);
+                            },
+                          );
+                        });
                 },
               ),
             )
@@ -160,47 +189,50 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _bigButtunList(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        VerticalIconButton(
-            text: AppLocalizations.of(context)!.hotel,
-            onPressed: () {
-              Navigator.of(context).pushNamed('/hotel');
-            },
-            padding: 30,
-            color: const Color.fromARGB(255, 255, 216, 157),
-            icon: const Icon(
-              Icons.apartment,
-              size: 30,
-              color: Colors.orange,
-            )),
-        const SizedBox(width: 30),
-        VerticalIconButton(
-            text: AppLocalizations.of(context)!.flights,
-            onPressed: () {
-              Navigator.of(context).pushNamed('/flight-detail');
-            },
-            padding: 30,
-            color: const Color.fromARGB(255, 255, 183, 157),
-            angle: math.pi / 6,
-            icon: const Icon(
-              Icons.flight,
-              size: 30,
-              color: Color.fromARGB(255, 255, 77, 0),
-            )),
-        const SizedBox(width: 30),
-        VerticalIconButton(
-            text: AppLocalizations.of(context)!.all,
-            onPressed: () {},
-            padding: 30,
-            color: const Color.fromARGB(255, 162, 216, 178),
-            icon: const Icon(
-              Icons.apartment,
-              size: 30,
-              color: Color.fromARGB(255, 0, 157, 45),
-            ))
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          VerticalIconButton(
+              text: AppLocalizations.of(context)!.hotel,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/hotel');
+              },
+              padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
+              color: const Color.fromARGB(61, 254, 155, 94),
+              icon: const Icon(
+                Icons.apartment,
+                size: 30,
+                color: Color.fromRGBO(254, 156, 94, 1),
+              )),
+          const SizedBox(width: 20),
+          VerticalIconButton(
+              text: AppLocalizations.of(context)!.flights,
+              onPressed: () {
+                Navigator.of(context).pushNamed('/flight-detail');
+              },
+              padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
+              color: const Color.fromARGB(62, 247, 119, 119),
+              angle: math.pi / 6,
+              icon: const Icon(
+                Icons.flight,
+                size: 30,
+                color: Color.fromRGBO(247, 119, 119, 1),
+              )),
+          const SizedBox(width: 20),
+          VerticalIconButton(
+              text: AppLocalizations.of(context)!.all,
+              onPressed: () {},
+              padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 30),
+              color: const Color.fromARGB(53, 62, 200, 188),
+              icon: const Icon(
+                Icons.apartment,
+                size: 30,
+                color: Color.fromRGBO(62, 200, 188, 1),
+              ))
+        ],
+      ),
     );
   }
 }
