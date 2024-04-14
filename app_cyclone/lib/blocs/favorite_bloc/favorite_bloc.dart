@@ -5,12 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FavoriteBloc() : super(FavoriteState.initial()) {
     on<AddFavoriteEvent>((event, emit) {
-      emit(FavoriteState(images: [...state.images, event.img]));
+      emit(FavoriteState(places: [...state.places, event.place]));
     });
     on<RemoveFavoriteEvent>((event, emit) {
       emit(FavoriteState(
-          images:
-              state.images.where((element) => element != event.img).toList()));
+          places: state.places
+              .where((element) => element != event.place)
+              .toList()));
     });
   }
 }

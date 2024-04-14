@@ -11,6 +11,7 @@ import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/ticket_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TicketScreen extends StatelessWidget {
   TicketScreen({super.key, required this.searchData});
@@ -35,14 +36,14 @@ class TicketScreen extends StatelessWidget {
               child: Column(children: [
                 MyHeader(
                   context: context,
-                  title: 'Review',
+                  title: AppLocalizations.of(context)!.book_your_flight,
                   rightButton: IconButton(
                       color: Colors.black,
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all<Color>(
                             const Color.fromARGB(255, 255, 255, 255)),
                       ),
-                      icon: Icon(Icons.filter_list_alt),
+                      icon: const Icon(Icons.filter_list_alt),
                       onPressed: () {
                         showModalBottomSheet<void>(
                           context: context,
@@ -63,40 +64,40 @@ class TicketScreen extends StatelessWidget {
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  const Text('Transit'),
-                                  ValueListenableBuilder(
-                                    valueListenable: typeFlightBooking,
-                                    builder: (context, value, child) => Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Button(
-                                          text: "One way",
-                                          onPressed: () {
-                                            typeFlightBooking.value = 0;
-                                          },
-                                          color: const Color.fromRGBO(
-                                              254, 156, 94, 1),
-                                        ),
-                                        Button(
-                                          text: "Rounded trip",
-                                          onPressed: () {
-                                            typeFlightBooking.value = 1;
-                                          },
-                                          color: const Color.fromRGBO(
-                                              254, 156, 94, 1),
-                                        ),
-                                        Button(
-                                          text: "Multi-City",
-                                          onPressed: () {
-                                            typeFlightBooking.value = 2;
-                                          },
-                                          color: const Color.fromRGBO(
-                                              254, 156, 94, 1),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // const Text('Transit'),
+                                  // ValueListenableBuilder(
+                                  //   valueListenable: typeFlightBooking,
+                                  //   builder: (context, value, child) => Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceEvenly,
+                                  //     children: [
+                                  //       Button(
+                                  //         text: "One way",
+                                  //         onPressed: () {
+                                  //           typeFlightBooking.value = 0;
+                                  //         },
+                                  //         color: const Color.fromRGBO(
+                                  //             254, 156, 94, 1),
+                                  //       ),
+                                  //       Button(
+                                  //         text: "Rounded trip",
+                                  //         onPressed: () {
+                                  //           typeFlightBooking.value = 1;
+                                  //         },
+                                  //         color: const Color.fromRGBO(
+                                  //             254, 156, 94, 1),
+                                  //       ),
+                                  //       Button(
+                                  //         text: "Multi-City",
+                                  //         onPressed: () {
+                                  //           typeFlightBooking.value = 2;
+                                  //         },
+                                  //         color: const Color.fromRGBO(
+                                  //             254, 156, 94, 1),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   const CustomRangeSlider(max: 1000),
                                   CheckOutOption(
                                     hasButton: false,

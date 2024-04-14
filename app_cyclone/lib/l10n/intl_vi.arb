@@ -31,7 +31,20 @@
   "booking_date": "Ngày đặt phòng",
   "check_in": "Check-in",
   "check_out": "Check-out",
-  "payment": "Thanh toán"
+  "payment": "Thanh toán",
+
+  "one_way": "Một chiều",
+  "round_way": "Hai chiều",
+  "muti_city": "Đa điểm",
+  "from": "Từ",
+  "to": "Đến",
+  "departure": "Khởi hành",
+  "arrival": "Đến nơi",
+  "passenger": "Hành khách",
+  "economy": "Hạng phổ thông",
+  "business": "Hạng doanh nhân",
+  "search": "Tìm kiếm",
+  "book_your_flight": "Đặt chuyến bay"
 
 
 }

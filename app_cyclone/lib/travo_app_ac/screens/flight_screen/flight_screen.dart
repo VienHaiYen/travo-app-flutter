@@ -1,6 +1,4 @@
 import 'dart:math' as math;
-import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
-import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDatePicker.dart';
@@ -8,12 +6,8 @@ import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/common_icon_textfield.dart';
 import 'package:app_cyclone/widgets/custom_dropdown_button.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
-import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FlightScreen extends StatefulWidget {
   const FlightScreen({Key? key}) : super(key: key);
@@ -50,7 +44,7 @@ class _FlightScreenState extends State<FlightScreen> {
         body: Column(children: [
           MyHeader(
             context: context,
-            title: 'Book Your Flight',
+            title: AppLocalizations.of(context)!.book_your_flight,
           ),
           Expanded(
               child: Padding(
@@ -68,7 +62,7 @@ class _FlightScreenState extends State<FlightScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Button(
-                          text: "One way",
+                          text: AppLocalizations.of(context)!.one_way,
                           onPressed: () {
                             typeFlightBooking.value = 0;
                           },
@@ -80,7 +74,7 @@ class _FlightScreenState extends State<FlightScreen> {
                               : const Color.fromRGBO(254, 156, 94, 1),
                         ),
                         Button(
-                          text: "Rounded trip",
+                          text: AppLocalizations.of(context)!.round_way,
                           onPressed: () {
                             typeFlightBooking.value = 1;
                           },
@@ -92,7 +86,7 @@ class _FlightScreenState extends State<FlightScreen> {
                               : const Color.fromRGBO(254, 156, 94, 1),
                         ),
                         Button(
-                          text: "Multi-City",
+                          text: AppLocalizations.of(context)!.muti_city,
                           onPressed: () {
                             typeFlightBooking.value = 2;
                           },
@@ -140,7 +134,7 @@ class _FlightScreenState extends State<FlightScreen> {
                         ],
                       ),
                       controller: _fromController,
-                      label: "From"),
+                      label: AppLocalizations.of(context)!.from),
                   CommonIconTextfield(
                       icon: const Column(
                         children: [
@@ -157,7 +151,7 @@ class _FlightScreenState extends State<FlightScreen> {
                         ],
                       ),
                       controller: _toController,
-                      label: "To"),
+                      label: AppLocalizations.of(context)!.to),
                   const SizedBox(height: 10),
                   Container(
                       color: Colors.white,
@@ -170,7 +164,7 @@ class _FlightScreenState extends State<FlightScreen> {
                               bgColor:
                                   const Color.fromRGBO(254, 155, 94, 0.315)),
                           MyDatePicker(
-                              title: "Departure",
+                              title: AppLocalizations.of(context)!.departure,
                               selectedDate: _departureDateController)
                         ],
                       )),
@@ -192,7 +186,8 @@ class _FlightScreenState extends State<FlightScreen> {
                                           bgColor: const Color.fromRGBO(
                                               254, 155, 94, 0.315)),
                                       MyDatePicker(
-                                          title: "Departure",
+                                          title: AppLocalizations.of(context)!
+                                              .departure,
                                           selectedDate: _returnDateController)
                                     ],
                                   )),
@@ -208,7 +203,7 @@ class _FlightScreenState extends State<FlightScreen> {
                           bgColor: const Color.fromRGBO(247, 119, 119, 0.4)),
                       controller: _numberPassengerController,
                       changeable: false,
-                      label: "Passengers"),
+                      label: AppLocalizations.of(context)!.passenger),
                   const SizedBox(height: 10),
                   Container(
                       color: Colors.white,
@@ -221,10 +216,9 @@ class _FlightScreenState extends State<FlightScreen> {
                               bgColor: const Color.fromARGB(88, 62, 200, 188)),
                           Expanded(
                             child: CustomDropdownButton(
-                              items: const [
-                                "Economy",
-                                "Business",
-                                "First Class"
+                              items: [
+                                AppLocalizations.of(context)!.economy,
+                                AppLocalizations.of(context)!.business,
                               ],
                               label: "Class",
                               selectItem: _classController,

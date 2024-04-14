@@ -1,13 +1,15 @@
+import 'package:app_cyclone/travo_app_ac/models/place.dart';
+
 abstract class FavoriteEvent {}
 
 class AddFavoriteEvent extends FavoriteEvent {
-  final String img;
+  final Place place;
 
-  AddFavoriteEvent(this.img);
+  AddFavoriteEvent(this.place);
 }
 
 class RemoveFavoriteEvent extends FavoriteEvent {
-  final String img;
+  final Place place;
 
-  RemoveFavoriteEvent(this.img);
+  RemoveFavoriteEvent(this.place);
 }

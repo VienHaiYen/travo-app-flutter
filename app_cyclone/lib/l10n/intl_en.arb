@@ -31,5 +31,18 @@
   "booking_date": "Booking Date",
   "check_in": "Check-in",
   "check_out": "Check-out",
-  "payment": "Payment"
+  "payment": "Payment",
+
+  "one_way": "One Way",
+  "round_way": "Round Way",
+  "muti_city": "Multi city",
+  "from": "From",
+  "to": "To",
+  "departure": "Departure",
+  "arrival": "Arrive",
+  "passenger": "Passenger",
+  "economy": "Economy",
+  "business": "Business",
+  "search": "Search",
+  "book_your_flight": "Book your flight"
 }

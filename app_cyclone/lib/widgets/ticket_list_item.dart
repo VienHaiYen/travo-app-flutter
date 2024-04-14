@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TicketListItem extends StatelessWidget {
   const TicketListItem({super.key, required this.item});
@@ -50,7 +51,7 @@ class TicketListItem extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Departure"),
+                            Text(AppLocalizations.of(context)!.departure),
                             Text(
                               DateFormat('jmz')
                                   .format(item.departure_time!.toDate()),
@@ -58,7 +59,7 @@ class TicketListItem extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             Expanded(child: Container()),
-                            Text("Flight No."),
+                            const Text("Flight No."),
                             Text(
                               item.no!,
                               style: TextStyle(
@@ -69,7 +70,7 @@ class TicketListItem extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Arrive"),
+                            Text(AppLocalizations.of(context)!.arrival),
                             Text(
                               DateFormat('jmz')
                                   .format(item.arrive_time!.toDate()),

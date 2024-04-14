@@ -1,5 +1,6 @@
 import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_bloc.dart';
 import 'package:app_cyclone/blocs/language_bloc/language_state.dart';
@@ -36,6 +37,7 @@ class MyMaterialApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => BookingInfoBloc()),
           BlocProvider(
               create: (BuildContext context) => BookingFlightInfoBloc()),
+          BlocProvider(create: (BuildContext context) => FavoriteBloc()),
         ],
         child:
             BlocBuilder<LanguageBloc, LanguageState>(builder: (context, state) {

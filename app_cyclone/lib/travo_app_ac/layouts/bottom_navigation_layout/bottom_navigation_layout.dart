@@ -1,3 +1,4 @@
+import "package:app_cyclone/travo_app_ac/screens/favorite_screen/favorite_screen.dart";
 import "package:app_cyclone/travo_app_ac/screens/home_screen/home_screen.dart";
 import "package:app_cyclone/travo_app_ac/screens/user_screen/user_screen.dart";
 import "package:app_cyclone/widgets/button.dart";
@@ -20,10 +21,7 @@ class _BottomNavigationLayoutState extends State<BottomNavigationLayout> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
-    Text(
-      'Notify',
-      style: optionStyle,
-    ),
+    FavoriteScreen(),
     Text(
       'Notify',
       style: optionStyle,
@@ -53,26 +51,21 @@ class _BottomNavigationLayoutState extends State<BottomNavigationLayout> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.grey,
-            ),
-            activeIcon: Icon(
-              Icons.home,
-              color: Color.fromARGB(255, 122, 31, 138),
-            ),
+            icon: Icon(Icons.home, color: Color.fromRGBO(97, 85, 204, 1)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Colors.grey),
+            icon: Icon(Icons.favorite, color: Color.fromRGBO(97, 85, 204, 1)),
             label: 'Favorite',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.briefcase, color: Colors.grey),
+            icon: Icon(FontAwesomeIcons.briefcase,
+                color: Color.fromRGBO(97, 85, 204, 1)),
             label: 'Work',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.user, color: Colors.grey),
+            icon: Icon(FontAwesomeIcons.user,
+                color: Color.fromRGBO(97, 85, 204, 1)),
             label: 'User',
           ),
         ],

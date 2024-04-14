@@ -1,5 +1,9 @@
 import 'dart:math' as math;
 
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_event.dart';
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
+import 'package:app_cyclone/widgets/place_list_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
@@ -67,16 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ValueListenableBuilder<List<Place>>(
                 valueListenable: _places,
                 builder: (context, value, child) {
-                  return MasonryGridView.count(
-                    physics: const ScrollPhysics(),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 4,
-                    crossAxisSpacing: 4,
-                    itemCount: _places.value.length,
-                    itemBuilder: (context, index) {
-                      return placeItem(_places.value[index]);
-                    },
-                  );
+                  return BlocBuilder<FavoriteBloc, FavoriteState>(
+                      builder: (context, state) {
+                    return MasonryGridView.count(
+                      physics: const ScrollPhysics(),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 4,
+                      crossAxisSpacing: 4,
+                      itemCount: _places.value.length,
+                      itemBuilder: (context, index) {
+                        return PlaceListItem(item: _places.value[index]);
+                      },
+                    );
+                  });
                 },
               ),
             )
@@ -126,66 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Color.fromARGB(255, 0, 157, 45),
             ))
       ],
-    );
-  }
-
-  Widget placeItem(Place item) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      width: double.infinity,
-      child: Stack(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              item.image,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned(
-              right: 0,
-              child: GestureDetector(
-                  onTap: () {}, child: FavoriteIcon(isInterested: false))
-              // child: const FavoriteIcon(isInterested: true)),
-              ),
-          Positioned(
-            bottom: 0,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: Text(
-                    item.name,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(right: 5),
-                  margin: const EdgeInsets.all(5),
-                  color: Colors.white.withOpacity(0.5),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Color.fromARGB(255, 254, 218, 38),
-                      ),
-                      Text(
-                        item.rating.toString(),
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.black),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }

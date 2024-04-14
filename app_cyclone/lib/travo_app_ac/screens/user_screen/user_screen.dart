@@ -17,51 +17,57 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DropdownButtonExample(),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     ElevatedButton(
-          //       style: ElevatedButton.styleFrom(
-          //         backgroundColor: Colors.blueGrey,
-          //       ),
-          //       onPressed: () {
-          //         BlocProvider.of<LanguageBloc>(context)
-          //             .add(ChangeLanguage("en"));
-          //       },
-          //       child: Text(AppLocalizations.of(context)!.english,
-          //           style: const TextStyle(color: Colors.white)),
-          //     ),
-          //     const SizedBox(width: 10),
-          //     ElevatedButton(
-          //       style: ElevatedButton.styleFrom(
-          //         backgroundColor: Colors.deepOrange,
-          //       ),
-          //       onPressed: () {
-          //         BlocProvider.of<LanguageBloc>(context)
-          //             .add(ChangeLanguage("vi"));
-          //       },
-          //       child: Text(AppLocalizations.of(context)!.vietnamese,
-          //           style: const TextStyle(color: Colors.white)),
-          //     ),
-          //   ],
-          // ),
-          Button(
-              text: "Log out",
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  RouteName.logIn,
-                  (route) => false,
-                );
-                BlocProvider.of<LogInBloc>(context).add(ChangeLogInEvent(
-                    currentUser: null, isLoading: false, isSuccess: false));
-                // authProvider.token = "";
-              }),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButtonExample(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.blueGrey,
+            //       ),
+            //       onPressed: () {
+            //         BlocProvider.of<LanguageBloc>(context)
+            //             .add(ChangeLanguage("en"));
+            //       },
+            //       child: Text(AppLocalizations.of(context)!.english,
+            //           style: const TextStyle(color: Colors.white)),
+            //     ),
+            //     const SizedBox(width: 10),
+            //     ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         backgroundColor: Colors.deepOrange,
+            //       ),
+            //       onPressed: () {
+            //         BlocProvider.of<LanguageBloc>(context)
+            //             .add(ChangeLanguage("vi"));
+            //       },
+            //       child: Text(AppLocalizations.of(context)!.vietnamese,
+            //           style: const TextStyle(color: Colors.white)),
+            //     ),
+            //   ],
+            // ),
+
+            SizedBox(height: 20),
+            Button(
+                isFullWidth: true,
+                text: AppLocalizations.of(context)!.log_out,
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.logIn,
+                    (route) => false,
+                  );
+                  BlocProvider.of<LogInBloc>(context).add(ChangeLogInEvent(
+                      currentUser: null, isLoading: false, isSuccess: false));
+                  // authProvider.token = "";
+                }),
+          ],
+        ),
       ),
     );
   }
@@ -84,28 +90,31 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blueGrey),
       ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        BlocProvider.of<LanguageBloc>(context).add(ChangeLanguage(value!));
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      items: list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
+      child: DropdownButton<String>(
+        isExpanded: true,
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        style: const TextStyle(color: Colors.deepPurple),
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          BlocProvider.of<LanguageBloc>(context).add(ChangeLanguage(value!));
+          setState(() {
+            dropdownValue = value!;
+          });
+        },
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
     );
   }
 }
