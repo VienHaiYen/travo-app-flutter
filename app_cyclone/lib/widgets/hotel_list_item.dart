@@ -31,7 +31,7 @@ class HotelListItem extends StatelessWidget {
           children: [
             Container(
                 width: double.infinity,
-                height: 150,
+                height: 130,
                 margin: const EdgeInsets.only(right: 30),
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -61,11 +61,11 @@ class HotelListItem extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(
-                        Icons.location_city,
+                        Icons.location_on,
                         color: Colors.red,
                       ),
                       const SizedBox(
-                        width: 10,
+                        width: 8,
                       ),
                       Text(
                         item.location ?? "",
@@ -74,7 +74,7 @@ class HotelListItem extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 8,
                   ),
                   Row(
                     children: [
@@ -89,7 +89,7 @@ class HotelListItem extends StatelessWidget {
                         item.rating.toString(),
                       ),
                       Text(
-                        ' (${item.totalReview ?? "no "} reviews)',
+                        ' (${item.totalReview ?? "no "} ${AppLocalizations.of(context)!.reviews})',
                       ),
                     ],
                   ),
@@ -105,7 +105,7 @@ class HotelListItem extends StatelessWidget {
                             Text(
                               '\$${item.price.toString()}',
                               style: const TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.w500),
+                                  fontSize: 24, fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
                               height: 10,

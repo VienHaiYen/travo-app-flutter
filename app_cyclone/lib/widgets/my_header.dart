@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyHeader extends StatelessWidget {
   const MyHeader(
@@ -56,10 +57,11 @@ class MyHeader extends StatelessWidget {
                 ? Container()
                 : Text(
                     title!,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.montserrat().fontFamily,
                     ),
                   ),
             const SizedBox(height: 10),

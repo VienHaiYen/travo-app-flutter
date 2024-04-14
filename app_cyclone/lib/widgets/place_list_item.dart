@@ -43,9 +43,9 @@ class PlaceListItem extends StatelessWidget {
                                       .map((item) => item.image)
                                       .contains(item.image)
                                   ? BlocProvider.of<FavoriteBloc>(context)
-                                      .add(RemoveFavoriteEvent(item))
+                                      .add(RemoveFavoritePlaceEvent(item))
                                   : BlocProvider.of<FavoriteBloc>(context)
-                                      .add(AddFavoriteEvent(item));
+                                      .add(AddFavoritePlaceEvent(item));
                             },
                           )))),
           Positioned(

@@ -1,7 +1,12 @@
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_event.dart';
+import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
 import 'package:app_cyclone/widgets/button.dart';
+import 'package:app_cyclone/widgets/favorite_icon.dart';
 import 'package:app_cyclone/widgets/hotel_util_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DetailHotelScreen extends StatefulWidget {
@@ -37,6 +42,7 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                 Navigator.of(context).pop();
               },
               child: Container(
+                margin: const EdgeInsets.only(top: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
                     10,
@@ -46,7 +52,7 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                 padding: const EdgeInsets.all(8),
                 child: const Icon(
                   FontAwesomeIcons.arrowLeft,
-                  size: 10,
+                  size: 25,
                   color: Colors.black,
                 ),
               ),
@@ -56,24 +62,41 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
             top: 10 * 3,
             right: 10,
             child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  ),
-                  color: Colors.white,
-                ),
-                padding: const EdgeInsets.all(8),
-                child: const Icon(
-                  FontAwesomeIcons.solidHeart,
-                  size: 10,
-                  color: Colors.red,
-                ),
-              ),
-            ),
+                onTap: () {},
+                child: BlocBuilder<FavoriteBloc, FavoriteState>(
+                    builder: (context, state) => Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                          color: Colors.white,
+                        ),
+                        child: FavoriteIcon(
+                          isBorderIcon: true,
+                          isInterested: BlocProvider.of<FavoriteBloc>(context)
+                              .state
+                              .hotels
+                              .map((item) => item.id)
+                              .contains(widget.item.id),
+                          onPressed: () {
+                            BlocProvider.of<FavoriteBloc>(context)
+                                    .state
+                                    .hotels
+                                    .map((item) => item.id)
+                                    .contains(widget.item.id)
+                                ? BlocProvider.of<FavoriteBloc>(context)
+                                    .add(RemoveFavoriteHotelEvent(widget.item))
+                                : BlocProvider.of<FavoriteBloc>(context)
+                                    .add(AddFavoriteHotelEvent(widget.item));
+                          },
+                        )
+
+                        //  FavoriteIcon(
+                        //
+
+                        // ),
+                        ))),
           ),
           DraggableScrollableSheet(
             initialChildSize: 0.3,
@@ -93,7 +116,7 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                   children: [
                     Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       child: Container(
                         height: 5,
                         width: 60,
@@ -181,9 +204,9 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                                     child: const Text(
                                       'See All',
                                       style: TextStyle(
-                                          color: Colors.purple,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w400),
+                                          color: Color.fromRGBO(97, 85, 204, 1),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ),
                                 ],

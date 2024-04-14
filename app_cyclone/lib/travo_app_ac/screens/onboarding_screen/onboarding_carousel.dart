@@ -77,7 +77,7 @@ class CarouselDemo extends StatelessWidget {
                 onPageChanged: (index, reason) {
                   currentPage.value = index;
                 },
-                height: 60,
+                height: 630,
                 autoPlay: false,
                 enlargeCenterPage: true,
                 enableInfiniteScroll: false,

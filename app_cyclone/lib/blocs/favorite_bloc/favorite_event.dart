@@ -1,15 +1,28 @@
+import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
 
 abstract class FavoriteEvent {}
 
-class AddFavoriteEvent extends FavoriteEvent {
+class AddFavoritePlaceEvent extends FavoriteEvent {
   final Place place;
 
-  AddFavoriteEvent(this.place);
+  AddFavoritePlaceEvent(this.place);
 }
 
-class RemoveFavoriteEvent extends FavoriteEvent {
+class RemoveFavoritePlaceEvent extends FavoriteEvent {
   final Place place;
 
-  RemoveFavoriteEvent(this.place);
+  RemoveFavoritePlaceEvent(this.place);
+}
+
+class AddFavoriteHotelEvent extends FavoriteEvent {
+  final Hotel hotel;
+
+  AddFavoriteHotelEvent(this.hotel);
+}
+
+class RemoveFavoriteHotelEvent extends FavoriteEvent {
+  final Hotel hotel;
+
+  RemoveFavoriteHotelEvent(this.hotel);
 }

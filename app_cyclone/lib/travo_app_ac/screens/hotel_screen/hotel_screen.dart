@@ -41,7 +41,6 @@ class _HotelScreenState extends State<HotelScreen> {
               context: context,
               title: AppLocalizations.of(context)!.hotel,
             ),
-            const SizedBox(height: 20),
             Expanded(
               child: ValueListenableBuilder<List<Hotel>>(
                   valueListenable: _hotels,
