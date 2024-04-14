@@ -138,7 +138,9 @@ class LoginScreen extends StatelessWidget {
                         Future.delayed(const Duration(seconds: 0), () {
                           if (token.isNotEmpty) {
                             var currUser = UserInfo_(
-                                email: _emailController.text, token: token);
+                              email: _emailController.text,
+                              token: token,
+                            );
                             BlocProvider.of<LogInBloc>(context).add(
                                 ChangeLogInEvent(
                                     isLoading: false,
@@ -166,15 +168,11 @@ class LoginScreen extends StatelessWidget {
                           RouteName.home,
                           (route) => false,
                         );
-                        // saveAccount(
-                        //     _emailController.text, _passwordController.text);
                       }
                     } catch (e) {
                       notCorrectAccount.value = true;
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Login failed")));
-                      // ScaffoldMessenger.of(context)
-                      //     .showSnackBar(SnackBar(content: Text(e.toString())));
                       BlocProvider.of<LogInBloc>(context).add(
                           ChangeLogInEvent(isLoading: false, isSuccess: false));
                     }

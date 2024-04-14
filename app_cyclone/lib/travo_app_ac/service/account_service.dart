@@ -21,7 +21,6 @@ class AccountService {
   }
 
   static Future<AccountInfo?> fetchData(email) async {
-    print("789");
     try {
       final snapshots = await FirebaseFirestore.instance
           .collection('user')
