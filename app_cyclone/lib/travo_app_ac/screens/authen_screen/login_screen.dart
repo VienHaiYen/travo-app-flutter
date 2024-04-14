@@ -66,6 +66,7 @@ class LoginScreen extends StatelessWidget {
               controller: _emailController,
               validate: ValidateRegex.isEmail,
             ),
+            const SizedBox(height: 10),
             PasswordTextfield(
               controller: _passwordController,
               validate: ValidateRegex.isPassword,

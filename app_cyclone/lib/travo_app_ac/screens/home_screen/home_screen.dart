@@ -1,20 +1,20 @@
 import 'dart:math' as math;
 
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
-import 'package:app_cyclone/blocs/favorite_bloc/favorite_event.dart';
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
+import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
+import 'package:app_cyclone/travo_app_ac/models/account_info.dart';
+import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
+import 'package:app_cyclone/travo_app_ac/service/account_service.dart';
 import 'package:app_cyclone/widgets/place_list_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
 import 'package:app_cyclone/travo_app_ac/service/place_service.dart';
-import 'package:app_cyclone/widgets/custom_search_bar.dart';
-import 'package:app_cyclone/widgets/favorite_icon.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/vertical_icon_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -41,6 +41,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _searchController = TextEditingController();
   final ValueNotifier<List<Place>> _places = ValueNotifier<List<Place>>([]);
+  final ValueNotifier<AccountInfo?> acc = ValueNotifier<AccountInfo?>(null);
 
   @override
   void initState() {
@@ -52,9 +53,16 @@ class _HomeScreenState extends State<HomeScreen> {
     _places.value = await PlaceService.fetchData();
   }
 
+  UserInfo_? get user => BlocProvider.of<LogInBloc>(context).state.currentUser;
+
+  void getAccount() async {
+    acc.value = await AccountService.fetchData(user!.email);
+  }
+
   @override
   Widget build(BuildContext context) {
     getPlaces();
+    getAccount();
 
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),

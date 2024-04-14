@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class CommonTextfield extends StatelessWidget {
   CommonTextfield(
       {super.key,
-      required this.label,
+       this.label,
       required this.controller,
       this.changeable,
       this.validate});
 
-  final String label;
+  final String? label;
   final TextEditingController controller;
   final Function(String)? validate;
   final bool? changeable;

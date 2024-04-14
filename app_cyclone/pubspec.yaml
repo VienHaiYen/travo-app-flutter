@@ -28,6 +28,8 @@ dependencies:
   syncfusion_flutter_datepicker: ^25.1.38
   dotted_line: ^3.2.2
   book_my_seat: ^1.0.1
+  intl_phone_field: ^3.1.0
+  phone_form_field: 3.0.1
 
 dev_dependencies:
   flutter_test:
