@@ -4,13 +4,15 @@ class MyHeader extends StatelessWidget {
   const MyHeader(
       {super.key,
       required this.context,
-      required this.title,
+      this.topWidget,
+      this.title,
       this.subTitle,
       this.stepLine,
       this.rightButton});
 
   final BuildContext context;
-  final String title;
+  final Widget? topWidget;
+  final String? title;
   final String? subTitle;
   final Widget? stepLine;
   final Widget? rightButton;
@@ -49,14 +51,17 @@ class MyHeader extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            topWidget ?? Container(),
+            title == null
+                ? Container()
+                : Text(
+                    title!,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
             const SizedBox(height: 10),
             subTitle == null
                 ? Container()
