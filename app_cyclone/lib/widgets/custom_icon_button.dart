@@ -28,7 +28,7 @@ class CustomIconButton extends StatelessWidget {
       child: Row(
         children: [
           icon,
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Text(
             text,
             style: TextStyle(color: textColor),

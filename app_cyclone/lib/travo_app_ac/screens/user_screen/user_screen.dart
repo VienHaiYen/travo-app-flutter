@@ -1,3 +1,5 @@
+import "package:flutter/cupertino.dart";
+import "package:flutter/widgets.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import "package:app_cyclone/blocs/language_bloc/language_bloc.dart";
@@ -22,37 +24,27 @@ class UserScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DropdownButtonExample(),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     ElevatedButton(
-            //       style: ElevatedButton.styleFrom(
-            //         backgroundColor: Colors.blueGrey,
-            //       ),
-            //       onPressed: () {
-            //         BlocProvider.of<LanguageBloc>(context)
-            //             .add(ChangeLanguage("en"));
-            //       },
-            //       child: Text(AppLocalizations.of(context)!.english,
-            //           style: const TextStyle(color: Colors.white)),
-            //     ),
-            //     const SizedBox(width: 10),
-            //     ElevatedButton(
-            //       style: ElevatedButton.styleFrom(
-            //         backgroundColor: Colors.deepOrange,
-            //       ),
-            //       onPressed: () {
-            //         BlocProvider.of<LanguageBloc>(context)
-            //             .add(ChangeLanguage("vi"));
-            //       },
-            //       child: Text(AppLocalizations.of(context)!.vietnamese,
-            //           style: const TextStyle(color: Colors.white)),
-            //     ),
-            //   ],
-            // ),
-
-            SizedBox(height: 20),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(color: Colors.blueGrey, width: 3),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network(
+                  "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
+                  height: 200,
+                  width: 200,
+                ),
+              ),
+            ),
+            const SizedBox(height: 50),
+            Container(
+                alignment: Alignment.centerLeft,
+                child: Text(AppLocalizations.of(context)!.tranlate)),
+            const SizedBox(height: 5),
+            const DropdownButtonExample(),
+            const SizedBox(height: 20),
             Button(
                 isFullWidth: true,
                 text: AppLocalizations.of(context)!.log_out,

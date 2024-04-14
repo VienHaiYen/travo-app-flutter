@@ -77,7 +77,7 @@ class CarouselDemo extends StatelessWidget {
                 onPageChanged: (index, reason) {
                   currentPage.value = index;
                 },
-                height: 670,
+                height: 60,
                 autoPlay: false,
                 enlargeCenterPage: true,
                 enableInfiniteScroll: false,
@@ -85,38 +85,41 @@ class CarouselDemo extends StatelessWidget {
                 initialPage: 0,
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-               child:
-               ValueListenableBuilder(
-                      valueListenable: currentPage,
-                      builder: (context, value, child) {
-                        return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  onBoardingState(value),
-                  Button(
-                      text: value== list.length-1 ? "Get Started" : "Next",
-                      onPressed: () {
-                        String token = BlocProvider.of<LogInBloc>(context)
-                                .state
-                                .currentUser
-                                ?.token ??
-                            "";
-                        if (value == list.length - 1) {
-                          if (token.isNotEmpty) {
-                            Navigator.of(context).pushNamed('/home');
-                          } else {
-                            Navigator.of(context).pushNamed('/log-in');
-                          }
-                        } else {
-                          buttonCarouselController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.linear);
-                        }
-                      }),
-                ],);},
-             ),)
+              child: ValueListenableBuilder(
+                valueListenable: currentPage,
+                builder: (context, value, child) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      onBoardingState(value),
+                      Button(
+                          text:
+                              value == list.length - 1 ? "Get Started" : "Next",
+                          onPressed: () {
+                            String token = BlocProvider.of<LogInBloc>(context)
+                                    .state
+                                    .currentUser
+                                    ?.token ??
+                                "";
+                            if (value == list.length - 1) {
+                              if (token.isNotEmpty) {
+                                Navigator.of(context).pushNamed('/home');
+                              } else {
+                                Navigator.of(context).pushNamed('/log-in');
+                              }
+                            } else {
+                              buttonCarouselController.nextPage(
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.linear);
+                            }
+                          }),
+                    ],
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -170,22 +173,26 @@ class CarouselDemo extends StatelessWidget {
     );
   }
 
-  Widget onBoardingState(int state){
+  Widget onBoardingState(int state) {
     return Expanded(
-      child: Row(
-        children: [
-          ...List.generate(3, (index) =>state!=index? const DottedLine(
-          dashColor: Color.fromRGBO(216, 216, 216, 1),
-          lineLength: 10,
-          lineThickness: 5,
-          dashRadius: 10,
-        ): const DottedLine(
-          dashColor: Color.fromRGBO(254, 156, 94, 1),
-          lineLength: 25,
-          dashLength: 20,
-          lineThickness: 5,
-          dashRadius: 10,))]
-      ),
+      child: Row(children: [
+        ...List.generate(
+            3,
+            (index) => state != index
+                ? const DottedLine(
+                    dashColor: Color.fromRGBO(216, 216, 216, 1),
+                    lineLength: 10,
+                    lineThickness: 5,
+                    dashRadius: 10,
+                  )
+                : const DottedLine(
+                    dashColor: Color.fromRGBO(254, 156, 94, 1),
+                    lineLength: 25,
+                    dashLength: 20,
+                    lineThickness: 5,
+                    dashRadius: 10,
+                  ))
+      ]),
     );
   }
 }

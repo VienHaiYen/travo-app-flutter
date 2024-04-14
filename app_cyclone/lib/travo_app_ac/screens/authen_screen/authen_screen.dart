@@ -47,7 +47,7 @@ class AuthenScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Align(
               alignment: Alignment.topLeft,
               child: FloatingActionButton(
@@ -58,7 +58,7 @@ class AuthenScreen extends StatelessWidget {
                 child: const Icon(Icons.arrow_back),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               title,
               style: const TextStyle(
@@ -67,7 +67,7 @@ class AuthenScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               subTitle,
               style: const TextStyle(

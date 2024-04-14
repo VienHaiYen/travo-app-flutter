@@ -15,7 +15,7 @@ class MasterCard extends StatelessWidget {
             'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png',
             width: 50,
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Expanded(

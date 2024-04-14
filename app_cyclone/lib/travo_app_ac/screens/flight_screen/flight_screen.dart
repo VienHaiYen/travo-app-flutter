@@ -105,7 +105,7 @@ class _FlightScreenState extends State<FlightScreen> {
                       builder: (context, value, child) => value == 2
                           ? const Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 Text("Flight 1"),
