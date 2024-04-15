@@ -120,7 +120,11 @@ class HotelListItem extends StatelessWidget {
                       Expanded(
                         child: Button(
                           text: AppLocalizations.of(context)!.book_a_room,
-                          onPressed: onTap ?? () {},
+                          onPressed: onTap ??
+                              () {
+                                Navigator.of(context)
+                                    .pushNamed('/room', arguments: item.id);
+                              },
                         ),
                       )
                     ],

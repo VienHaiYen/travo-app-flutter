@@ -1,6 +1,7 @@
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
+import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
 import 'package:app_cyclone/travo_app_ac/screens/add_card_screen/add_card_screen.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
@@ -10,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Screen2BookingRoom extends StatefulWidget {
-  const Screen2BookingRoom({super.key});
+  const Screen2BookingRoom({super.key, this.next});
+  final Function? next;
 
   @override
   _Screen2BookingRoomState createState() => _Screen2BookingRoomState();
@@ -18,8 +20,40 @@ class Screen2BookingRoom extends StatefulWidget {
 
 class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
   @override
+  void initState() {
+    // TODO: implement initState
+    BlocProvider.of<BookingInfoBloc>(context).add(UpdateBookingInfoEvent(
+        typePayment: BlocProvider.of<BookingInfoBloc>(context)
+                        .state
+                        .currentBooking
+                        .typePayment ==
+                    "" ||
+                BlocProvider.of<BookingInfoBloc>(context)
+                        .state
+                        .currentBooking
+                        .typePayment ==
+                    null
+            ? "Mini Market"
+            : BlocProvider.of<BookingInfoBloc>(context)
+                .state
+                .currentBooking
+                .typePayment));
+
+    print(BlocProvider.of<BookingInfoBloc>(context)
+        .state
+        .currentBooking
+        .typePayment);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print(
+        BlocProvider.of<BookingInfoBloc>(context).state.currentBooking.guest ??
+            "nono");
+
     ValueNotifier<int> selectedItem = ValueNotifier(1);
+
     return ValueListenableBuilder(
       valueListenable: selectedItem,
       builder: (context, value, child) {
@@ -41,44 +75,43 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
               subAdd: "",
             ),
           ),
-          GestureDetector(onTap: () {
-            selectedItem.value = 2;
-          }, child: BlocBuilder<BookingInfoBloc, BookingInfoState>(
-              builder: (context, state) {
-            return CheckOutOption(
-                hasButton: true,
-                bgColor: selectedItem.value == 2
-                    ? const Color.fromARGB(19, 167, 141, 220)
-                    : null,
-                icon: ColorIcon(
-                    icon: Icons.credit_card,
-                    color: const Color.fromRGBO(247, 119, 119, 1),
-                    bgColor: const Color.fromARGB(103, 247, 119, 119)),
-                title: "Credit / Debit Card",
-                subAdd: "Add Card",
-                data: BlocProvider.of<BookingInfoBloc>(context)
-                            .state
-                            .currentBooking
-                            .payment_card_info !=
-                        null
-                    ? BlocProvider.of<BookingInfoBloc>(context)
-                        .state
-                        .currentBooking
-                        .payment_card_info
-                        .toString()
-                    : "",
-                onPressed: () async {
-                  final PaymentCardInfo card = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AddCardScreen()),
-                  );
-                  if (card.cardNumber != "") {
-                    BlocProvider.of<BookingInfoBloc>(context)
-                        .add(UpdateBookingInfoEvent(payment_card_info: card));
-                  }
-                });
-          })),
+          GestureDetector(
+              onTap: () {
+                selectedItem.value = 2;
+              },
+              child: CheckOutOption(
+                  hasButton: true,
+                  bgColor: selectedItem.value == 2
+                      ? const Color.fromARGB(19, 167, 141, 220)
+                      : null,
+                  icon: ColorIcon(
+                      icon: Icons.credit_card,
+                      color: const Color.fromRGBO(247, 119, 119, 1),
+                      bgColor: const Color.fromARGB(103, 247, 119, 119)),
+                  title: "Credit / Debit Card",
+                  subAdd: "Add Card",
+                  data: BlocProvider.of<BookingInfoBloc>(context)
+                              .state
+                              .currentBooking
+                              .payment_card_info !=
+                          null
+                      ? BlocProvider.of<BookingInfoBloc>(context)
+                          .state
+                          .currentBooking
+                          .payment_card_info
+                          .toString()
+                      : "",
+                  onPressed: () async {
+                    final PaymentCardInfo card = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddCardScreen()),
+                    );
+                    if (card.cardNumber != "") {
+                      BlocProvider.of<BookingInfoBloc>(context)
+                          .add(UpdateBookingInfoEvent(payment_card_info: card));
+                    }
+                  })),
           GestureDetector(
             onTap: () {
               selectedItem.value = 3;
@@ -100,10 +133,6 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
             child: Button(
               text: "Done",
               onPressed: () {
-                print(BlocProvider.of<BookingInfoBloc>(context)
-                    .state
-                    .currentBooking
-                    .toMap());
                 if (selectedItem.value == 2 &&
                     BlocProvider.of<BookingInfoBloc>(context)
                             .state
@@ -129,7 +158,7 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
                   BlocProvider.of<BookingInfoBloc>(context)
                       .add(UpdateBookingInfoEvent(typePayment: "Card"));
                 }
-                Navigator.pushNamed(context, "/check-out-3");
+                widget.next!();
               },
               isFullWidth: true,
             ),

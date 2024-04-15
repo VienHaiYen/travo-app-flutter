@@ -1,9 +1,16 @@
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
+import 'package:app_cyclone/routes/route_name.dart';
+import 'package:app_cyclone/travo_app_ac/layouts/bottom_navigation_layout/bottom_navigation_layout.dart';
+import 'package:app_cyclone/travo_app_ac/models/booking.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
+import 'package:app_cyclone/travo_app_ac/screens/home_screen/home_screen.dart';
 import 'package:app_cyclone/travo_app_ac/service/booking_service.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/MyDateDisplay.dart';
 import 'package:app_cyclone/widgets/button.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -35,42 +42,75 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
   @override
   Widget build(BuildContext context) {
     DateTime? start = BlocProvider.of<BookingInfoBloc>(context)
-            .state
-            .currentBooking
-            .date_start ??
-        DateTime.now();
-    DateTime end = BlocProvider.of<BookingInfoBloc>(context)
-            .state
-            .currentBooking
-            .date_end ??
-        DateTime.now();
+        .state
+        .currentBooking
+        .date_start;
+    DateTime? end =
+        BlocProvider.of<BookingInfoBloc>(context).state.currentBooking.date_end;
 
-    int daysDifference = calculateDaysDifference(end, start);
+    int daysDifference =
+        end != null && start != null ? calculateDaysDifference(end, start) : 0;
 
-    return Column(children: [
-      _roomItem(
-        item: room,
-      ),
-      _buildBill(daysDifference,
-          BlocProvider.of<BookingInfoBloc>(context).state.room.price ?? 0),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Button(
-          text: "Done",
-          onPressed: () {
-            BookingService.addDataToFirestore(
-                BlocProvider.of<BookingInfoBloc>(context)
-                    .state
-                    .currentBooking
-                    .toMap());
-          },
-          isFullWidth: true,
+    return BlocBuilder<BookingInfoBloc, BookingInfoState>(
+        builder: (context, state) {
+      return Column(children: [
+        _roomItem(
+          item: room,
         ),
-      )
-    ]);
+        _buildBill(
+            days: daysDifference,
+            // days: 0,
+            priceADay: state.room.price ?? 0,
+            discount: state.currentBooking.promo_code != null
+                ? state.currentBooking.promo_code!.price!
+                : 0),
+        state.currentBooking.isValid()
+            ? Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Button(
+                  text: "Done",
+                  onPressed: () async {
+                    String message = await BookingService.addDataToFirestore(
+                        BlocProvider.of<BookingInfoBloc>(context)
+                            .state
+                            .currentBooking
+                            .toMap());
+
+                    if (message == "Success") {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Booking Success"),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BottomNavigationLayout()),
+                          (route) => false);
+                      BlocProvider.of<BookingInfoBloc>(context)
+                          .add(ClearBookingInfoEvent());
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Booking Failed"),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+                  isFullWidth: true,
+                ),
+              )
+            : Container()
+      ]);
+    });
   }
 
-  Widget _buildBill(int days, int priceADay) {
+  Widget _buildBill(
+      {required int days, required int priceADay, double discount = 0}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.all(10),
@@ -80,7 +120,8 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text("$days night"),
-            Text('\$${days * priceADay}'),
+            Text(
+                '\$${NumberFormat("###,###", "en_US").format(days * priceADay)}'),
           ]),
           const SizedBox(
             height: 10,
@@ -92,6 +133,23 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
                 Text('Free'),
               ]),
           const SizedBox(
+            height: 10,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const Text("Voucher Discount"),
+            Text(
+                '- \$${NumberFormat("###,###", "en_US").format(days * priceADay * (discount))}'),
+          ]),
+          const SizedBox(
+            height: 20,
+          ),
+          const DottedLine(
+              dashColor: Color.fromARGB(137, 196, 195, 195),
+              dashLength: 8,
+              lineLength: double.infinity,
+              lineThickness: 1,
+              direction: Axis.horizontal),
+          const SizedBox(
             height: 20,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -100,7 +158,7 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(
-              '\$${days * priceADay}',
+              '\$${NumberFormat("###,###", "en_US").format(days * priceADay * (1 - discount))}',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ])
@@ -163,7 +221,16 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
             ],
           ),
           const SizedBox(
-            height: 5,
+            height: 10,
+          ),
+          const DottedLine(
+              dashColor: Color.fromARGB(255, 196, 195, 195),
+              dashLength: 8,
+              lineLength: double.infinity,
+              lineThickness: 1,
+              direction: Axis.horizontal),
+          const SizedBox(
+            height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -10,6 +10,8 @@ class CheckOutOption extends StatelessWidget {
       required this.hasButton,
       this.bgColor,
       this.data,
+      this.dataIcon,
+      this.dataSize,
       this.onPressed,
       this.onWidgetTap});
 
@@ -17,6 +19,8 @@ class CheckOutOption extends StatelessWidget {
   final String title;
   final String subAdd;
   final String? data;
+  final Widget? dataIcon;
+  final double? dataSize;
   final void Function()? onPressed;
   final void Function()? onWidgetTap;
   final bool hasButton;
@@ -58,10 +62,16 @@ class CheckOutOption extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Flexible(
-                                  child: Text(
-                                    data ?? "",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                  child: Row(
+                                    children: [
+                                      dataIcon ?? Container(),
+                                      Text(
+                                        data ?? "",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: dataSize ?? 16),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 ElevatedButton(

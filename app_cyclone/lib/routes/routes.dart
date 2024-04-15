@@ -1,6 +1,7 @@
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/layouts/bottom_navigation_layout/bottom_navigation_layout.dart';
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
+import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
 import 'package:app_cyclone/travo_app_ac/screens/add_card_screen/add_card_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/add_passenger/add_passenger.dart';
@@ -65,24 +66,13 @@ class Routes {
         return getRoute(DetailHotelScreen(item: args as Hotel));
       case RouteName.room:
         return getRoute(RoomScreen(hotelId: args as String));
-      case RouteName.checkOut:
-        return getRoute(CheckOutScreen(
-          step: 1,
-          screen: const Screen1BookingRoom(),
-        ));
       case RouteName.contactDetails:
         return getRoute(const ContactDetailsScreen());
       case RouteName.promoCode:
         return getRoute(const PromoCodeScreen());
-      case RouteName.checkOut2:
+      case RouteName.checkOut:
         return getRoute(CheckOutScreen(
-          step: 2,
-          screen: const Screen2BookingRoom(),
-        ));
-      case RouteName.checkOut3:
-        return getRoute(CheckOutScreen(
-          step: 3,
-          screen: const Screen3BookingRoom(),
+          room: args as Room,
         ));
       case RouteName.addCard:
         return getRoute(AddCardScreen());

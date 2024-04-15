@@ -60,7 +60,8 @@ class RoomListItem extends StatelessWidget {
                 flex: 3,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(item.image ?? "")),
+                    child: Image.network(item.image ??
+                        "https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_640.png")),
               ),
             ],
           ),

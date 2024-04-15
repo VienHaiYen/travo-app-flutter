@@ -42,7 +42,7 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
                 color: Colors.white, borderRadius: BorderRadius.circular(20)),
             child: flightInfo()),
         _buildBill(flight.price!),
-        MasterCard(),
+        const MasterCard(),
         Button(
             isFullWidth: true,
             text: "Pay now",
@@ -124,113 +124,6 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ])
-        ],
-      ),
-    );
-  }
-
-  Widget _roomItem({required Room item}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-      ),
-      margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.name ?? "no name",
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '${item.typePrice}',
-                          maxLines: 2,
-                        ),
-                        // Text(
-                        //   'Room Size: ${item.maxGuest} guests',
-                        //   maxLines: 2,
-                        // ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(item.image ?? "")),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: MyDateDisplay(
-                  selectedDate: BlocProvider.of<BookingInfoBloc>(context)
-                              .state
-                              .currentBooking
-                              .date_start !=
-                          null
-                      ? DateFormat('yyyy-MM-dd').format(
-                          BlocProvider.of<BookingInfoBloc>(context)
-                              .state
-                              .currentBooking
-                              .date_start!)
-                      : "",
-                  icon: ColorIcon(
-                      icon: Icons.time_to_leave,
-                      color: const Color.fromRGBO(247, 119, 119, 1),
-                      bgColor: const Color.fromRGBO(237, 197, 197, 1)),
-                  title: "Check-in",
-                ),
-              ),
-              Expanded(
-                child: MyDateDisplay(
-                  selectedDate: BlocProvider.of<BookingInfoBloc>(context)
-                              .state
-                              .currentBooking
-                              .date_end !=
-                          null
-                      ? DateFormat('yyyy-MM-dd').format(
-                          BlocProvider.of<BookingInfoBloc>(context)
-                              .state
-                              .currentBooking
-                              .date_end!)
-                      : "",
-                  icon: ColorIcon(
-                    icon: Icons.time_to_leave,
-                    color: const Color.fromRGBO(62, 200, 188, 1),
-                    bgColor: const Color.fromRGBO(62, 200, 188, 0.477),
-                  ),
-                  title: "Check-out",
-                ),
-              )
-            ],
-          ),
         ],
       ),
     );

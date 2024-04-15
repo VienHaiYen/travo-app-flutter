@@ -5,6 +5,7 @@ import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
 import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/favorite_icon.dart';
 import 'package:app_cyclone/widgets/hotel_util_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -139,13 +140,14 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Text(
-                                    widget.item.name ?? "no name",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22),
+                                  Expanded(
+                                    child: Text(
+                                      widget.item.name ?? "no name",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22),
+                                    ),
                                   ),
-                                  const Spacer(),
                                   Text(
                                     '\$${widget.item.price.toString()}',
                                     style: const TextStyle(

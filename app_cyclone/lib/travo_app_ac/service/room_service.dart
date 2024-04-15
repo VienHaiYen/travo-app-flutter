@@ -13,7 +13,7 @@ class RoomService {
         return Room.fromFirestore(doc);
       }).toList();
 
-      print("ee" + rooms.length.toString());
+      // print("ee" + rooms.length.toString());
       return rooms;
     } catch (e) {
       print(e);
