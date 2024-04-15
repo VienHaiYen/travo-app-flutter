@@ -7,7 +7,6 @@ import 'package:app_cyclone/travo_app_ac/models/account_info.dart';
 import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/service/account_service.dart';
 import 'package:app_cyclone/widgets/place_list_item.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
@@ -49,23 +48,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  }
-
-  void getPlaces() async {
-    _places.value = await PlaceService.fetchData();
+    fetchData();
   }
 
   UserInfo_? get user => BlocProvider.of<LogInBloc>(context).state.currentUser;
-
-  void getAccount() async {
+  void fetchData() async {
+    _places.value = await PlaceService.fetchData();
     acc.value = await AccountService.fetchData(user!.email);
   }
 
   @override
   Widget build(BuildContext context) {
-    getPlaces();
-    getAccount();
-
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         body: Column(
@@ -74,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               topWidget: ValueListenableBuilder<AccountInfo?>(
                 valueListenable: acc,
                 builder: (context, value, child) {
-                  return value == null
+                  return acc.value == null
                       ? Container()
                       : Container(
                           margin: const EdgeInsets.symmetric(
@@ -98,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .fontFamily,
                                             ),
                                             children: [
-                                          TextSpan(text: value.name)
+                                          TextSpan(text: value!.name)
                                         ])),
                                     const SizedBox(height: 10),
                                     const Text(

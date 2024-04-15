@@ -39,7 +39,7 @@ class FavoriteScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Places"),
+                      Text("Hotels"),
                     ],
                   ),
                 ),
