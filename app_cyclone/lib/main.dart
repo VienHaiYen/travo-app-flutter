@@ -34,9 +34,6 @@ class MyMaterialApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => ThemeBloc()),
           BlocProvider(create: (BuildContext context) => LanguageBloc()),
           // de tam o day, cho lat chuyen di
-          // BlocProvider(create: (BuildContext context) => BookingInfoBloc()),
-          BlocProvider(
-              create: (BuildContext context) => BookingFlightInfoBloc()),
           BlocProvider(create: (BuildContext context) => FavoriteBloc()),
         ],
         child:

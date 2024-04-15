@@ -64,40 +64,6 @@ class TicketScreen extends StatelessWidget {
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  // const Text('Transit'),
-                                  // ValueListenableBuilder(
-                                  //   valueListenable: typeFlightBooking,
-                                  //   builder: (context, value, child) => Row(
-                                  //     mainAxisAlignment:
-                                  //         MainAxisAlignment.spaceEvenly,
-                                  //     children: [
-                                  //       Button(
-                                  //         text: "One way",
-                                  //         onPressed: () {
-                                  //           typeFlightBooking.value = 0;
-                                  //         },
-                                  //         color: const Color.fromRGBO(
-                                  //             254, 156, 94, 1),
-                                  //       ),
-                                  //       Button(
-                                  //         text: "Rounded trip",
-                                  //         onPressed: () {
-                                  //           typeFlightBooking.value = 1;
-                                  //         },
-                                  //         color: const Color.fromRGBO(
-                                  //             254, 156, 94, 1),
-                                  //       ),
-                                  //       Button(
-                                  //         text: "Multi-City",
-                                  //         onPressed: () {
-                                  //           typeFlightBooking.value = 2;
-                                  //         },
-                                  //         color: const Color.fromRGBO(
-                                  //             254, 156, 94, 1),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
                                   const CustomRangeSlider(max: 1000),
                                   CheckOutOption(
                                     hasButton: false,

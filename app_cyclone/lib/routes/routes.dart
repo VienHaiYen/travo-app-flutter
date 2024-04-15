@@ -1,5 +1,6 @@
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/layouts/bottom_navigation_layout/bottom_navigation_layout.dart';
+import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
@@ -88,19 +89,9 @@ class Routes {
         ));
       case RouteName.flightCheckout:
         return getRoute(FlightCheckOutScreen(
-          step: 1,
-          screen: const Screen1BookingFlight(),
+          flight: args as Flight,
         ));
-      case RouteName.flightCheckout2:
-        return getRoute(FlightCheckOutScreen(
-          step: 2,
-          screen: const Screen2BookingFlight(),
-        ));
-      case RouteName.flightCheckout3:
-        return getRoute(FlightCheckOutScreen(
-          step: 3,
-          screen: const Screen3BookingFlight(),
-        ));
+
       case RouteName.facilities:
         return getRoute(Facilities());
       case RouteName.sortBy:

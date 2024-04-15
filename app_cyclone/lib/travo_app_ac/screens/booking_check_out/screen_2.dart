@@ -61,6 +61,8 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
           GestureDetector(
             onTap: () {
               selectedItem.value = 1;
+              BlocProvider.of<BookingInfoBloc>(context)
+                  .add(UpdateBookingInfoEvent(typePayment: "Mini Market"));
             },
             child: CheckOutOption(
               hasButton: false,
@@ -75,46 +77,71 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
               subAdd: "",
             ),
           ),
-          GestureDetector(
-              onTap: () {
-                selectedItem.value = 2;
-              },
-              child: CheckOutOption(
-                  hasButton: true,
-                  bgColor: selectedItem.value == 2
-                      ? const Color.fromARGB(19, 167, 141, 220)
-                      : null,
-                  icon: ColorIcon(
-                      icon: Icons.credit_card,
-                      color: const Color.fromRGBO(247, 119, 119, 1),
-                      bgColor: const Color.fromARGB(103, 247, 119, 119)),
-                  title: "Credit / Debit Card",
-                  subAdd: "Add Card",
-                  data: BlocProvider.of<BookingInfoBloc>(context)
-                              .state
-                              .currentBooking
-                              .payment_card_info !=
-                          null
-                      ? BlocProvider.of<BookingInfoBloc>(context)
+          BlocBuilder<BookingInfoBloc, BookingInfoState>(
+              builder: (context, state) {
+            return GestureDetector(
+                onTap: () async {
+                  if (BlocProvider.of<BookingInfoBloc>(context)
                           .state
                           .currentBooking
-                          .payment_card_info
-                          .toString()
-                      : "",
-                  onPressed: () async {
+                          .payment_card_info !=
+                      null) {
+                    BlocProvider.of<BookingInfoBloc>(context)
+                        .add(UpdateBookingInfoEvent(typePayment: "Card"));
+                    selectedItem.value = 2;
+                  } else {
                     final PaymentCardInfo card = await Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const AddCardScreen()),
                     );
+                    print(card.cardNumber);
                     if (card.cardNumber != "") {
                       BlocProvider.of<BookingInfoBloc>(context)
                           .add(UpdateBookingInfoEvent(payment_card_info: card));
+                      selectedItem.value = 2;
                     }
-                  })),
+                  }
+                },
+                child: CheckOutOption(
+                    hasButton: true,
+                    bgColor: selectedItem.value == 2
+                        ? const Color.fromARGB(19, 167, 141, 220)
+                        : null,
+                    icon: ColorIcon(
+                        icon: Icons.credit_card,
+                        color: const Color.fromRGBO(247, 119, 119, 1),
+                        bgColor: const Color.fromARGB(103, 247, 119, 119)),
+                    title: "Credit / Debit Card",
+                    subAdd: "Add Card",
+                    data: BlocProvider.of<BookingInfoBloc>(context)
+                                .state
+                                .currentBooking
+                                .payment_card_info !=
+                            null
+                        ? BlocProvider.of<BookingInfoBloc>(context)
+                            .state
+                            .currentBooking
+                            .payment_card_info
+                            .toString()
+                        : "",
+                    onPressed: () async {
+                      final PaymentCardInfo card = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddCardScreen()),
+                      );
+                      if (card.cardNumber != "") {
+                        BlocProvider.of<BookingInfoBloc>(context).add(
+                            UpdateBookingInfoEvent(payment_card_info: card));
+                      }
+                    }));
+          }),
           GestureDetector(
             onTap: () {
               selectedItem.value = 3;
+              BlocProvider.of<BookingInfoBloc>(context)
+                  .add(UpdateBookingInfoEvent(typePayment: "Bank transfer"));
             },
             child: CheckOutOption(
                 bgColor: selectedItem.value == 3
@@ -141,23 +168,7 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
                         null) {
                   return;
                 }
-                if (selectedItem.value == 1) {
-                  BlocProvider.of<BookingInfoBloc>(context)
-                      .add(UpdateBookingInfoEvent(typePayment: "Mini Market"));
-                }
-                if (selectedItem.value == 3) {
-                  BlocProvider.of<BookingInfoBloc>(context).add(
-                      UpdateBookingInfoEvent(typePayment: "Bank transfer"));
-                }
-                if (selectedItem.value == 2 &&
-                    BlocProvider.of<BookingInfoBloc>(context)
-                            .state
-                            .currentBooking
-                            .payment_card_info !=
-                        null) {
-                  BlocProvider.of<BookingInfoBloc>(context)
-                      .add(UpdateBookingInfoEvent(typePayment: "Card"));
-                }
+
                 widget.next!();
               },
               isFullWidth: true,

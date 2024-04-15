@@ -1,5 +1,3 @@
-import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
-import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/seat.dart';
@@ -8,19 +6,18 @@ import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:book_my_seat/book_my_seat.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 
 class SeatBookingScreen extends StatefulWidget {
-  const SeatBookingScreen({super.key});
+  const SeatBookingScreen({super.key, required this.flight});
+
+  final Flight flight;
 
   @override
   _SeatBookingScreenState createState() => _SeatBookingScreenState();
 }
 
 class _SeatBookingScreenState extends State<SeatBookingScreen> {
-  Flight get flight =>
-      BlocProvider.of<BookingFlightInfoBloc>(context).state.flight;
   List<List<SeatState>> convertMapToList(Map<String, dynamic> map) {
     List<List<SeatState>> result = [];
 
@@ -45,8 +42,8 @@ class _SeatBookingScreenState extends State<SeatBookingScreen> {
       "C",
       "D",
     ];
-    List<List<SeatState>> business = convertMapToList(flight.seat![0]);
-    List<List<SeatState>> economy = convertMapToList(flight.seat![1]);
+    List<List<SeatState>> business = convertMapToList(widget.flight.seat![0]);
+    List<List<SeatState>> economy = convertMapToList(widget.flight.seat![1]);
     ValueNotifier<String> selectedSeat = ValueNotifier("");
     print(business.length);
 
@@ -128,7 +125,7 @@ class _SeatBookingScreenState extends State<SeatBookingScreen> {
                                           alignment: Alignment.center,
                                           padding: const EdgeInsets.all(10),
                                           child: Text(
-                                            '\$${flight.price.toString()}',
+                                            '\$${widget.flight.price.toString()}',
                                             style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20,

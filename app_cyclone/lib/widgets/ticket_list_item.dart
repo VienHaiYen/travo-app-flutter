@@ -1,5 +1,3 @@
-import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
-import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -19,10 +17,7 @@ class TicketListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<BookingFlightInfoBloc>(context)
-            .add(UpdateFlightEvent(flight: item));
-
-        Navigator.pushNamed(context, RouteName.flightCheckout);
+        Navigator.pushNamed(context, RouteName.flightCheckout, arguments: item);
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),

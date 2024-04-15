@@ -1,6 +1,7 @@
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
+import 'package:app_cyclone/travo_app_ac/models/promo.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/models/seat.dart';
 
@@ -12,7 +13,7 @@ class UpdateBookingFlightInfoEvent extends BookingFlightInfoEvent {
   String email;
   String flight;
   Guest? guest;
-  String? promoCode;
+  Promo? promoCode;
   Seat? seat;
   String typePayment;
 
@@ -33,3 +34,5 @@ class UpdateFlightEvent extends BookingFlightInfoEvent {
 
   UpdateFlightEvent({required this.flight});
 }
+
+class ClearBookingFlightInfoEvent extends BookingFlightInfoEvent {}

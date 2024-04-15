@@ -2,7 +2,6 @@ import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
 import 'package:app_cyclone/travo_app_ac/models/booking.dart';
-import 'package:app_cyclone/travo_app_ac/models/booking_flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/promo.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';

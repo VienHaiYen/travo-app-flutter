@@ -1,5 +1,6 @@
 import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
+import 'package:app_cyclone/travo_app_ac/models/promo.dart';
 import 'package:app_cyclone/travo_app_ac/models/seat.dart';
 
 class BookingFlight {
@@ -19,7 +20,7 @@ class BookingFlight {
   String email;
   String flight;
   Guest? guest;
-  String? promoCode;
+  Promo? promoCode;
   Seat? seat;
   String typePayment;
 
@@ -30,9 +31,24 @@ class BookingFlight {
       'email': email,
       'flight': flight,
       'guest': guest != null ? guest!.toMap() : null,
-      'promoCode': promoCode,
+      'promoCode': promoCode?.code ?? "",
       'seat': seat != null ? seat!.toMap() : null,
       'typePayment': typePayment,
     };
+  }
+
+  bool isValid() {
+    print(email.isNotEmpty &&
+        flight.isNotEmpty &&
+        guest != null &&
+        card != null &&
+        seat != null &&
+        typePayment.isNotEmpty);
+    return email.isNotEmpty &&
+        flight.isNotEmpty &&
+        guest != null &&
+        card != null &&
+        seat != null &&
+        typePayment.isNotEmpty;
   }
 }

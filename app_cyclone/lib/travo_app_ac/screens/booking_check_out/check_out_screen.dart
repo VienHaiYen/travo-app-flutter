@@ -1,6 +1,5 @@
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_event.dart';
-import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
 import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_1.dart';
@@ -40,7 +39,6 @@ class _CheckOutScreenState extends State<CheckOutScreen>
         animationDuration: const Duration(milliseconds: 100));
     _tabController.addListener(() {
       step.value = _tabController.index + 1;
-      print("5466");
     });
     super.initState();
   }
@@ -103,6 +101,8 @@ class _ProviderScreenCheckoutState extends State<ProviderScreenCheckout> {
       room = widget.room!;
       BlocProvider.of<BookingInfoBloc>(context)
           .add(UpdateRoomEvent(room: widget.room!));
+
+//
 
       BlocProvider.of<BookingInfoBloc>(context)
           .add(UpdateBookingInfoEvent(hotel: widget.room!.hotel));

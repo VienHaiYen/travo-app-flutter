@@ -1,5 +1,6 @@
 import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_state.dart';
+import 'package:app_cyclone/blocs/booking_info_bloc/booking_info_state.dart';
 import 'package:app_cyclone/travo_app_ac/models/booking.dart';
 import 'package:app_cyclone/travo_app_ac/models/booking_flight.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,10 +22,8 @@ class BookingFlightInfoBloc
             seat: event.seat ?? state.currentBooking.seat,
             flight:
                 event.flight == "" ? state.currentBooking.flight : event.flight,
-            card: event.card,
-            promoCode: event.promoCode == ""
-                ? state.currentBooking.promoCode
-                : event.promoCode,
+            card: event.card ?? state.currentBooking.card,
+            promoCode: event.promoCode ?? state.currentBooking.promoCode,
             typePayment: event.typePayment == ""
                 ? state.currentBooking.typePayment
                 : event.typePayment,
@@ -34,6 +33,9 @@ class BookingFlightInfoBloc
       print('updated flight');
       emit(BookingFlightInfoState(
           currentBooking: state.currentBooking, flight: event.flight));
+    });
+    on<ClearBookingFlightInfoEvent>((event, emit) {
+      emit(BookingFlightInfoState.init());
     });
   }
 }
