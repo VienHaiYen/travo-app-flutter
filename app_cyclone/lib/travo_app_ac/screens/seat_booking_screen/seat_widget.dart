@@ -51,9 +51,9 @@ class _AvalableSeat extends StatelessWidget {
           state.colInd == colInd && state.rowInd == rowInd
               ? 'assets/svg/svg_selected_seat.svg'
               : 'assets/svg/svg_unselected_seat.svg',
-          height: 50,
-          width: 50,
-          fit: BoxFit.cover,
+          height: 30,
+          // width: 23,
+          fit: BoxFit.contain,
         );
       }),
     );
@@ -68,9 +68,9 @@ class _SoldSeat extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       'assets/svg/svg_sold_seat.svg',
-      height: 50,
-      width: 50,
-      fit: BoxFit.cover,
+      height: 30,
+      // width: 23,
+      fit: BoxFit.fitHeight,
     );
   }
 }

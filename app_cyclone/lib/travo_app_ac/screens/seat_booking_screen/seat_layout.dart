@@ -24,11 +24,28 @@ class _SeatLayoutState extends State<SeatLayout> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ...List.generate(row, (index) => index).map<SeatWidget>((index) {
-            return SeatWidget(
-              state: widget.seats[currentRow][index],
-              rowInd: currentRow,
-              colInd: index,
+          ...List.generate(row, (index) => index).map<Row>((index) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 7.0),
+                  child: SeatWidget(
+                    state: widget.seats[currentRow][index],
+                    rowInd: currentRow,
+                    colInd: index,
+                  ),
+                ),
+                index + 1 == row / 2
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Text(
+                          '${currentRow + 1}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      )
+                    : Container()
+              ],
             );
           })
         ],

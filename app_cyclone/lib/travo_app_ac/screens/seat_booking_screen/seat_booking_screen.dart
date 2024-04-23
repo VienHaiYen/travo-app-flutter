@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:book_my_seat/book_my_seat.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SeatBookingScreen extends StatefulWidget {
   const SeatBookingScreen({super.key, required this.flight});
@@ -45,7 +46,6 @@ class _SeatBookingScreenState extends State<SeatBookingScreen> {
     const colName = ["A", "B", "C", "D", "E", "F"];
     List<List<SeatState2>> business = convertMapToList(widget.flight.seat![0]);
     List<List<SeatState2>> economy = convertMapToList(widget.flight.seat![1]);
-    print(business);
 
     List<List<SeatState2>> all = business + economy;
     return Scaffold(
@@ -66,108 +66,147 @@ class _SeatBookingScreenState extends State<SeatBookingScreen> {
                     // This next line does the trick.
                     scrollDirection: Axis.horizontal,
                     children: <Widget>[
-                      Container(
-                        width: 150,
-                        height: 200,
-                        margin: const EdgeInsets.all(20),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(child:
-                            BlocBuilder<SeatBookingBloc, SeatBookingState>(
-                                builder: (context, state) {
-                          return Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                      Column(
+                        children: [
+                          Container(
+                            width: 150,
+                            height: 200,
+                            margin: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 15),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(child:
+                                BlocBuilder<SeatBookingBloc, SeatBookingState>(
+                                    builder: (context, state) {
+                              return Column(
                                 children: [
-                                  ColorIcon(
-                                      icon: Icons.flight_class_rounded,
-                                      color:
-                                          const Color.fromRGBO(62, 200, 188, 1),
-                                      bgColor: const Color.fromRGBO(
-                                          62, 200, 188, 0.329)),
-                                  Text(
-                                    state.colInd == -1
-                                        ? "Select"
-                                        : '${state.rowInd + 1}${colName[state.colInd]}',
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      ColorIcon(
+                                          icon: Icons.flight_class_rounded,
+                                          color: const Color.fromRGBO(
+                                              62, 200, 188, 1),
+                                          bgColor: const Color.fromRGBO(
+                                              62, 200, 188, 0.329)),
+                                      Text(
+                                        state.colInd == -1
+                                            ? "Select"
+                                            : '${state.rowInd + 1}${colName[state.colInd]}',
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
+                                  state.colInd == -1
+                                      ? Container()
+                                      : Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: state.rowInd <= business.length
+                                              ? const Text(
+                                                  "Buiness",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                )
+                                              : const Text("Economy",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16)),
+                                        ),
+                                  // Text("Economy"),
+                                  Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromRGBO(
+                                              224, 221, 245, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      alignment: Alignment.center,
+                                      padding: const EdgeInsets.all(10),
+                                      child: Text(
+                                        '\$${widget.flight.price.toString()}',
+                                        style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ))
                                 ],
-                              ),
-                              state.colInd == -1
-                                  ? Container()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: state.rowInd <= business.length
-                                          ? const Text(
-                                              "Buiness",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16),
-                                            )
-                                          : const Text("Economy",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16)),
-                                    ),
-                              // Text("Economy"),
-                              Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromRGBO(
-                                          224, 221, 245, 1),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  alignment: Alignment.center,
-                                  padding: const EdgeInsets.all(10),
-                                  child: Text(
-                                    '\$${widget.flight.price.toString()}',
-                                    style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ))
-                            ],
-                          );
-                        })),
+                              );
+                            })),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        width: 350,
-                        child: SeatLayout(seats: all),
+                      Container(
+                        width: 250,
+                        child: Stack(children: [
+                          Positioned.fill(
+                            child: SvgPicture.asset(
+                              'assets/svg/ship.svg',
+                              alignment: Alignment.topCenter,
+                              width: 200,
+                              // height: MediaQuery.of(context).size.height,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ),
+                          Positioned(
+                            top: 40,
+                            left: 75,
+                            child: SvgPicture.asset(
+                              'assets/svg/ship-door.svg',
+                              alignment: Alignment.topCenter,
+                              width: 100,
+                              // height: MediaQuery.of(context).size.height,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ),
+                          Positioned(
+                            // top: 100,
+                            top: 100,
+                            child: SizedBox(
+                              width: 250,
+                              height: 400,
+                              child: SeatLayout(seats: all),
+                            ),
+                          )
+                        ]),
                       )
                     ],
                   ),
                 ),
-                Button(
-                    text: "Processed",
-                    isFullWidth: true,
-                    onPressed: () {
-                      if (BlocProvider.of<SeatBookingBloc>(context)
-                              .state
-                              .colInd ==
-                          -1) return;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Seat selected")));
+                BlocBuilder<SeatBookingBloc, SeatBookingState>(
+                    builder: (context, state) {
+                  return Button(
+                      text: "Processed",
+                      isFullWidth: true,
+                      onPressed: () {
+                        if (state.colInd == -1) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Please Select"),
+                            duration: Durations.short4,
+                          ));
 
-                      Navigator.pop(
-                        context,
-                        Seat(
-                            name:
-                                '${BlocProvider.of<SeatBookingBloc>(context).state.rowInd + 1}${colName[BlocProvider.of<SeatBookingBloc>(context).state.colInd]}',
-                            type: BlocProvider.of<SeatBookingBloc>(context)
-                                        .state
-                                        .rowInd <=
-                                    business.length
-                                ? "Business"
-                                : "Economy"),
-                      );
-                    })
+                          return;
+                        }
+                        Navigator.pop(
+                          context,
+                          Seat(
+                              name:
+                                  '${state.rowInd + 1}${colName[state.colInd]}',
+                              type: state.rowInd <= business.length
+                                  ? "Business"
+                                  : "Economy"),
+                        );
+                      });
+                })
               ],
             ),
           ),
