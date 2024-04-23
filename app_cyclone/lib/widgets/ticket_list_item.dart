@@ -57,7 +57,7 @@ class TicketListItem extends StatelessWidget {
                             const Text("Flight No."),
                             Text(
                               item.no!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             )
                           ],
