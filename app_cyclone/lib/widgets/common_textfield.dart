@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 class CommonTextfield extends StatelessWidget {
   CommonTextfield(
       {super.key,
-       this.label,
+      this.label,
       required this.controller,
       this.changeable,
-      this.validate});
+      this.validate,
+      this.autofillHints});
 
   final String? label;
   final TextEditingController controller;
   final Function(String)? validate;
   final bool? changeable;
+  final Iterable<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CommonTextfield extends StatelessWidget {
           }
           return null;
         },
+        autofillHints: autofillHints,
         autofocus: false,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(

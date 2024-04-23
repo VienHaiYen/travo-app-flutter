@@ -30,6 +30,12 @@ class LoginScreen extends StatelessWidget {
     prefs.setString('email', email);
   }
 
+  void clearAccount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('password');
+    prefs.remove('email');
+  }
+
   Future<String?> getPassword() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('password');
@@ -40,8 +46,14 @@ class LoginScreen extends StatelessWidget {
     return prefs.getString('email');
   }
 
+  void getAccount() {
+    getPassword().then((value) => _passwordController.text = value!);
+    getEmail().then((value) => _emailController.text = value!);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getAccount();
     return AuthenScreen(
       title: 'Login',
       subTitle: 'Hi, Welcome back!',
@@ -168,6 +180,12 @@ class LoginScreen extends StatelessWidget {
                           RouteName.home,
                           (route) => false,
                         );
+                        if (isRemember.value) {
+                          saveAccount(
+                              _passwordController.text, _emailController.text);
+                        } else {
+                          clearAccount();
+                        }
                       }
                     } catch (e) {
                       notCorrectAccount.value = true;

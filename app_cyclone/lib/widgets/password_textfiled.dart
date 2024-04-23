@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PasswordTextfield extends StatefulWidget {
-  PasswordTextfield({super.key, required this.controller, this.validate});
+  PasswordTextfield(
+      {super.key, required this.controller, this.validate, this.autofillHints});
   TextEditingController controller;
   final Function(String)? validate;
+  final Iterable<String>? autofillHints;
 
   @override
   _PasswordTextfieldState createState() => _PasswordTextfieldState();
@@ -32,6 +34,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
                 }
                 return null;
               },
+              autofillHints: widget.autofillHints,
               autofocus: false,
               obscureText: value,
               style: const TextStyle(
