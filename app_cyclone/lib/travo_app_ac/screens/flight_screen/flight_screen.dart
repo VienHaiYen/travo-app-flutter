@@ -115,43 +115,70 @@ class _FlightScreenState extends State<FlightScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  CommonIconTextfield(
-                      icon: Column(
+                  Stack(
+                    children: [
+                      Column(
                         children: [
-                          Transform.rotate(
-                            angle: math.pi,
-                            child: const Icon(
-                              Icons.flight,
-                              color: Color.fromRGBO(97, 85, 204, 1),
-                              size: 30,
+                          CommonIconTextfield(
+                              icon: Column(
+                                children: [
+                                  Transform.rotate(
+                                    angle: math.pi,
+                                    child: const Icon(
+                                      Icons.flight,
+                                      color: Color.fromRGBO(97, 85, 204, 1),
+                                      size: 30,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.more_vert,
+                                    color: Color.fromRGBO(97, 85, 204, 1),
+                                    size: 20,
+                                  ),
+                                ],
+                              ),
+                              controller: _fromController,
+                              label: AppLocalizations.of(context)!.from),
+                          CommonIconTextfield(
+                              icon: const Column(
+                                children: [
+                                  Icon(
+                                    Icons.more_vert,
+                                    color: Color.fromRGBO(97, 85, 204, 1),
+                                    size: 20,
+                                  ),
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Color.fromRGBO(254, 156, 94, 1),
+                                    size: 30,
+                                  ),
+                                ],
+                              ),
+                              controller: _toController,
+                              label: AppLocalizations.of(context)!.to),
+                        ],
+                      ),
+                      Positioned(
+                          right: 10,
+                          top: MediaQuery.of(context).size.height * 0.05,
+                          child: CircleAvatar(
+                            radius: 25,
+                            child: IconButton(
+                              color: Color.fromRGBO(224, 221, 245, 1),
+                              icon: const Icon(
+                                color: Colors.black,
+                                Icons.swap_vert,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                String temp = _fromController.text;
+                                _fromController.text = _toController.text;
+                                _toController.text = temp;
+                              },
                             ),
-                          ),
-                          const Icon(
-                            Icons.more_vert,
-                            color: Color.fromRGBO(97, 85, 204, 1),
-                            size: 20,
-                          ),
-                        ],
-                      ),
-                      controller: _fromController,
-                      label: AppLocalizations.of(context)!.from),
-                  CommonIconTextfield(
-                      icon: const Column(
-                        children: [
-                          Icon(
-                            Icons.more_vert,
-                            color: Color.fromRGBO(97, 85, 204, 1),
-                            size: 20,
-                          ),
-                          Icon(
-                            Icons.location_on,
-                            color: Color.fromRGBO(254, 156, 94, 1),
-                            size: 30,
-                          ),
-                        ],
-                      ),
-                      controller: _toController,
-                      label: AppLocalizations.of(context)!.to),
+                          ))
+                    ],
+                  ),
                   const SizedBox(height: 10),
                   Container(
                       color: Colors.white,
