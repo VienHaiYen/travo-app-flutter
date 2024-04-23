@@ -17,4 +17,24 @@ class PlaceService {
       return [];
     }
   }
+
+  static Future<List<Place>> searchData(String str) async {
+    try {
+      final snapshots =
+          await FirebaseFirestore.instance.collection('place').get();
+
+      List<Place> places = snapshots.docs.map((doc) {
+        // Map<String, dynamic> data = doc.data();
+        return Place.fromFirestore(doc);
+      }).toList();
+
+      return places
+          .where((element) =>
+              element.name.toLowerCase().contains(str.toLowerCase()))
+          .toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 }
