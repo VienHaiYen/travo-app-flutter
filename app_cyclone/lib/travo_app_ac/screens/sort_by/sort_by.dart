@@ -1,108 +1,84 @@
+import 'package:app_cyclone/travo_app_ac/enums/sort.dart';
+import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/custom_checkbox.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+class Item {
+  Item({
+    required this.name,
+    required this.value,
+  });
+
+  String name;
+  Sort value;
+}
+
 class SortBy extends StatefulWidget {
-  const SortBy({Key? key}) : super(key: key);
+  const SortBy({super.key, required this.state});
+
+  final Sort state;
 
   @override
   _SortByState createState() => _SortByState();
 }
 
-class Item {
-  Item({required this.name});
-
-  String name;
-}
-
 class _SortByState extends State<SortBy> {
+  // Sort? _character = Sort.Earliest_Departure;
   List<Item> items = [
-    Item(name: "Earliest Departure"),
-    Item(name: "Latest Departure"),
-    Item(name: "Earliest Arrive"),
-    Item(name: "Latest ArriveMeal"),
-    Item(name: "Shortest Duration"),
-    Item(name: "Lowest Price"),
-    Item(name: "Highest popularity"),
+    Item(name: "Earliest Departure", value: Sort.Earliest_Departure),
+    Item(name: "Latest Departure", value: Sort.Latest_Departure),
+    Item(name: "Earliest Arrive", value: Sort.Earliest_Arrive),
+    Item(name: "Latest Arrive", value: Sort.Latest_Arrive),
+    Item(name: "Shortest Duration", value: Sort.Shortest_Duration),
+    Item(name: "Lowest Price", value: Sort.Lowest_Price),
   ];
-
-  ValueNotifier<bool> wifi = ValueNotifier<bool>(false);
-  ValueNotifier<bool> luggage = ValueNotifier<bool>(false);
-  ValueNotifier<bool> power = ValueNotifier<bool>(false);
-  ValueNotifier<bool> restaurant = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
+    print(widget.state);
+    final ValueNotifier<Sort> _character = ValueNotifier(widget.state);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 244, 244, 244),
       body: Column(
         children: [
           MyHeader(context: context, title: "SortBy"),
-          Container(
-            padding: const EdgeInsets.all(40),
-            child: Column(
-              children: [
-                ...items.map((e) => _buildItem(e, wifi)).toList(),
-              ],
-            ),
-          )
+          Expanded(
+            child: Container(
+                padding: const EdgeInsets.all(40),
+                child: ValueListenableBuilder<Sort>(
+                    valueListenable: _character,
+                    builder: (context, value, child) {
+                      return Column(
+                        children: <Widget>[
+                          ...items.map(
+                            (item) => ListTile(
+                              title: Text(item.name),
+                              trailing: Radio<Sort>(
+                                value: item.value,
+                                groupValue: _character.value,
+                                onChanged: (Sort? value) {
+                                  _character.value = value!;
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    })),
+          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Button(
+                  text: "Done",
+                  isFullWidth: true,
+                  onPressed: () {
+                    Navigator.pop(context, _character.value);
+                  }))
         ],
       ),
-    );
-  }
-
-  Widget _buildItem(Item item, ValueNotifier<bool> isChecked) {
-    return Row(
-      children: [
-        Expanded(child: Text(item.name)),
-        CustomCheckbox(isCheck: isChecked),
-      ],
-    );
-  }
-}
-
-enum SingingCharacter { lafayette, jefferson }
-
-class RadioExample extends StatefulWidget {
-  const RadioExample({super.key});
-
-  @override
-  State<RadioExample> createState() => _RadioExampleState();
-}
-
-class _RadioExampleState extends State<RadioExample> {
-  SingingCharacter? _character = SingingCharacter.lafayette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: const Text('Lafayette'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.lafayette,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: const Text('Thomas Jefferson'),
-          leading: Radio<SingingCharacter>(
-            value: SingingCharacter.jefferson,
-            groupValue: _character,
-            onChanged: (SingingCharacter? value) {
-              setState(() {
-                _character = value;
-              });
-            },
-          ),
-        ),
-      ],
     );
   }
 }

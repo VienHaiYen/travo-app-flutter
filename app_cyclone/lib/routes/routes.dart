@@ -9,17 +9,11 @@ import 'package:app_cyclone/travo_app_ac/screens/add_passenger/add_passenger.dar
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/forgot_password.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/login_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/authen_screen/signup_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_2.dart';
 import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/check_out_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_1.dart';
-import 'package:app_cyclone/travo_app_ac/screens/booking_check_out/screen_3.dart';
 import 'package:app_cyclone/travo_app_ac/screens/contact_details_screen/contact_details_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/detail_hotel_screen/detail_hotel_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/facilities/facilities.dart';
 import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/check_out_screen.dart';
-import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/screen_1.dart';
-import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/screen_2.dart';
-import 'package:app_cyclone/travo_app_ac/screens/flight_check_out/screen_3.dart';
 import 'package:app_cyclone/travo_app_ac/screens/flight_screen/flight_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/hotel_screen/hotel_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/onboarding_screen/onboarding_carousel.dart';
@@ -94,8 +88,6 @@ class Routes {
 
       case RouteName.facilities:
         return getRoute(Facilities());
-      case RouteName.sortBy:
-        return getRoute(SortBy());
       default:
         return getRoute(const SplashScreen());
     }

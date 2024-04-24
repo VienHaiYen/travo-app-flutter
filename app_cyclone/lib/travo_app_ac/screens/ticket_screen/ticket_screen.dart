@@ -1,7 +1,9 @@
 import 'package:app_cyclone/routes/route_name.dart';
+import 'package:app_cyclone/travo_app_ac/enums/sort.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/search_flight.dart';
 import 'package:app_cyclone/travo_app_ac/screens/flight_screen/flight_screen.dart';
+import 'package:app_cyclone/travo_app_ac/screens/sort_by/sort_by.dart';
 import 'package:app_cyclone/travo_app_ac/service/flight_service.dart';
 import 'package:app_cyclone/widgets/ColorIcon.dart';
 import 'package:app_cyclone/widgets/RangeSlider.dart';
@@ -9,6 +11,8 @@ import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/check_out_option.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/ticket_list_item.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,11 +23,17 @@ class TicketScreen extends StatelessWidget {
 
   final ValueNotifier<List<Flight>> _flights = ValueNotifier<List<Flight>>([]);
 
-  getFlight() async {
-    _flights.value = await FlightService.fetchData(searchData);
-  }
-
   ValueNotifier<int> typeFlightBooking = ValueNotifier<int>(0);
+
+  ValueNotifier<Sort> sortBy = ValueNotifier<Sort>(Sort.Earliest_Departure);
+
+  final ValueNotifier<RangeValues> _currentRangeValues =
+      ValueNotifier<RangeValues>(const RangeValues(0, 400));
+
+  getFlight() async {
+    _flights.value = await FlightService.fetchData(
+        searchData, sortBy.value, _currentRangeValues.value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +74,9 @@ class TicketScreen extends StatelessWidget {
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  const CustomRangeSlider(max: 1000),
+                                  CustomRangeSlider(
+                                      max: 400,
+                                      rangeValue: _currentRangeValues),
                                   CheckOutOption(
                                     hasButton: false,
                                     icon: ColorIcon(
@@ -80,26 +92,38 @@ class TicketScreen extends StatelessWidget {
                                           context, RouteName.facilities)
                                     },
                                   ),
-                                  CheckOutOption(
-                                    hasButton: false,
-                                    icon: ColorIcon(
-                                        icon: Icons.sort_sharp,
-                                        color: const Color.fromRGBO(
-                                            62, 200, 188, 1),
-                                        bgColor:
-                                            Color.fromARGB(44, 68, 254, 155)),
-                                    title: "Sort By",
-                                    subAdd: "",
-                                    onWidgetTap: () => {
-                                      Navigator.pushNamed(
-                                          context, RouteName.sortBy)
-                                    },
-                                  ),
+                                  ValueListenableBuilder(
+                                      valueListenable: sortBy,
+                                      builder: (context, value, child) {
+                                        return CheckOutOption(
+                                          hasButton: false,
+                                          icon: ColorIcon(
+                                              icon: Icons.sort_sharp,
+                                              color: const Color.fromRGBO(
+                                                  62, 200, 188, 1),
+                                              bgColor: const Color.fromARGB(
+                                                  44, 68, 254, 155)),
+                                          title:
+                                              'Sort By:  ${sortBy.value.toString().split('.')[1].replaceAll("_", " ")}',
+                                          subAdd: "",
+                                          onWidgetTap: () async {
+                                            sortBy.value = await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SortBy(
+                                                            state:
+                                                                sortBy.value)));
+                                          },
+                                        );
+                                      }),
                                   Button(
-                                    text: "Apply",
-                                    isFullWidth: true,
-                                    onPressed: () => Navigator.pop(context),
-                                  ),
+                                      text: "Apply",
+                                      isFullWidth: true,
+                                      onPressed: () {
+                                        getFlight();
+                                        Navigator.pop(context);
+                                      }),
                                 ],
                               ),
                             );

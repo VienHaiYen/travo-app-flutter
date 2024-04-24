@@ -108,7 +108,7 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
                       MaterialPageRoute(
                           builder: (context) => const AddCardScreen()),
                     );
-                    print(card.cardNumber);
+                    // print(card.cardNumber);
                     if (card.cardNumber != "") {
                       BlocProvider.of<BookingInfoBloc>(context)
                           .add(UpdateBookingInfoEvent(payment_card_info: card));
