@@ -158,9 +158,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottom: 0,
                     left: 25,
                     child: CustomSearchBar(
-                      searchController: _searchController,
-                      onChanged: searchFunction,
-                    ))
+                        searchController: _searchController,
+                        onChanged: searchFunction,
+                        placeholder: "Search your destination"))
               ],
             ),
 

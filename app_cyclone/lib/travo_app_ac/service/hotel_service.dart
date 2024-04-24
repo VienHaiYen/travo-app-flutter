@@ -17,4 +17,24 @@ class HotelService {
       return [];
     }
   }
+
+  static Future<List<Hotel>> searchData(String str) async {
+    try {
+      final snapshots =
+          await FirebaseFirestore.instance.collection('hotel').get();
+
+      List<Hotel> hotels = snapshots.docs.map((doc) {
+        // Map<String, dynamic> data = doc.data();
+        return Hotel.fromFirestore(doc);
+      }).toList();
+
+      return hotels
+          .where((element) =>
+              element.name!.toLowerCase().contains(str.toLowerCase()))
+          .toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 }
