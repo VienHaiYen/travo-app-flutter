@@ -1,4 +1,5 @@
 import "package:app_cyclone/travo_app_ac/screens/favorite_screen/favorite_screen.dart";
+import "package:app_cyclone/travo_app_ac/screens/history_screen/history_screen.dart";
 import "package:app_cyclone/travo_app_ac/screens/home_screen/home_screen.dart";
 import "package:app_cyclone/travo_app_ac/screens/user_screen/user_screen.dart";
 import "package:app_cyclone/widgets/button.dart";
@@ -22,10 +23,7 @@ class _BottomNavigationLayoutState extends State<BottomNavigationLayout> {
   static List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     FavoriteScreen(),
-    Text(
-      'Notify',
-      style: optionStyle,
-    ),
+    HistoryScreen(),
     UserScreen()
   ];
 

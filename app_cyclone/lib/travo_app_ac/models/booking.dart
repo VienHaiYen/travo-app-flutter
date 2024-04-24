@@ -15,6 +15,7 @@ class Booking {
     this.room = "",
     this.typePayment = "",
     this.userId = "",
+    this.created_at,
   });
 
   final DateTime? date_end;
@@ -27,6 +28,7 @@ class Booking {
   final String room;
   final String? typePayment;
   final String userId;
+  final DateTime? created_at;
 
   Map<String, dynamic> toMap() {
     print(guest!.length);
@@ -42,6 +44,7 @@ class Booking {
       'room': room,
       'typePayment': typePayment,
       'userId': userId,
+      'created_at': DateTime.now().toIso8601String()
     };
   }
 
@@ -64,5 +67,23 @@ class Booking {
         room.isNotEmpty &&
         (typePayment!.isNotEmpty || typePayment != null) &&
         userId.isNotEmpty;
+  }
+
+  factory Booking.fromFirestore(DocumentSnapshot doc) {
+    Map data = doc.data() as Map;
+    // print(DateTime.parse(data['created_at']));
+    return Booking(
+      date_end: data['date_end'] != null
+          ? (data['date_end'] as Timestamp).toDate()
+          : null,
+      date_start: data['date_start'] != null
+          ? (data['date_start'] as Timestamp).toDate()
+          : null,
+      hotel: data['hotel'] ?? "",
+      room: data['room'] ?? "",
+      created_at: data['created_at'] != null
+          ? DateTime.parse(data['created_at'])
+          : null,
+    );
   }
 }

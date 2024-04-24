@@ -153,11 +153,18 @@ class LoginScreen extends StatelessWidget {
                               email: _emailController.text,
                               token: token,
                             );
+
                             BlocProvider.of<LogInBloc>(context).add(
                                 ChangeLogInEvent(
                                     isLoading: false,
                                     currentUser: currUser,
                                     isSuccess: true));
+                            print("345");
+                            //
+                            print(BlocProvider.of<LogInBloc>(context)
+                                .state
+                                .currentUser!
+                                .email);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Login failed")));

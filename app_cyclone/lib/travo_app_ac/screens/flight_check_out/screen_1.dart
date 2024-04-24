@@ -1,12 +1,10 @@
 import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_bloc.dart';
 import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_event.dart';
 import 'package:app_cyclone/blocs/booking_flight_info_bloc/booking_flight_info_state.dart';
-import 'package:app_cyclone/routes/route_name.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/promo.dart';
 import 'package:app_cyclone/travo_app_ac/models/seat.dart';
-import 'package:app_cyclone/travo_app_ac/screens/add_passenger/add_passenger.dart';
 import 'package:app_cyclone/travo_app_ac/screens/contact_details_screen/contact_details_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/promo_code_screen/promo_code_screen.dart';
 import 'package:app_cyclone/travo_app_ac/screens/seat_booking_screen/seat_booking_screen.dart';

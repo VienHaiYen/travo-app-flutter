@@ -186,7 +186,7 @@ class FlightInfomationItem extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "NNS24",
+                  flight.no ?? "",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(

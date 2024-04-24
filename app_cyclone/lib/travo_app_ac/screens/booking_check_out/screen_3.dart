@@ -200,10 +200,6 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
                           '${item.typePrice}',
                           maxLines: 2,
                         ),
-                        // Text(
-                        //   'Room Size: ${item.maxGuest} guests',
-                        //   maxLines: 2,
-                        // ),
                         const SizedBox(
                           height: 10,
                         ),

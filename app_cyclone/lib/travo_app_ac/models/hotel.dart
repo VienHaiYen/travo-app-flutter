@@ -38,7 +38,6 @@ class Hotel {
       price: data['price'],
       totalReview: data['total_review'],
       rating: data['rating'],
-      // awayKilometer: data['awayKilometer'],
     );
   }
 }

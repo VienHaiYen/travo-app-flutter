@@ -2,6 +2,7 @@ import 'package:app_cyclone/travo_app_ac/models/guest.dart';
 import 'package:app_cyclone/travo_app_ac/models/payment_card_info.dart';
 import 'package:app_cyclone/travo_app_ac/models/promo.dart';
 import 'package:app_cyclone/travo_app_ac/models/seat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BookingFlight {
   BookingFlight({
@@ -35,6 +36,18 @@ class BookingFlight {
       'seat': seat != null ? seat!.toMap() : null,
       'typePayment': typePayment,
     };
+  }
+
+  factory BookingFlight.fromFirestore(DocumentSnapshot doc) {
+    Map data = doc.data() as Map;
+    return BookingFlight(
+      seat: Seat.fromJson(data['seat'] as Map<String, dynamic>),
+      flight: data['flight'],
+      typePayment: data['typePayment'],
+      createdAt: data['createdAt'] != null
+          ? (data['createdAt'] as Timestamp).toDate()
+          : null,
+    );
   }
 
   bool isValid() {

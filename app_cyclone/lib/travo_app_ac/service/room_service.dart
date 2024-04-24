@@ -20,4 +20,17 @@ class RoomService {
       return [];
     }
   }
+
+  static Future<Room?> getRoomById(String id) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await FirebaseFirestore.instance.collection('room').doc(id).get();
+      Room room = Room.fromFirestore(documentSnapshot);
+      // print(room.image);
+      return room;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

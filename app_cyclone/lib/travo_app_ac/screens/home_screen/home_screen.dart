@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
+import 'package:app_cyclone/blocs/log_in_bloc/log_in_state.dart';
 import 'package:app_cyclone/travo_app_ac/models/account_info.dart';
 import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/service/account_service.dart';
@@ -44,7 +45,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController _searchController = TextEditingController();
   final ValueNotifier<List<Place>> _places = ValueNotifier<List<Place>>([]);
-  final ValueNotifier<AccountInfo?> acc = ValueNotifier<AccountInfo?>(null);
+  // final ValueNotifier<AccountInfo?> acc = ValueNotifier<AccountInfo?>(null);
 
   final StreamController<List<Place>> _streamController =
       StreamController<List<Place>>();
@@ -52,7 +53,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchData();
+    init();
+  }
+
+  UserInfo_? user;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    user = BlocProvider.of<LogInBloc>(context).state.currentUser;
+    print("123");
+    print(user?.email);
   }
 
   @override
@@ -61,15 +72,21 @@ class _HomeScreenState extends State<HomeScreen> {
     _streamController.close();
   }
 
-  UserInfo_? get user => BlocProvider.of<LogInBloc>(context).state.currentUser;
-  void fetchData() async {
+  void init() {
     searchFunction("");
-    acc.value = await AccountService.fetchData(user!.email);
+    // fetchData();
   }
+
+  // UserInfo_ get user => BlocProvider.of<LogInBloc>(context).state.currentUser!;
+  // void fetchData() async {
+  //   acc.value = await AccountService.fetchData(user.email);
+  // }
 
   void searchFunction(String str) async {
     // Simulate loading data from an API or other source
     _places.value = await PlaceService.searchData(str);
+    String email = BlocProvider.of<LogInBloc>(context).state.currentUser!.email;
+    print(email);
 
     if (_places.value.isEmpty) {
       _streamController.addError("No data found");
@@ -89,68 +106,75 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: MyHeader(
-                    topWidget: ValueListenableBuilder<AccountInfo?>(
-                      valueListenable: acc,
-                      builder: (context, value, child) {
-                        return acc.value == null
-                            ? Container()
-                            : Container(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 5),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(
-                                                  text: "Hi, ",
-                                                  style: TextStyle(
-                                                    fontSize: 30,
-                                                    fontFamily:
-                                                        GoogleFonts.montserrat(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold)
-                                                            .fontFamily,
-                                                  ),
-                                                  children: [
-                                                TextSpan(text: value!.name)
-                                              ])),
-                                          const SizedBox(height: 10),
-                                          const Text(
-                                            "Where are you going next?",
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.white,
+                    topWidget: BlocBuilder<LogInBloc, LogInState>(
+                        builder: (context, state) {
+                      return FutureBuilder<AccountInfo?>(
+                        future:
+                            AccountService.fetchData(state.currentUser!.email),
+                        builder: (context, snapshot) {
+                          return snapshot.data == null && !snapshot.hasData
+                              ? Container()
+                              : Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 20, horizontal: 5),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            RichText(
+                                                text: TextSpan(
+                                                    text: "Hi, ",
+                                                    style: TextStyle(
+                                                      fontSize: 30,
+                                                      fontFamily: GoogleFonts
+                                                              .montserrat(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)
+                                                          .fontFamily,
+                                                    ),
+                                                    children: [
+                                                  TextSpan(
+                                                      text:
+                                                          snapshot.data?.name ??
+                                                              "")
+                                                ])),
+                                            const SizedBox(height: 10),
+                                            const Text(
+                                              "Where are you going next?",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.white,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    const Icon(
-                                      CupertinoIcons.bell,
-                                      color: Colors.white,
-                                      size: 30.0,
-                                    ),
-                                    const SizedBox(width: 20),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
-                                        width: 50,
-                                        height: 50,
+                                      const Icon(
+                                        CupertinoIcons.bell,
+                                        color: Colors.white,
+                                        size: 30.0,
                                       ),
-                                    )
-                                  ],
-                                ),
-                              );
-                      },
-                    ),
+                                      const SizedBox(width: 20),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
+                                          width: 50,
+                                          height: 50,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                        },
+                      );
+                    }),
                     context: context,
                   ),
                 ),

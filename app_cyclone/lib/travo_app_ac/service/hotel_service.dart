@@ -37,4 +37,18 @@ class HotelService {
       return [];
     }
   }
+
+  static Future<Hotel?> getHotelById(String id) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await FirebaseFirestore.instance.collection('hotel').doc(id).get();
+      // print(documentSnapshot.data());
+      Hotel hotel = Hotel.fromFirestore(documentSnapshot);
+      // print(hotel.name);
+      return hotel;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

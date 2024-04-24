@@ -12,8 +12,6 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("123");
-    // print(BlocProvider.of<FavoriteBloc>(context).state.places.length);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         body: DefaultTabController(

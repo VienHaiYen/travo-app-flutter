@@ -77,4 +77,18 @@ class FlightService {
       return [];
     }
   }
+
+  static Future<Flight?> getFlightById(String id) async {
+    try {
+      DocumentSnapshot documentSnapshot =
+          await FirebaseFirestore.instance.collection('flight').doc(id).get();
+      // print(documentSnapshot.data());
+      Flight flight = Flight.fromFirestore(documentSnapshot);
+      // print(flight.name);
+      return flight;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }
