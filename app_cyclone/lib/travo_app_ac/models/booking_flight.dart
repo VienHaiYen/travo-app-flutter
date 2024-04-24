@@ -38,17 +38,11 @@ class BookingFlight {
   }
 
   bool isValid() {
-    print(email.isNotEmpty &&
-        flight.isNotEmpty &&
-        guest != null &&
-        card != null &&
-        seat != null &&
-        typePayment.isNotEmpty);
+    print(
+        email.isNotEmpty && flight.isNotEmpty && guest != null && seat != null);
     return email.isNotEmpty &&
         flight.isNotEmpty &&
         guest != null &&
-        card != null &&
-        seat != null &&
-        typePayment.isNotEmpty;
+        seat != null;
   }
 }

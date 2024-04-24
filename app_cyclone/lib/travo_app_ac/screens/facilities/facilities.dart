@@ -25,13 +25,16 @@ class _FacilitiesState extends State<Facilities> {
     Item(icon: Icons.restaurant, name: "In-Flight Meal"),
   ];
 
-  ValueNotifier<bool> wifi = ValueNotifier<bool>(false);
-  ValueNotifier<bool> luggage = ValueNotifier<bool>(false);
-  ValueNotifier<bool> power = ValueNotifier<bool>(false);
-  ValueNotifier<bool> restaurant = ValueNotifier<bool>(false);
+  List<ValueNotifier<bool>> isChecked = [
+    ValueNotifier<bool>(false),
+    ValueNotifier<bool>(false),
+    ValueNotifier<bool>(false),
+    ValueNotifier<bool>(false),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    int init = -1;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 244, 244, 244),
       body: Column(
@@ -41,25 +44,26 @@ class _FacilitiesState extends State<Facilities> {
             padding: const EdgeInsets.all(40),
             child: Column(
               children: [
-                ...items.map((e) => _buildItem(e, wifi)).toList(),
+                ...items.map(
+                  (e) {
+                    init++;
+                    return Row(
+                      children: [
+                        Icon(e.icon),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(child: Text(e.name)),
+                        CustomCheckbox(isCheck: isChecked[init]),
+                      ],
+                    );
+                  },
+                )
               ],
             ),
           )
         ],
       ),
-    );
-  }
-
-  Widget _buildItem(Item item, ValueNotifier<bool> isChecked) {
-    return Row(
-      children: [
-        Icon(item.icon),
-        const SizedBox(
-          width: 20,
-        ),
-        Expanded(child: Text(item.name)),
-        CustomCheckbox(isCheck: isChecked),
-      ],
     );
   }
 }

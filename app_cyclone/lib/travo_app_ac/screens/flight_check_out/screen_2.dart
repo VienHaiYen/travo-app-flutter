@@ -47,6 +47,22 @@ class _Screen2BookingFlightState extends State<Screen2BookingFlight> {
     super.initState();
   }
 
+  int convertTypePaymentToIndex() {
+    switch (BlocProvider.of<BookingFlightInfoBloc>(context)
+        .state
+        .currentBooking
+        .typePayment) {
+      case "Mini Market":
+        return 1;
+      case "Card":
+        return 2;
+      case "Bank transfer":
+        return 3;
+      default:
+        return 1;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print(BlocProvider.of<BookingFlightInfoBloc>(context)
@@ -55,7 +71,8 @@ class _Screen2BookingFlightState extends State<Screen2BookingFlight> {
             .guest ??
         "nono");
 
-    ValueNotifier<int> selectedItem = ValueNotifier(1);
+    ValueNotifier<int> selectedItem =
+        ValueNotifier(convertTypePaymentToIndex());
 
     return ValueListenableBuilder(
       valueListenable: selectedItem,

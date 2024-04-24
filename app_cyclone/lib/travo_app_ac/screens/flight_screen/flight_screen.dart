@@ -105,7 +105,7 @@ class _FlightScreenState extends State<FlightScreen> {
                       builder: (context, value, child) => value == 2
                           ? const Column(
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   height: 10,
                                 ),
                                 Text("Flight 1"),
@@ -164,7 +164,7 @@ class _FlightScreenState extends State<FlightScreen> {
                           child: CircleAvatar(
                             radius: 25,
                             child: IconButton(
-                              color: Color.fromRGBO(224, 221, 245, 1),
+                              color: const Color.fromRGBO(224, 221, 245, 1),
                               icon: const Icon(
                                 color: Colors.black,
                                 Icons.swap_vert,
