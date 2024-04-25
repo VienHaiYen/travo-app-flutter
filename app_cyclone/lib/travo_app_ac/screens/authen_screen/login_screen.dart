@@ -147,35 +147,33 @@ class LoginScreen extends StatelessWidget {
                       user?.getIdToken().then((result) {
                         token = result.toString();
 
-                        Future.delayed(const Duration(seconds: 0), () {
-                          if (token.isNotEmpty) {
-                            var currUser = UserInfo_(
-                              email: _emailController.text,
-                              token: token,
-                            );
+                        if (token.isNotEmpty) {
+                          var currUser = UserInfo_(
+                            email: _emailController.text,
+                            token: token,
+                          );
 
-                            BlocProvider.of<LogInBloc>(context).add(
-                                ChangeLogInEvent(
-                                    isLoading: false,
-                                    currentUser: currUser,
-                                    isSuccess: true));
-                            print("345");
-                            //
-                            print(BlocProvider.of<LogInBloc>(context)
-                                .state
-                                .currentUser!
-                                .email);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Login failed")));
-                            notCorrectAccount.value = true;
-                            BlocProvider.of<LogInBloc>(context).add(
-                                ChangeLogInEvent(
-                                    currentUser: null,
-                                    isLoading: false,
-                                    isSuccess: false));
-                          }
-                        });
+                          BlocProvider.of<LogInBloc>(context).add(
+                              ChangeLogInEvent(
+                                  isLoading: false,
+                                  currentUser: currUser,
+                                  isSuccess: true));
+                          // print("345");
+                          // //
+                          // print(BlocProvider.of<LogInBloc>(context)
+                          //     .state
+                          //     .currentUser!
+                          //     .email);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Login failed")));
+                          notCorrectAccount.value = true;
+                          BlocProvider.of<LogInBloc>(context).add(
+                              ChangeLogInEvent(
+                                  currentUser: null,
+                                  isLoading: false,
+                                  isSuccess: false));
+                        }
                       });
                       print(token);
 
