@@ -47,5 +47,10 @@
   "search": "Search",
   "book_your_flight": "Book your flight",
 
-  "tranlate": "Tranlate"
+  "tranlate": "Tranlate",
+
+  "where_you_go_next": "Where are you going next?",
+  "search_destination":"Search your destination",
+  "popular_destination":"Địa điểm nổi tiếng"
+
 }

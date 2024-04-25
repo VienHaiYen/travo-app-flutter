@@ -66,8 +66,8 @@ class UserScreen extends StatelessWidget {
 }
 
 const List<String> list = <String>[
-  'vi',
   'en',
+  'vi',
 ];
 
 class DropdownButtonExample extends StatefulWidget {

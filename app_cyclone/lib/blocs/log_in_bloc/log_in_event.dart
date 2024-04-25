@@ -13,3 +13,11 @@ class ChangeLogInEvent extends LogInEvent {
     required this.isSuccess,
   });
 }
+
+class UpdateUserInfo extends LogInEvent {
+  final String name;
+  final String phone;
+  final String country;
+  UpdateUserInfo(
+      {required this.name, required this.country, required this.phone});
+}

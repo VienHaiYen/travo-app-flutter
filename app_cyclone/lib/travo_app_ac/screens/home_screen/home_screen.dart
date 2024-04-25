@@ -4,8 +4,8 @@ import 'dart:math' as math;
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
+import 'package:app_cyclone/blocs/log_in_bloc/log_in_event.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_state.dart';
-import 'package:app_cyclone/travo_app_ac/models/account_info.dart';
 import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/service/account_service.dart';
 import 'package:app_cyclone/widgets/custom_search_bar.dart';
@@ -56,14 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
     init();
   }
 
-  UserInfo_? user;
+  UserInfo_? get user => BlocProvider.of<LogInBloc>(context).state.currentUser;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    user = BlocProvider.of<LogInBloc>(context).state.currentUser;
-    print("123");
-    print(user?.email);
+    if (user!.name == "") {
+      AccountService.fetchData(user!.email).then(
+          (value) => BlocProvider.of<LogInBloc>(context).add(UpdateUserInfo(
+                name: value!.name,
+                country: value.country,
+                phone: value.phone,
+              )));
+    }
   }
 
   @override
@@ -74,19 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void init() {
     searchFunction("");
-    // fetchData();
   }
 
-  // UserInfo_ get user => BlocProvider.of<LogInBloc>(context).state.currentUser!;
-  // void fetchData() async {
-  //   acc.value = await AccountService.fetchData(user.email);
-  // }
-
   void searchFunction(String str) async {
-    // Simulate loading data from an API or other source
     _places.value = await PlaceService.searchData(str);
-    String email = BlocProvider.of<LogInBloc>(context).state.currentUser!.email;
-    print(email);
 
     if (_places.value.isEmpty) {
       _streamController.addError("No data found");
@@ -108,72 +104,65 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: MyHeader(
                     topWidget: BlocBuilder<LogInBloc, LogInState>(
                         builder: (context, state) {
-                      return FutureBuilder<AccountInfo?>(
-                        future:
-                            AccountService.fetchData(state.currentUser!.email),
-                        builder: (context, snapshot) {
-                          return snapshot.data == null && !snapshot.hasData
-                              ? Container()
-                              : Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 20, horizontal: 5),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            RichText(
-                                                text: TextSpan(
-                                                    text: "Hi, ",
-                                                    style: TextStyle(
-                                                      fontSize: 30,
-                                                      fontFamily: GoogleFonts
-                                                              .montserrat(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)
+                      return state.currentUser!.name == ""
+                          ? Container()
+                          : Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 5),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                            text: TextSpan(
+                                                text: "Hi, ",
+                                                style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontFamily:
+                                                      GoogleFonts.montserrat(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)
                                                           .fontFamily,
-                                                    ),
-                                                    children: [
-                                                  TextSpan(
-                                                      text:
-                                                          snapshot.data?.name ??
-                                                              "")
-                                                ])),
-                                            const SizedBox(height: 10),
-                                            const Text(
-                                              "Where are you going next?",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
+                                                ),
+                                                children: [
+                                              TextSpan(
+                                                  text: state.currentUser!.name)
+                                            ])),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .where_you_go_next,
+                                          style: const TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
                                         ),
-                                      ),
-                                      const Icon(
-                                        CupertinoIcons.bell,
-                                        color: Colors.white,
-                                        size: 30.0,
-                                      ),
-                                      const SizedBox(width: 20),
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
-                                          width: 50,
-                                          height: 50,
-                                        ),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                );
-                        },
-                      );
+                                  const Icon(
+                                    CupertinoIcons.bell,
+                                    color: Colors.white,
+                                    size: 30.0,
+                                  ),
+                                  const SizedBox(width: 20),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
                     }),
                     context: context,
                   ),
@@ -184,27 +173,29 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: CustomSearchBar(
                         searchController: _searchController,
                         onChanged: searchFunction,
-                        placeholder: "Search your destination"))
+                        placeholder:
+                            AppLocalizations.of(context)!.search_destination))
               ],
             ),
 
             const SizedBox(height: 30),
             _bigButtunList(context),
             // const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Popular Destinations",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context)!.popular_destination,
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   TextButton(
                       onPressed: null,
                       child: Text(
-                        "See all",
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.all,
+                        style: const TextStyle(
                             fontSize: 18,
                             color: Color.fromRGBO(97, 85, 204, 1),
                             fontWeight: FontWeight.w600),
