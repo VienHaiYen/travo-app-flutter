@@ -1,5 +1,3 @@
-import 'package:app_cyclone/blocs/favorite_bloc/favorite_bloc.dart';
-import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
 import 'package:app_cyclone/travo_app_ac/models/booking.dart';
 import 'package:app_cyclone/travo_app_ac/models/booking_flight.dart';
@@ -7,14 +5,10 @@ import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/screens/history_screen/items/booking_flight_item.dart';
 import 'package:app_cyclone/travo_app_ac/screens/history_screen/items/booking_room_item.dart';
 import 'package:app_cyclone/travo_app_ac/service/history_service.dart';
-import 'package:app_cyclone/widgets/hotel_list_item.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
-import 'package:app_cyclone/widgets/place_list_item.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);
@@ -48,15 +42,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
             children: [
               MyHeader(
                 context: context,
-                title: "History",
-                subTitle: "Your jouney!!",
+                title: AppLocalizations.of(context)!.history,
+                subTitle: AppLocalizations.of(context)!.your_jouney,
               ),
-              const TabBar(tabs: [
+              TabBar(tabs: [
                 Tab(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Rooms"),
+                      Text(AppLocalizations.of(context)!.room),
                     ],
                   ),
                 ),
@@ -64,7 +58,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Flights"),
+                      Text(AppLocalizations.of(context)!.flights),
                     ],
                   ),
                 ),
@@ -75,6 +69,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       valueListenable: bookingRoom,
                       builder: (context, value, child) {
                         return ListView(
+                            padding: const EdgeInsets.all(0),
                             children: bookingRoom.value
                                 .map((e) => BookingRoomItem(booking: e))
                                 .toList());
@@ -83,6 +78,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       valueListenable: bookingFlight,
                       builder: (context, value, child) {
                         return ListView(
+                            padding: const EdgeInsets.all(0),
                             children: bookingFlight.value
                                 .map((e) => BookingFlightItem(booking: e))
                                 .toList());

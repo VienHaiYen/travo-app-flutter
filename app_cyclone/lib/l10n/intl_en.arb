@@ -10,6 +10,7 @@
   "home":"Home",
   "welcom_to_home":"Welcom to Home",
   "hotel":"Hotel",
+  "place": "Place",
   "flights":"Flights",
   "all":"All",
   "log_out":"Log out",
@@ -51,6 +52,11 @@
 
   "where_you_go_next": "Where are you going next?",
   "search_destination":"Search your destination",
-  "popular_destination":"Địa điểm nổi tiếng"
+  "popular_destination":"Địa điểm nổi tiếng",
+  "history": "History",
+  "your_jouney": "Your jouney!!",
+  "favorite" : "Favorite"
+
+
 
 }

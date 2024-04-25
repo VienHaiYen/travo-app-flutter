@@ -41,7 +41,10 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
     getData();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      color: Colors.white,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+      ),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ValueListenableBuilder<Hotel?>(
           valueListenable: hotel,
@@ -79,8 +82,7 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
                                           ? Container()
                                           : Row(
                                               children: [
-                                                Text(
-                                                    'Room: ${room.value!.name ?? ""}'),
+                                                Text(room.value!.name ?? ""),
                                               ],
                                             );
                                     }),
@@ -124,7 +126,8 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const Text("Check-in: ",
+                                    Text(
+                                        '${AppLocalizations.of(context)!.check_in}: ',
                                         style: TextStyle(fontSize: 12)),
                                     Text(
                                       DateFormat('dd-MM-yy')
@@ -139,8 +142,9 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const Text("Check-out: ",
-                                        style: TextStyle(fontSize: 12)),
+                                    Text(
+                                        '${AppLocalizations.of(context)!.check_out}: ',
+                                        style: const TextStyle(fontSize: 12)),
                                     Text(
                                       DateFormat('dd-MM-yy')
                                           .format(widget.booking.date_end!)
@@ -154,10 +158,13 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
                               ],
                             ),
                           ),
-                          Image.network(
-                            value.image!,
-                            width: 130,
-                            height: 100,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              value.image!,
+                              width: 130,
+                              height: 100,
+                            ),
                           ),
                         ],
                       ),
@@ -167,7 +174,7 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
                           const Text("created at: ",
                               style: TextStyle(fontSize: 12)),
                           Text(
-                            DateFormat('dd-MM-yy')
+                            DateFormat("yyyy-MM-dd hh:mm:ss")
                                 .format(widget.booking.created_at!)
                                 .toString(),
                             style: const TextStyle(

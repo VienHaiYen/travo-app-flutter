@@ -6,6 +6,7 @@ import 'package:app_cyclone/widgets/place_list_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -21,15 +22,15 @@ class FavoriteScreen extends StatelessWidget {
             children: [
               MyHeader(
                 context: context,
-                title: "Favorite",
+                title: AppLocalizations.of(context)!.favorite,
                 subTitle: "Your favorite places",
               ),
-              const TabBar(tabs: [
+              TabBar(tabs: [
                 Tab(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Places"),
+                      Text(AppLocalizations.of(context)!.place),
                     ],
                   ),
                 ),
@@ -37,7 +38,7 @@ class FavoriteScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Hotels"),
+                      Text(AppLocalizations.of(context)!.hotel),
                     ],
                   ),
                 ),

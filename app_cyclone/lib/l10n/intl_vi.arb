@@ -10,6 +10,7 @@
   "home": "Trang chủ",
   "welcom_to_home": "Chào mừng đến Trang chủ",
   "hotel": "Khách sạn",
+  "place": "Địa điểm",
   "flights": "Chuyến bay",
   "all": "Tất cả",
   "log_out":"Đăng xuất",
@@ -51,7 +52,11 @@
 
   "where_you_go_next": "Bạn sẽ đi đâu tiếp theo?",
   "search_destination":"Tìm địa điểm",
-  "popular_destination":"Popular Destinations"
+  "popular_destination":"Popular Destinations",
+  "history": "Lịch sử",
+  "your_jouney":  "Hành trình của bạn!!",
+  "favorite" : "Yêu thích"
+
 
 
 

@@ -6,6 +6,7 @@ import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_event.dart';
 import 'package:app_cyclone/blocs/log_in_bloc/log_in_state.dart';
+import 'package:app_cyclone/travo_app_ac/models/account_info.dart';
 import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/service/account_service.dart';
 import 'package:app_cyclone/widgets/custom_search_bar.dart';

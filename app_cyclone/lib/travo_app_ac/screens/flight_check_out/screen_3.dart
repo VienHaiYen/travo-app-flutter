@@ -55,9 +55,6 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
                   isFullWidth: true,
                   text: "Pay now",
                   onPressed: () async {
-                    BlocProvider.of<BookingFlightInfoBloc>(context).add(
-                        UpdateBookingFlightInfoEvent(
-                            createdAt: DateTime.now()));
                     Map<String, dynamic> data =
                         BlocProvider.of<BookingFlightInfoBloc>(context)
                             .state

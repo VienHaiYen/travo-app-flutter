@@ -1,12 +1,6 @@
-import 'package:app_cyclone/travo_app_ac/models/booking.dart';
 import 'package:app_cyclone/travo_app_ac/models/booking_flight.dart';
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
-import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
-import 'package:app_cyclone/travo_app_ac/models/room.dart';
 import 'package:app_cyclone/travo_app_ac/service/flight_service.dart';
-import 'package:app_cyclone/travo_app_ac/service/hotel_service.dart';
-import 'package:app_cyclone/travo_app_ac/service/room_service.dart';
-import 'package:app_cyclone/widgets/flight_infomation_item.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -31,7 +25,6 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
   ValueNotifier<Flight?> flight = ValueNotifier<Flight?>(null);
 
   void getData() async {
-    // print(widget.booking.room);
     flight.value = await FlightService.getFlightById(widget.booking.flight);
   }
 
@@ -40,7 +33,10 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
     getData();
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+        ),
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: ValueListenableBuilder<Flight?>(
             valueListenable: flight,
@@ -57,19 +53,23 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              Flight.airlineImg[flight.value!.airline]!,
-                              width: 150,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                Flight.airlineImg[flight.value!.airline]!,
+                                width: 130,
+                              ),
                             ),
                             Expanded(
                               child: Container(
-                                color: Colors.red,
-                                padding: const EdgeInsets.only(top: 10),
+                                // color: Colors.red,
+                                padding: const EdgeInsets.only(
+                                    top: 10, left: 15, bottom: 10),
                                 child: Column(
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           flight.value!.from_place ?? "",
@@ -104,7 +104,7 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        const Text("Airline"),
+                                        const Text("Airline: "),
                                         const SizedBox(
                                           height: 10,
                                         ),
@@ -120,7 +120,7 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Text("Flight No."),
+                                          Text("Flight No.: "),
                                           Text(
                                             flight.value!.no ?? "",
                                             style: const TextStyle(
@@ -140,20 +140,7 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                           dashLength: 10,
                           lineThickness: 2,
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        SizedBox(
-                          height: 75,
-                          child: Row(
-                            children: [
-                              Expanded(child: Container()),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                            ],
-                          ),
-                        ),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -161,43 +148,18 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text("Date"),
-                                const SizedBox(
-                                  height: 10,
-                                ),
                                 Text(
                                   DateFormat('d MMM yyyy').format(
                                       flight.value!.departure_time!.toDate()),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text("Boarding Time"),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                const Text("Boarding Time"),
                                 Text(
                                   DateFormat('jmz').format(
                                       flight.value!.departure_time!.toDate()),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                            const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text("Seat"),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                // fix sau
-                                const Text(
-                                  "5A",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -206,16 +168,23 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text("Class"),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                const Text("Seat"),
                                 Text(
-                                  "Economy",
-                                  style: TextStyle(
+                                  // flight.value!.seat![0]['name'],
+                                  widget.booking.seat!.name,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Class"),
+                                Text(
+                                  widget.booking.seat!.type,
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -223,6 +192,20 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
                             ),
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text("created at: ",
+                                style: TextStyle(fontSize: 12)),
+                            Text(
+                              DateFormat('yyyy-MM-dd hh:mm:ss')
+                                  .format(widget.booking.createdAt!)
+                                  .toString(),
+                              style: const TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
                       ],
                     );
             }));

@@ -20,7 +20,7 @@ class _BottomNavigationLayoutState extends State<BottomNavigationLayout> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     FavoriteScreen(),
     HistoryScreen(),
@@ -68,7 +68,7 @@ class _BottomNavigationLayoutState extends State<BottomNavigationLayout> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: const Color.fromRGBO(97, 85, 204, 1),
         onTap: _onItemTapped,
       ),
     );

@@ -37,7 +37,7 @@ class HistoryService {
         return BookingFlight.fromFirestore(doc);
       }).toList();
 
-      // print(bookingRoom[0].toMap());
+      bookingRoom.removeWhere((element) => element.createdAt == null);
 
       return bookingRoom;
     } catch (e) {

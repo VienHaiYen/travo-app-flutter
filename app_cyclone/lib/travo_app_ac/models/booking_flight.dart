@@ -28,7 +28,7 @@ class BookingFlight {
   Map<String, dynamic> toMap() {
     return {
       'card': card != null ? card!.toMap() : null,
-      'createdAt': createdAt != null ? createdAt!.toIso8601String() : null,
+      'createdAt': DateTime.now().toIso8601String(),
       'email': email,
       'flight': flight,
       'guest': guest != null ? guest!.toMap() : null,
@@ -40,13 +40,13 @@ class BookingFlight {
 
   factory BookingFlight.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map;
+
     return BookingFlight(
       seat: Seat.fromJson(data['seat'] as Map<String, dynamic>),
       flight: data['flight'],
       typePayment: data['typePayment'],
-      createdAt: data['createdAt'] != null
-          ? (data['createdAt'] as Timestamp).toDate()
-          : null,
+      createdAt:
+          data['createdAt'] != null ? DateTime.parse(data['createdAt']) : null,
     );
   }
 
