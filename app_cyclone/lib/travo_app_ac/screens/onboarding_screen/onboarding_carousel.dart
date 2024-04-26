@@ -32,6 +32,7 @@ class CarouselDemo extends StatelessWidget {
 
   ValueNotifier<int> currentPage = ValueNotifier<int>(0);
 
+  @override
   CarouselDemo({super.key});
 
   List<CarouselData> list = [

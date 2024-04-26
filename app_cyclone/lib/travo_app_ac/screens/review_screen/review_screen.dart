@@ -25,6 +25,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
     getReviews();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _reviews.dispose();
+  }
+
   void getReviews() async {
     _reviews.value = await ReviewService.fetchData(widget.hotelId);
     print(_reviews.value.length);
@@ -52,7 +59,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text('4.9',
+                            Text("4.9",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 40,

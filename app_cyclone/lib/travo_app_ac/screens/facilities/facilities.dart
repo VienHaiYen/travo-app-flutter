@@ -33,6 +33,13 @@ class _FacilitiesState extends State<Facilities> {
   ];
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    isChecked.map((e) => e.dispose());
+  }
+
+  @override
   Widget build(BuildContext context) {
     int init = -1;
     return Scaffold(

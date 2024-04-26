@@ -51,7 +51,9 @@ class AddPassengerScreenState extends State<AddPassengerScreen> {
                     ),
                     const SizedBox(height: 20),
                     CommonTextfield(
-                        label: "Phone number", controller: _phoneController),
+                        label: "Phone number",
+                        controller: _phoneController,
+                        keyboardType: TextInputType.phone),
                     const SizedBox(height: 20),
                     CommonTextfield(
                       label: "Email",

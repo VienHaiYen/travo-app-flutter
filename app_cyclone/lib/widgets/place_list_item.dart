@@ -3,6 +3,7 @@ import 'package:app_cyclone/blocs/favorite_bloc/favorite_event.dart';
 import 'package:app_cyclone/blocs/favorite_bloc/favorite_state.dart';
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
 import 'package:app_cyclone/widgets/favorite_icon.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,8 +23,10 @@ class PlaceListItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              item.image,
+            child: CachedNetworkImage(
+              imageUrl: item.image,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               fit: BoxFit.cover,
             ),
           ),

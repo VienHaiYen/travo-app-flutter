@@ -10,25 +10,44 @@ import 'package:app_cyclone/widgets/common_textfield.dart';
 import 'package:app_cyclone/widgets/custom_checkbox.dart';
 import 'package:app_cyclone/widgets/custom_icon_button.dart';
 import 'package:app_cyclone/widgets/password_textfiled.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
   void saveAccount(String password, String email) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('password', password);
     prefs.setString('email', email);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAccount();
   }
 
   void clearAccount() async {

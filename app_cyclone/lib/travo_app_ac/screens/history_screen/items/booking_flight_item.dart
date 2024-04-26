@@ -23,6 +23,12 @@ class _BookingFlightItemState extends State<BookingFlightItem> {
   }
 
   ValueNotifier<Flight?> flight = ValueNotifier<Flight?>(null);
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    flight.dispose();
+  }
 
   void getData() async {
     flight.value = await FlightService.getFlightById(widget.booking.flight);

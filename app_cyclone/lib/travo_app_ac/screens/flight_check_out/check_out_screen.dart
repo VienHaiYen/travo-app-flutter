@@ -31,6 +31,7 @@ class _FlightCheckOutScreenState extends State<FlightCheckOutScreen>
     // TODO: implement dispose
     _tabController.dispose();
     super.dispose();
+    step.dispose();
   }
 
   @override

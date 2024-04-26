@@ -108,7 +108,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   }
                   return null;
                 },
-                autovalidateMode: AutovalidateMode.always,
+                // autovalidateMode: AutovalidateMode.always,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 15,

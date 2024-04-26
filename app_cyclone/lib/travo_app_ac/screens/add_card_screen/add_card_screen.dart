@@ -38,11 +38,11 @@ class AddCardScreenState extends State<AddCardScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    // _cvvController.dispose();
-    // _nameController.dispose();
-    // _cardController.dispose();
-    // _countryController.dispose();
-    // _expDateController.dispose();
+    _cvvController.dispose();
+    _nameController.dispose();
+    _cardController.dispose();
+    _countryController.dispose();
+    _expDateController.dispose();
   }
 
   final _formKey = GlobalKey<FormState>();

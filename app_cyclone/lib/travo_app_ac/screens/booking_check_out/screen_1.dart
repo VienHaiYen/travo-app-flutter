@@ -39,10 +39,13 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(
-        BlocProvider.of<BookingInfoBloc>(context).state.currentBooking.guest ??
-            "nono");
     final ValueNotifier<DateTime?> _startDateController =
         ValueNotifier<DateTime?>(booking.date_start);
     final ValueNotifier<DateTime?> _endDateController =

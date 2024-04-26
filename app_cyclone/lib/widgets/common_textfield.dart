@@ -7,13 +7,15 @@ class CommonTextfield extends StatelessWidget {
       required this.controller,
       this.changeable,
       this.validate,
-      this.autofillHints});
+      this.autofillHints,
+      this.keyboardType});
 
   final String? label;
   final TextEditingController controller;
   final Function(String)? validate;
   final bool? changeable;
   final Iterable<String>? autofillHints;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class CommonTextfield extends StatelessWidget {
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
+        keyboardType: keyboardType ?? TextInputType.text,
         controller: controller,
         enabled: changeable ?? true,
         validator: (value) {

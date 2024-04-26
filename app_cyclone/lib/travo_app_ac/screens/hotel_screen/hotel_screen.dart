@@ -32,6 +32,8 @@ class _HotelScreenState extends State<HotelScreen> {
   void dispose() {
     super.dispose();
     _streamController.close();
+    _searchController.dispose();
+    _hotels.dispose();
   }
 
   void getHotels() async {

@@ -44,8 +44,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  TextEditingController _searchController = TextEditingController();
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin<HomeScreen> {
+  final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<List<Place>> _places = ValueNotifier<List<Place>>([]);
   // final ValueNotifier<AccountInfo?> acc = ValueNotifier<AccountInfo?>(null);
 
@@ -223,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return SliverToBoxAdapter(
-                      child: Container(
+                      child: SizedBox(
                     height: 200,
                     child: Column(
                       children: [
@@ -255,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   });
                 } else {
-                  return Container();
+                  return const SizedBox();
                 }
               },
             )
@@ -311,4 +312,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

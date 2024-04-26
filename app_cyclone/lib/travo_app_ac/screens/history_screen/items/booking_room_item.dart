@@ -29,6 +29,13 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
 
   ValueNotifier<Room?> room = ValueNotifier<Room?>(null);
   ValueNotifier<Hotel?> hotel = ValueNotifier<Hotel?>(null);
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    room.dispose();
+    hotel.dispose();
+  }
 
   void getData() async {
     // print(widget.booking.room);

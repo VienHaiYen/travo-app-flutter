@@ -22,6 +22,12 @@ class _PromoCodeScreenState extends State<PromoCodeScreen> {
   final ValueNotifier<Promo?> promo = ValueNotifier<Promo?>(null);
 
   final _formKey = GlobalKey<FormState>();
+  @override
+  void dispose() {
+    super.dispose();
+    _code.dispose();
+    promo.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

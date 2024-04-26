@@ -27,6 +27,7 @@ class _CheckOutScreenState extends State<CheckOutScreen>
   void dispose() {
     // TODO: implement dispose
     _tabController.dispose();
+    step.dispose();
     super.dispose();
   }
 
@@ -90,6 +91,13 @@ class ProviderScreenCheckout extends StatefulWidget {
 }
 
 class _ProviderScreenCheckoutState extends State<ProviderScreenCheckout> {
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    BlocProvider.of<BookingInfoBloc>(context).close();
+  }
+
   @override
   void initState() {
     // TODO: implement initState

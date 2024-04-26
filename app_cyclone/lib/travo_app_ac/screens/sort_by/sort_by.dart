@@ -51,6 +51,12 @@ class _SortByState extends State<SortBy> {
           value: Sort.Lowest_Price),
     ];
     final ValueNotifier<Sort> _character = ValueNotifier(widget.state);
+    @override
+    void dispose() {
+      // TODO: implement dispose
+      super.dispose();
+      _character.dispose();
+    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,

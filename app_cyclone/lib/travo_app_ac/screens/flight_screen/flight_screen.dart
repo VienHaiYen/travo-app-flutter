@@ -35,6 +35,20 @@ class _FlightScreenState extends State<FlightScreen> {
   ValueNotifier<int> typeFlightBooking = ValueNotifier<int>(0);
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _fromController.dispose();
+    _toController.dispose();
+    _numberPassengerController.dispose();
+    _departureDateController.dispose();
+    _returnDateController.dispose();
+    _departureDateController2.dispose();
+    _classController.dispose();
+    typeFlightBooking.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _fromController.text = "USA";
     _toController.text = "Australia";
