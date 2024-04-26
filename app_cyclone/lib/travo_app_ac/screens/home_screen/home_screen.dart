@@ -11,6 +11,7 @@ import 'package:app_cyclone/travo_app_ac/models/user_info.dart';
 import 'package:app_cyclone/travo_app_ac/service/account_service.dart';
 import 'package:app_cyclone/widgets/custom_search_bar.dart';
 import 'package:app_cyclone/widgets/place_list_item.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:app_cyclone/travo_app_ac/models/place.dart';
@@ -96,152 +97,177 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 244, 244),
-        body: Column(
-          children: [
-            Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: MyHeader(
-                    topWidget: BlocBuilder<LogInBloc, LogInState>(
-                        builder: (context, state) {
-                      return state.currentUser!.name == ""
-                          ? Container()
-                          : Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 5),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 220,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: MyHeader(
+                          topWidget: BlocBuilder<LogInBloc, LogInState>(
+                              builder: (context, state) {
+                            return state.currentUser!.name == ""
+                                ? Container()
+                                : Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 5),
+                                    child: Row(
                                       children: [
-                                        RichText(
-                                            text: TextSpan(
-                                                text: "Hi, ",
-                                                style: TextStyle(
-                                                  fontSize: 30,
-                                                  fontFamily:
-                                                      GoogleFonts.montserrat(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)
-                                                          .fontFamily,
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              RichText(
+                                                  text: TextSpan(
+                                                      text: "Hi, ",
+                                                      style: TextStyle(
+                                                        fontSize: 30,
+                                                        fontFamily: GoogleFonts
+                                                                .montserrat(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)
+                                                            .fontFamily,
+                                                      ),
+                                                      children: [
+                                                    TextSpan(
+                                                        text: state
+                                                            .currentUser!.name)
+                                                  ])),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .where_you_go_next,
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.white,
                                                 ),
-                                                children: [
-                                              TextSpan(
-                                                  text: state.currentUser!.name)
-                                            ])),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          AppLocalizations.of(context)!
-                                              .where_you_go_next,
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
+                                              ),
+                                            ],
                                           ),
                                         ),
+                                        const Icon(
+                                          CupertinoIcons.bell,
+                                          color: Colors.white,
+                                          size: 30.0,
+                                        ),
+                                        const SizedBox(width: 20),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
+                                            width: 50,
+                                            height: 50,
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  ),
-                                  const Icon(
-                                    CupertinoIcons.bell,
-                                    color: Colors.white,
-                                    size: 30.0,
-                                  ),
-                                  const SizedBox(width: 20),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      "https://media.istockphoto.com/id/1295497300/photo/sakura-for-valentines-day-raster.jpg?s=612x612&w=0&k=20&c=QA7gEkUajfIp53kERLv6uv2ZE7gwMzBOLoG-cMMFkVE=",
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                    }),
-                    context: context,
-                  ),
+                                  );
+                          }),
+                          context: context,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        left: 25,
+                        child: CustomSearchBar(
+                            searchController: _searchController,
+                            onChanged: searchFunction,
+                            placeholder: AppLocalizations.of(context)!
+                                .search_destination))
+                  ],
                 ),
-                Positioned(
-                    bottom: 0,
-                    left: 25,
-                    child: CustomSearchBar(
-                        searchController: _searchController,
-                        onChanged: searchFunction,
-                        placeholder:
-                            AppLocalizations.of(context)!.search_destination))
-              ],
-            ),
-
-            const SizedBox(height: 30),
-            _bigButtunList(context),
-            // const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.popular_destination,
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                      onPressed: null,
-                      child: Text(
-                        AppLocalizations.of(context)!.all,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(97, 85, 204, 1),
-                            fontWeight: FontWeight.w600),
-                      ))
-                ],
               ),
             ),
-            Expanded(
-              child: StreamBuilder<List<Place>>(
-                stream: _streamController.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting ||
-                      snapshot.data == null && snapshot.hasError == false) {
-                    return Column(
-                      children: [
-                        const CircularProgressIndicator(),
-                        Expanded(child: Container())
-                      ],
-                    ); // Hiển thị indicator khi đang đợi dữ liệu
-                  } else if (snapshot.hasError) {
-                    return Text(
-                        'Error: ${snapshot.error}'); // Hiển thị thông báo lỗi
-                  } else {
-                    return BlocBuilder<FavoriteBloc, FavoriteState>(
-                        builder: (context, state) {
-                      return MasonryGridView.count(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        physics: const ScrollPhysics(),
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 4,
-                        crossAxisSpacing: 2,
-                        itemCount: _places.value.length,
-                        itemBuilder: (context, index) {
-                          return PlaceListItem(item: _places.value[index]);
-                        },
-                      );
-                    });
-                  }
-                },
+            SliverToBoxAdapter(
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: _bigButtunList(context)),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.popular_destination,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                    ),
+                    TextButton(
+                        onPressed: null,
+                        child: Text(
+                          AppLocalizations.of(context)!.all,
+                          style: const TextStyle(
+                              fontSize: 18,
+                              color: Color.fromRGBO(97, 85, 204, 1),
+                              fontWeight: FontWeight.w600),
+                        ))
+                  ],
+                ),
               ),
+            ),
+            StreamBuilder<List<Place>>(
+              stream: _streamController.stream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                    (context, index) => Container(
+                      height: 200,
+                      child: Column(
+                        children: [
+                          const CircularProgressIndicator(),
+                          Expanded(child: Container())
+                        ],
+                      ),
+                    ),
+                  ));
+                } else if (snapshot.hasError) {
+                  return SliverToBoxAdapter(
+                      child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.hasData) {
+                  return BlocBuilder<FavoriteBloc, FavoriteState>(
+                      builder: (context, state) {
+                    return SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return MasonryGridView.count(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          physics: const ScrollPhysics(),
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 4,
+                          crossAxisSpacing: 2,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return PlaceListItem(item: snapshot.data![index]);
+                          },
+                        );
+                      },
+                      childCount: snapshot.data!.length,
+                    ));
+                  });
+                } else {
+                  return Container();
+                }
+              },
             )
           ],
         ));
   }
 
+//
   Widget _bigButtunList(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
