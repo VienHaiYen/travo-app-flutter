@@ -29,7 +29,7 @@ class _RoomScreenState extends State<RoomScreen> {
   Widget build(BuildContext context) {
     getRooms();
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Column(
           children: [
             MyHeader(

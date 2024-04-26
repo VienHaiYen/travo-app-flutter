@@ -14,7 +14,9 @@ class PlaceListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ),
       width: double.infinity,
       child: Stack(
         children: [

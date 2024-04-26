@@ -43,7 +43,7 @@ class _BookingRoomItemState extends State<BookingRoomItem> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
       ),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ValueListenableBuilder<Hotel?>(

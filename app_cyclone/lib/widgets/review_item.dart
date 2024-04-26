@@ -1,7 +1,7 @@
 import 'package:app_cyclone/travo_app_ac/models/review.dart';
+import 'package:app_cyclone/widgets/decription_text.dart';
 import 'package:app_cyclone/widgets/star_rating.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 class ReviewItem extends StatelessWidget {
@@ -15,15 +15,8 @@ class ReviewItem extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(10),
-          // boxShadow: const [
-          //   BoxShadow(
-          //       color: Colors.black12,
-          //       offset: Offset(0, 2),
-          //       blurRadius: 2,
-          //       spreadRadius: 1)
-          // ]
         ),
         child: Column(
           children: [
@@ -56,11 +49,12 @@ class ReviewItem extends StatelessWidget {
                 )
               ],
             ),
-            Text(
-              item.comment ?? "",
-              style: const TextStyle(fontSize: 15),
-              maxLines: 2,
-            ),
+            // Text(
+            //   item.comment ?? "",
+            //   style: const TextStyle(fontSize: 15),
+            //   maxLines: 2,
+            // ),
+            DescriptionTextWidget(text: item.comment ?? ""),
             const SizedBox(
               height: 20,
             ),

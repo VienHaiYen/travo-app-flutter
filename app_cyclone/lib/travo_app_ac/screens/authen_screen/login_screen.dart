@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -158,12 +159,6 @@ class LoginScreen extends StatelessWidget {
                                   isLoading: false,
                                   currentUser: currUser,
                                   isSuccess: true));
-                          // print("345");
-                          // //
-                          // print(BlocProvider.of<LogInBloc>(context)
-                          //     .state
-                          //     .currentUser!
-                          //     .email);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text("Login failed")));
@@ -178,7 +173,6 @@ class LoginScreen extends StatelessWidget {
                       print(token);
 
                       if (user != null) {
-                        print("Login");
                         Navigator.of(context).pushNamed('/home');
                         Navigator.pushNamedAndRemoveUntil(
                           context,
@@ -200,7 +194,7 @@ class LoginScreen extends StatelessWidget {
                           ChangeLogInEvent(isLoading: false, isSuccess: false));
                     }
                   },
-                  text: 'Log In',
+                  text: AppLocalizations.of(context)!.log_in,
                   isFullWidth: true,
                 );
               }
@@ -216,10 +210,10 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.mail,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
-                    color: Colors.white,
-                    textColor: Colors.black),
+                    color: const Color.fromARGB(255, 143, 141, 141),
+                    textColor: Colors.white),
                 const SizedBox(width: 20),
                 CustomIconButton(
                     text: "Facebook",
@@ -241,9 +235,10 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushNamed('/sign-up');
                   },
-                  child: const Text(
-                    'Sign Up',
-                    style: TextStyle(color: Color.fromARGB(255, 14, 90, 148)),
+                  child: Text(
+                    AppLocalizations.of(context)!.sign_up,
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 14, 90, 148)),
                   ),
                 )
               ],

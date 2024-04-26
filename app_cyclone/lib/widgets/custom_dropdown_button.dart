@@ -24,7 +24,7 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
       builder: (context, value, child) => Container(
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
         width: double.infinity,
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

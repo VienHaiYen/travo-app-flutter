@@ -43,7 +43,7 @@ class _Screen1BookingFlightState extends State<Screen1BookingFlight> {
                       padding: const EdgeInsets.symmetric(
                           vertical: 30, horizontal: 10),
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).cardColor,
                           borderRadius: BorderRadius.circular(20)),
                       child: Column(
                         children: [

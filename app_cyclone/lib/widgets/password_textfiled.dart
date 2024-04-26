@@ -21,7 +21,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
     return ValueListenableBuilder<bool>(
         builder: (BuildContext context, bool value, Widget? child) {
           return Container(
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             padding: const EdgeInsets.only(top: 7),
             child: TextFormField(
               controller: widget.controller,
@@ -38,9 +38,9 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
               autofocus: false,
               obscureText: value,
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Color.fromARGB(255, 33, 34, 34)),
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
               decoration: InputDecoration(
                 suffixIcon: IconButton(
                   onPressed: () {
@@ -53,16 +53,16 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
                 labelText: "Password",
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: Theme.of(context).cardColor,
                 hintText: '',
                 contentPadding:
                     const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: Theme.of(context).cardColor),
                   borderRadius: BorderRadius.circular(7),
                 ),
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: Theme.of(context).cardColor),
                   borderRadius: BorderRadius.circular(7),
                 ),
                 errorBorder: OutlineInputBorder(

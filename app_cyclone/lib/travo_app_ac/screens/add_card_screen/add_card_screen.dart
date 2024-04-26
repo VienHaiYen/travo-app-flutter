@@ -34,12 +34,23 @@ class AddCardScreenState extends State<AddCardScreen> {
     "Vietnam",
   ];
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    // _cvvController.dispose();
+    // _nameController.dispose();
+    // _cardController.dispose();
+    // _countryController.dispose();
+    // _expDateController.dispose();
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
           child: Column(children: [
             MyHeader(

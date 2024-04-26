@@ -1,12 +1,14 @@
 import 'package:app_cyclone/travo_app_ac/models/flight.dart';
+import 'package:app_cyclone/travo_app_ac/models/seat.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class FlightInfomationItem extends StatelessWidget {
-  const FlightInfomationItem({super.key, required this.flight});
+  const FlightInfomationItem({super.key, required this.flight, this.seat});
 
   final Flight flight;
+  final Seat? seat;
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +132,8 @@ class FlightInfomationItem extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Date"),
-                SizedBox(
+                const Text("Date"),
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -139,11 +141,11 @@ class FlightInfomationItem extends StatelessWidget {
                       .format(flight.departure_time!.toDate()),
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Boarding Time"),
-                SizedBox(
+                const Text("Boarding Time"),
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
@@ -152,17 +154,16 @@ class FlightInfomationItem extends StatelessWidget {
                 ),
               ],
             ),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text("Gate"),
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Undefined",
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 20,
@@ -172,33 +173,35 @@ class FlightInfomationItem extends StatelessWidget {
                   height: 10,
                 ),
                 // fix sau
-                const Text(
-                  "5A",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  seat?.name ?? "No input",
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Flight No."),
-                SizedBox(
+                const Text("Flight No."),
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
                   flight.no ?? "",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text("Class"),
-                SizedBox(
+                const Text("Class"),
+                const SizedBox(
                   height: 10,
                 ),
                 Text(
-                  "Economy",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  seat?.type ?? "No input",
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),

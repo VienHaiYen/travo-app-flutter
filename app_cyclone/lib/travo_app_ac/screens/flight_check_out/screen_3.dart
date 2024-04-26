@@ -36,7 +36,8 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
           Container(
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(20)),
               child: flightInfo()),
           BlocBuilder<BookingFlightInfoBloc, BookingFlightInfoState>(
               builder: (context, state) {
@@ -127,7 +128,8 @@ class _Screen3BookingFlightState extends State<Screen3BookingFlight> {
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

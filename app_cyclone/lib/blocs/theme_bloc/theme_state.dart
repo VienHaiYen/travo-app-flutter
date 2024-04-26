@@ -13,7 +13,7 @@ class ThemeState {
     return ThemeState(
       backgroundColor: const Color(0xFF000000),
       textColor: const Color(0xFFFFFFFF),
-      name: "dart",
+      name: "dark",
     );
   }
   factory ThemeState.light() {

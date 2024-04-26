@@ -77,17 +77,20 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
               BlocProvider.of<BookingInfoBloc>(context)
                   .add(UpdateBookingInfoEvent(typePayment: "Mini Market"));
             },
-            child: CheckOutOption(
-              hasButton: false,
-              bgColor: selectedItem.value == 1
-                  ? const Color.fromARGB(19, 167, 141, 220)
-                  : null,
-              icon: ColorIcon(
-                  icon: Icons.fastfood,
-                  color: const Color.fromRGBO(254, 156, 94, 1),
-                  bgColor: const Color.fromARGB(68, 254, 155, 94)),
-              title: "Mini Market",
-              subAdd: "",
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CheckOutOption(
+                hasButton: false,
+                bgColor: selectedItem.value == 1
+                    ? const Color.fromARGB(19, 167, 141, 220)
+                    : null,
+                icon: ColorIcon(
+                    icon: Icons.fastfood,
+                    color: const Color.fromRGBO(254, 156, 94, 1),
+                    bgColor: const Color.fromARGB(68, 254, 155, 94)),
+                title: "Mini Market",
+                subAdd: "",
+              ),
             ),
           ),
           BlocBuilder<BookingInfoBloc, BookingInfoState>(
@@ -116,39 +119,42 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
                     }
                   }
                 },
-                child: CheckOutOption(
-                    hasButton: true,
-                    bgColor: selectedItem.value == 2
-                        ? const Color.fromARGB(19, 167, 141, 220)
-                        : null,
-                    icon: ColorIcon(
-                        icon: Icons.credit_card,
-                        color: const Color.fromRGBO(247, 119, 119, 1),
-                        bgColor: const Color.fromARGB(103, 247, 119, 119)),
-                    title: "Credit / Debit Card",
-                    subAdd: "Add Card",
-                    data: BlocProvider.of<BookingInfoBloc>(context)
-                                .state
-                                .currentBooking
-                                .payment_card_info !=
-                            null
-                        ? BlocProvider.of<BookingInfoBloc>(context)
-                            .state
-                            .currentBooking
-                            .payment_card_info
-                            .toString()
-                        : "",
-                    onPressed: () async {
-                      final PaymentCardInfo card = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AddCardScreen()),
-                      );
-                      if (card.cardNumber != "") {
-                        BlocProvider.of<BookingInfoBloc>(context).add(
-                            UpdateBookingInfoEvent(payment_card_info: card));
-                      }
-                    }));
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CheckOutOption(
+                      hasButton: true,
+                      bgColor: selectedItem.value == 2
+                          ? const Color.fromARGB(19, 167, 141, 220)
+                          : null,
+                      icon: ColorIcon(
+                          icon: Icons.credit_card,
+                          color: const Color.fromRGBO(247, 119, 119, 1),
+                          bgColor: const Color.fromARGB(103, 247, 119, 119)),
+                      title: "Credit / Debit Card",
+                      subAdd: "Add Card",
+                      data: BlocProvider.of<BookingInfoBloc>(context)
+                                  .state
+                                  .currentBooking
+                                  .payment_card_info !=
+                              null
+                          ? BlocProvider.of<BookingInfoBloc>(context)
+                              .state
+                              .currentBooking
+                              .payment_card_info
+                              .toString()
+                          : "",
+                      onPressed: () async {
+                        final PaymentCardInfo card = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddCardScreen()),
+                        );
+                        if (card.cardNumber != "") {
+                          BlocProvider.of<BookingInfoBloc>(context).add(
+                              UpdateBookingInfoEvent(payment_card_info: card));
+                        }
+                      }),
+                ));
           }),
           GestureDetector(
             onTap: () {
@@ -156,17 +162,20 @@ class _Screen2BookingRoomState extends State<Screen2BookingRoom> {
               BlocProvider.of<BookingInfoBloc>(context)
                   .add(UpdateBookingInfoEvent(typePayment: "Bank transfer"));
             },
-            child: CheckOutOption(
-                bgColor: selectedItem.value == 3
-                    ? const Color.fromARGB(19, 167, 141, 220)
-                    : null,
-                icon: ColorIcon(
-                    icon: const IconData(0xe040, fontFamily: 'MaterialIcons'),
-                    color: const Color.fromARGB(94, 62, 200, 188),
-                    bgColor: const Color.fromARGB(43, 62, 200, 188)),
-                hasButton: false,
-                title: "Bank Transfer",
-                subAdd: ""),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: CheckOutOption(
+                  bgColor: selectedItem.value == 3
+                      ? const Color.fromARGB(19, 167, 141, 220)
+                      : null,
+                  icon: ColorIcon(
+                      icon: const IconData(0xe040, fontFamily: 'MaterialIcons'),
+                      color: const Color.fromARGB(94, 62, 200, 188),
+                      bgColor: const Color.fromARGB(43, 62, 200, 188)),
+                  hasButton: false,
+                  title: "Bank Transfer",
+                  subAdd: ""),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

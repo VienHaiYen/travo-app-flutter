@@ -36,29 +36,18 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
             ),
           ),
           Positioned(
-            top: 10 * 3,
-            left: 10,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                margin: const EdgeInsets.only(top: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  ),
-                  color: Colors.white,
+              top: 10 * 3,
+              left: 10,
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: FloatingActionButton(
+                  mini: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.arrow_back),
                 ),
-                padding: const EdgeInsets.all(8),
-                child: const Icon(
-                  FontAwesomeIcons.arrowLeft,
-                  size: 25,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
+              )),
           Positioned(
             top: 10 * 3,
             right: 10,
@@ -71,7 +60,7 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
                           borderRadius: BorderRadius.circular(
                             10,
                           ),
-                          color: Colors.white,
+                          color: Theme.of(context).cardColor,
                         ),
                         child: FavoriteIcon(
                           isBorderIcon: true,
@@ -106,9 +95,9 @@ class _DetailHotelScreenState extends State<DetailHotelScreen> {
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),

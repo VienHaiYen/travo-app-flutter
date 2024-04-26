@@ -36,7 +36,7 @@ class _FacilitiesState extends State<Facilities> {
   Widget build(BuildContext context) {
     int init = -1;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Column(
         children: [
           MyHeader(context: context, title: "Facilities"),

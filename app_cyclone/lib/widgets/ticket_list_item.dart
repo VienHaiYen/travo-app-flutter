@@ -22,7 +22,7 @@ class TicketListItem extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
         height: 120,
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         child: Row(
           children: [
             Container(

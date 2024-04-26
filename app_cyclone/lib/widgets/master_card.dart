@@ -7,7 +7,8 @@ class MasterCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(20)),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
       child: Row(
         children: [

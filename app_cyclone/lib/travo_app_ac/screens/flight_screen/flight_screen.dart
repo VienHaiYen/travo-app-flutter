@@ -40,7 +40,7 @@ class _FlightScreenState extends State<FlightScreen> {
     _toController.text = "Australia";
 
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Column(children: [
           MyHeader(
             context: context,
@@ -181,7 +181,7 @@ class _FlightScreenState extends State<FlightScreen> {
                   ),
                   const SizedBox(height: 10),
                   Container(
-                      color: Colors.white,
+                      color: Theme.of(context).cardColor,
                       padding: const EdgeInsets.all(15),
                       child: Row(
                         children: [
@@ -202,7 +202,7 @@ class _FlightScreenState extends State<FlightScreen> {
                             children: [
                               const SizedBox(height: 10),
                               Container(
-                                  color: Colors.white,
+                                  color: Theme.of(context).cardColor,
                                   padding: const EdgeInsets.all(15),
                                   child: Row(
                                     children: [
@@ -229,11 +229,11 @@ class _FlightScreenState extends State<FlightScreen> {
                           color: const Color.fromRGBO(247, 119, 119, 1),
                           bgColor: const Color.fromRGBO(247, 119, 119, 0.4)),
                       controller: _numberPassengerController,
-                      changeable: false,
+                      // changeable: false,
                       label: AppLocalizations.of(context)!.passenger),
                   const SizedBox(height: 10),
                   Container(
-                      color: Colors.white,
+                      color: Theme.of(context).cardColor,
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         children: [
@@ -307,7 +307,7 @@ class _FlightScreenState extends State<FlightScreen> {
                                       label: "To"),
                                   const SizedBox(height: 10),
                                   Container(
-                                      color: Colors.white,
+                                      color: Theme.of(context).cardColor,
                                       padding: const EdgeInsets.all(10),
                                       child: Row(
                                         children: [
@@ -331,7 +331,7 @@ class _FlightScreenState extends State<FlightScreen> {
                                   //           children: [
                                   //             const SizedBox(height: 10),
                                   //             Container(
-                                  //                 color: Colors.white,
+                                  //                 color: Theme.of(context).cardColor,
                                   //                 padding:
                                   //                     const EdgeInsets.all(20),
                                   //                 child: Row(
@@ -363,11 +363,11 @@ class _FlightScreenState extends State<FlightScreen> {
                                         size: 20,
                                       ),
                                       controller: _numberPassengerController,
-                                      changeable: false,
+                                      // changeable: false,
                                       label: "Passengers"),
                                   const SizedBox(height: 10),
                                   Container(
-                                      color: Colors.white,
+                                      color: Theme.of(context).cardColor,
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 20),
                                       child: Row(

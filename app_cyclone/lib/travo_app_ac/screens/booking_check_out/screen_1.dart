@@ -65,71 +65,78 @@ class _Screen1BookingRoomState extends State<Screen1BookingRoom> {
           RoomListItem(
             item: room,
           ),
-          CheckOutOption(
-              icon: ColorIcon(
-                  icon: Icons.people,
-                  color: const Color.fromRGBO(97, 85, 204, 1),
-                  bgColor: const Color.fromRGBO(224, 221, 245, 1)),
-              title: AppLocalizations.of(context)!.contact_details,
-              hasButton: true,
-              subAdd: AppLocalizations.of(context)!.add_contact,
-              data: state.currentBooking.guest!.isNotEmpty
-                  ? state.currentBooking.guest![0].toString()
-                  : "",
-              onPressed: () async {
-                final Guest guest = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ContactDetailsScreen()),
-                );
-                if (guest.email != "") {
-                  BlocProvider.of<BookingInfoBloc>(context)
-                      .add(UpdateBookingInfoEvent(guest: [guest]));
-                }
-              }),
-          CheckOutOption(
-              icon: ColorIcon(
-                  icon: Icons.percent,
-                  color: const Color.fromRGBO(254, 156, 94, 1),
-                  bgColor: const Color.fromARGB(66, 254, 155, 94)),
-              hasButton: true,
-              title: AppLocalizations.of(context)!.promo_caode,
-              subAdd: BlocProvider.of<BookingInfoBloc>(context)
-                          .state
-                          .currentBooking
-                          .promo_code !=
-                      null
-                  ? ""
-                  : AppLocalizations.of(context)!.add_promo_caode,
-              data: BlocProvider.of<BookingInfoBloc>(context)
-                          .state
-                          .currentBooking
-                          .promo_code
-                          ?.price !=
-                      null
-                  ? '${BlocProvider.of<BookingInfoBloc>(context).state.currentBooking.promo_code!.price! * 100}%'
-                  : "",
-              dataSize: 20,
-              dataIcon: Image.network(
-                "https://cdn-icons-png.flaticon.com/128/7526/7526142.png",
-                width: 50,
-              ),
-              onPressed: () async {
-                final Promo? promo = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const PromoCodeScreen()),
-                );
-                if (promo != null) {
-                  BlocProvider.of<BookingInfoBloc>(context)
-                      .add(UpdateBookingInfoEvent(promo_code: promo));
-                }
-              }),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CheckOutOption(
+                icon: ColorIcon(
+                    icon: Icons.people,
+                    color: const Color.fromRGBO(97, 85, 204, 1),
+                    bgColor: const Color.fromRGBO(224, 221, 245, 1)),
+                title: AppLocalizations.of(context)!.contact_details,
+                hasButton: true,
+                subAdd: AppLocalizations.of(context)!.add_contact,
+                data: state.currentBooking.guest!.isNotEmpty
+                    ? state.currentBooking.guest![0].toString()
+                    : "",
+                onPressed: () async {
+                  final Guest guest = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ContactDetailsScreen()),
+                  );
+                  if (guest.email != "") {
+                    BlocProvider.of<BookingInfoBloc>(context)
+                        .add(UpdateBookingInfoEvent(guest: [guest]));
+                  }
+                }),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: CheckOutOption(
+                icon: ColorIcon(
+                    icon: Icons.percent,
+                    color: const Color.fromRGBO(254, 156, 94, 1),
+                    bgColor: const Color.fromARGB(66, 254, 155, 94)),
+                hasButton: true,
+                title: AppLocalizations.of(context)!.promo_caode,
+                subAdd: BlocProvider.of<BookingInfoBloc>(context)
+                            .state
+                            .currentBooking
+                            .promo_code !=
+                        null
+                    ? ""
+                    : AppLocalizations.of(context)!.add_promo_caode,
+                data: BlocProvider.of<BookingInfoBloc>(context)
+                            .state
+                            .currentBooking
+                            .promo_code
+                            ?.price !=
+                        null
+                    ? '${BlocProvider.of<BookingInfoBloc>(context).state.currentBooking.promo_code!.price! * 100}%'
+                    : "",
+                dataSize: 20,
+                dataIcon: Image.network(
+                  "https://cdn-icons-png.flaticon.com/128/7526/7526142.png",
+                  width: 50,
+                ),
+                onPressed: () async {
+                  final Promo? promo = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PromoCodeScreen()),
+                  );
+                  if (promo != null) {
+                    BlocProvider.of<BookingInfoBloc>(context)
+                        .add(UpdateBookingInfoEvent(promo_code: promo));
+                  }
+                }),
+          ),
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -22,10 +22,10 @@ class FavoriteIcon extends StatelessWidget {
               color: Color.fromRGBO(247, 119, 119, 1),
             )
           : (isBorderIcon == false
-              ? const Icon(
+              ? Icon(
                   Icons.favorite,
                   size: 28,
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                 )
               : const Icon(
                   Icons.favorite_border,

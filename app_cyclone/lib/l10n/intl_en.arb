@@ -55,7 +55,24 @@
   "popular_destination":"Địa điểm nổi tiếng",
   "history": "History",
   "your_jouney": "Your jouney!!",
-  "favorite" : "Favorite"
+  "favorite" : "Favorite",
+  "choose_filter":"Choose your filter",
+  "facilities":"Facilities",
+  "sortBy":"Sort by",
+  "apply":"Apply",
+  "earliest_Departure": "Earliest Departure",
+  "latest_Departure": "Latest Departure",
+  "earliest_Arrive": "Earliest Arrive",
+  "latest_Arrive": "Latest Arrive",
+  "shortest_Duration": "Shortest Duration",
+  "lowest_Price": "Lowest Price",
+  "show_more":"Show more",
+  "show_less":" Show less",
+
+  "log_in":"Log In",
+  "sign_up":"Sign Up"
+
+
 
 
 

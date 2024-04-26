@@ -1,3 +1,5 @@
+import "package:app_cyclone/blocs/theme_bloc/theme_bloc.dart";
+import "package:app_cyclone/blocs/theme_bloc/theme_event.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/widgets.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,7 +8,6 @@ import "package:app_cyclone/blocs/language_bloc/language_bloc.dart";
 import "package:app_cyclone/blocs/language_bloc/language_event.dart";
 import "package:app_cyclone/blocs/log_in_bloc/log_in_bloc.dart";
 import "package:app_cyclone/blocs/log_in_bloc/log_in_event.dart";
-import "package:app_cyclone/blocs/log_in_bloc/log_in_state.dart";
 import "package:app_cyclone/routes/route_name.dart";
 import "package:app_cyclone/widgets/button.dart";
 import "package:flutter/material.dart";
@@ -43,7 +44,9 @@ class UserScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(AppLocalizations.of(context)!.tranlate)),
             const SizedBox(height: 5),
-            const DropdownButtonExample(),
+            const DropdownTranslate(),
+            const SizedBox(height: 20),
+            const DropdownMode(),
             const SizedBox(height: 20),
             Button(
                 isFullWidth: true,
@@ -69,19 +72,22 @@ const List<String> list = <String>[
   'en',
   'vi',
 ];
+const List<String> mode = <String>[
+  'light',
+  'dark',
+];
 
-class DropdownButtonExample extends StatefulWidget {
-  const DropdownButtonExample({super.key});
+class DropdownTranslate extends StatefulWidget {
+  const DropdownTranslate({super.key});
 
   @override
-  State<DropdownButtonExample> createState() => _DropdownButtonExampleState();
+  State<DropdownTranslate> createState() => DropdownTranslateState();
 }
 
-class _DropdownButtonExampleState extends State<DropdownButtonExample> {
-  String dropdownValue = list.first;
-
+class DropdownTranslateState extends State<DropdownTranslate> {
   @override
   Widget build(BuildContext context) {
+    String dropdownValue = BlocProvider.of<LanguageBloc>(context).state.locale;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
@@ -92,7 +98,6 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
         value: dropdownValue,
         icon: const Icon(Icons.arrow_downward),
         elevation: 16,
-        style: const TextStyle(color: Colors.deepPurple),
         onChanged: (String? value) {
           // This is called when the user selects an item.
           BlocProvider.of<LanguageBloc>(context).add(ChangeLanguage(value!));
@@ -101,6 +106,47 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
           });
         },
         items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+class DropdownMode extends StatefulWidget {
+  const DropdownMode({super.key});
+
+  @override
+  State<DropdownMode> createState() => DropdownModeState();
+}
+
+class DropdownModeState extends State<DropdownMode> {
+  @override
+  Widget build(BuildContext context) {
+    String dropdownValue = BlocProvider.of<ThemeBloc>(context).state.name;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blueGrey),
+      ),
+      child: DropdownButton<String>(
+        isExpanded: true,
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        onChanged: (String? value) {
+          // This is called when the user selects an item.
+          BlocProvider.of<ThemeBloc>(context)
+              .add(ChangeThemeEvent(name: value!));
+          setState(() {
+            dropdownValue = value!;
+            print(BlocProvider.of<ThemeBloc>(context).state.name);
+          });
+        },
+        items: mode.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),

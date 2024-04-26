@@ -33,7 +33,7 @@ class CheckOutOption extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-            color: bgColor ?? Colors.white,
+            color: bgColor ?? Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,10 +44,12 @@ class CheckOutOption extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 16),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
               ],
             ),
@@ -108,7 +110,7 @@ class CheckOutOption extends StatelessWidget {
                                       height: 40,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
-                                        color: Colors.white,
+                                        color: Theme.of(context).cardColor,
                                       ),
                                       alignment: Alignment.center,
                                       child: const Icon(

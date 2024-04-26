@@ -23,7 +23,7 @@ class RoomListItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
       ),
       margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
       padding: const EdgeInsets.all(20),

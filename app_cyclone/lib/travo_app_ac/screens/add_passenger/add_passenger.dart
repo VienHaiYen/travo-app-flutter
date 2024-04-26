@@ -32,7 +32,7 @@ class AddPassengerScreenState extends State<AddPassengerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
           child: Column(children: [
             MyHeader(

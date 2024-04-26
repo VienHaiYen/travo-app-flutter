@@ -16,7 +16,8 @@ class CheckOutStepsLine extends StatelessWidget {
               steps.indexOf(e) + 1,
               e,
               steps.indexOf(e) == steps.length - 1,
-              steps.indexOf(e) == stepNum - 1))
+              steps.indexOf(e) == stepNum - 1,
+              context))
           .toList(),
     );
   }
@@ -26,6 +27,7 @@ class CheckOutStepsLine extends StatelessWidget {
     String nameStep,
     bool isEnd,
     bool isCheck,
+    BuildContext context,
   ) {
     return Row(
       children: [
@@ -34,13 +36,15 @@ class CheckOutStepsLine extends StatelessWidget {
           height: 20,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: isCheck ? Colors.white : Colors.white.withOpacity(0.1),
+            color: isCheck
+                ? Theme.of(context).cardColor
+                : Theme.of(context).cardColor.withOpacity(0.1),
           ),
           alignment: Alignment.center,
           child: Text(
             step.toString(),
             style: TextStyle(
-              color: isCheck ? null : Colors.white,
+              color: isCheck ? null : Theme.of(context).cardColor,
             ),
           ),
         ),
@@ -48,17 +52,17 @@ class CheckOutStepsLine extends StatelessWidget {
           width: 8,
         ),
         Text(nameStep,
-            style: const TextStyle(color: Colors.white, fontSize: 12)),
+            style: TextStyle(color: Theme.of(context).cardColor, fontSize: 12)),
         const SizedBox(
           width: 8,
         ),
         if (!isEnd)
-          const SizedBox(
+          SizedBox(
             width: 10,
             child: Divider(
               height: 1,
               thickness: 1,
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
             ),
           ),
         if (!isEnd)

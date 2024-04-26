@@ -55,7 +55,23 @@
   "popular_destination":"Popular Destinations",
   "history": "Lịch sử",
   "your_jouney":  "Hành trình của bạn!!",
-  "favorite" : "Yêu thích"
+  "favorite" : "Yêu thích",
+  "choose_filter":"Bộ lọc",
+  "facilities":"Cơ sở vật chất",
+  "sortBy":"Sắp xếp theo",
+  "apply":"Áp dụng",
+  "earliest_Departure": "Giờ bay sớm nhất",
+  "latest_Departure": "Giờ bay trễ nhất",
+  "earliest_Arrive": "Giờ đến nhanh nhất",
+  "latest_Arrive": "Giờ đến trễ nhất",
+  "shortest_Duration": "Thời gian di chuyển nhanh nhất",
+  "lowest_Price": "Giá tốt nhất",
+  "show_more":"Xem thêm",
+  "show_less":" Ẩn bớt",
+
+  "log_in":"Đăng nhập",
+  "sign_up":"Đăng kí"
+
 
 
 

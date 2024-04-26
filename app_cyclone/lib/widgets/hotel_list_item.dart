@@ -23,7 +23,7 @@ class HotelListItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
         ),
         margin: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
         child: Column(

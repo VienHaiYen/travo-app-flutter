@@ -11,10 +11,7 @@ import 'package:app_cyclone/widgets/button.dart';
 import 'package:app_cyclone/widgets/check_out_option.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:app_cyclone/widgets/ticket_list_item.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TicketScreen extends StatelessWidget {
@@ -37,9 +34,28 @@ class TicketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String translateSort(Sort key) {
+      switch (key) {
+        case Sort.Earliest_Departure:
+          return AppLocalizations.of(context)!.earliest_Departure;
+        case Sort.Latest_Departure:
+          return AppLocalizations.of(context)!.latest_Departure;
+        case Sort.Earliest_Arrive:
+          return AppLocalizations.of(context)!.earliest_Arrive;
+        case Sort.Latest_Arrive:
+          return AppLocalizations.of(context)!.latest_Arrive;
+        case Sort.Shortest_Duration:
+          return AppLocalizations.of(context)!.shortest_Duration;
+        case Sort.Lowest_Price:
+          return AppLocalizations.of(context)!.lowest_Price;
+        default:
+          return "";
+      }
+    }
+
     getFlight();
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Stack(
           children: [
             Positioned.fill(
@@ -60,7 +76,7 @@ class TicketScreen extends StatelessWidget {
                           builder: (BuildContext context) {
                             return Container(
                               height: 800,
-                              color: const Color.fromRGBO(240, 242, 246, 1),
+                              color: Theme.of(context).backgroundColor,
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 30),
                               child: Column(
@@ -68,9 +84,9 @@ class TicketScreen extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 // mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  const Text(
-                                    'Choose Your Filter',
-                                    style: TextStyle(
+                                  Text(
+                                    AppLocalizations.of(context)!.choose_filter,
+                                    style: const TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -85,7 +101,8 @@ class TicketScreen extends StatelessWidget {
                                             254, 156, 94, 1),
                                         bgColor: const Color.fromARGB(
                                             68, 254, 155, 94)),
-                                    title: "Facilities",
+                                    title: AppLocalizations.of(context)!
+                                        .facilities,
                                     subAdd: "",
                                     onWidgetTap: () => {
                                       Navigator.pushNamed(
@@ -104,7 +121,7 @@ class TicketScreen extends StatelessWidget {
                                               bgColor: const Color.fromARGB(
                                                   44, 68, 254, 155)),
                                           title:
-                                              'Sort By:  ${sortBy.value.toString().split('.')[1].replaceAll("_", " ")}',
+                                              '${AppLocalizations.of(context)!.sortBy}: ${translateSort(sortBy.value)}',
                                           subAdd: "",
                                           onWidgetTap: () async {
                                             sortBy.value = await Navigator.push(
@@ -118,7 +135,7 @@ class TicketScreen extends StatelessWidget {
                                         );
                                       }),
                                   Button(
-                                      text: "Apply",
+                                      text: AppLocalizations.of(context)!.apply,
                                       isFullWidth: true,
                                       onPressed: () {
                                         getFlight();

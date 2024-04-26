@@ -17,7 +17,7 @@ class AuthenScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 244, 244, 244),
+      backgroundColor: Theme.of(context).backgroundColor,
       // appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
@@ -61,18 +61,18 @@ class AuthenScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 30,
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 10),
             Text(
               subTitle,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
               ),
             ),
           ],

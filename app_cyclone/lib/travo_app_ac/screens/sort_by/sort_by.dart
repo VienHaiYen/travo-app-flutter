@@ -4,6 +4,7 @@ import 'package:app_cyclone/widgets/custom_checkbox.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Item {
   Item({
@@ -26,22 +27,33 @@ class SortBy extends StatefulWidget {
 
 class _SortByState extends State<SortBy> {
   // Sort? _character = Sort.Earliest_Departure;
-  List<Item> items = [
-    Item(name: "Earliest Departure", value: Sort.Earliest_Departure),
-    Item(name: "Latest Departure", value: Sort.Latest_Departure),
-    Item(name: "Earliest Arrive", value: Sort.Earliest_Arrive),
-    Item(name: "Latest Arrive", value: Sort.Latest_Arrive),
-    Item(name: "Shortest Duration", value: Sort.Shortest_Duration),
-    Item(name: "Lowest Price", value: Sort.Lowest_Price),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    print(widget.state);
+    List<Item> items = [
+      Item(
+          name: AppLocalizations.of(context)!.earliest_Departure,
+          value: Sort.Earliest_Departure),
+      Item(
+          name: AppLocalizations.of(context)!.latest_Departure,
+          value: Sort.Latest_Departure),
+      Item(
+          name: AppLocalizations.of(context)!.earliest_Arrive,
+          value: Sort.Earliest_Arrive),
+      Item(
+          name: AppLocalizations.of(context)!.latest_Arrive,
+          value: Sort.Latest_Arrive),
+      Item(
+          name: AppLocalizations.of(context)!.shortest_Duration,
+          value: Sort.Shortest_Duration),
+      Item(
+          name: AppLocalizations.of(context)!.lowest_Price,
+          value: Sort.Lowest_Price),
+    ];
     final ValueNotifier<Sort> _character = ValueNotifier(widget.state);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Column(
         children: [
           MyHeader(context: context, title: "SortBy"),

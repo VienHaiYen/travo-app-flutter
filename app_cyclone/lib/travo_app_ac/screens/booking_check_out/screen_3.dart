@@ -115,7 +115,8 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -171,7 +172,7 @@ class _Screen3BookingRoomState extends State<Screen3BookingRoom> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
       ),
       margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
       padding: const EdgeInsets.all(20),

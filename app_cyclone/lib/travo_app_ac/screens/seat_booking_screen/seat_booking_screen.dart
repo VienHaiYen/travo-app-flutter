@@ -49,7 +49,7 @@ class _SeatBookingScreenState extends State<SeatBookingScreen> {
 
     List<List<SeatState2>> all = business + economy;
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Column(children: [
           MyHeader(
             context: context,
@@ -75,7 +75,7 @@ class _SeatBookingScreenState extends State<SeatBookingScreen> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 15),
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Theme.of(context).cardColor,
                                 borderRadius: BorderRadius.circular(20)),
                             child: Center(child:
                                 BlocBuilder<SeatBookingBloc, SeatBookingState>(

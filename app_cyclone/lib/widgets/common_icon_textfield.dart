@@ -17,7 +17,7 @@ class CommonIconTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       padding: const EdgeInsets.only(left: 15),
       child: Row(
         children: [

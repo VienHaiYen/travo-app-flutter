@@ -9,7 +9,8 @@ class MyHeader extends StatelessWidget {
       this.title,
       this.subTitle,
       this.stepLine,
-      this.rightButton});
+      this.rightButton,
+      this.canPop = true});
 
   final BuildContext context;
   final Widget? topWidget;
@@ -17,6 +18,7 @@ class MyHeader extends StatelessWidget {
   final String? subTitle;
   final Widget? stepLine;
   final Widget? rightButton;
+  final bool canPop;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class MyHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Navigator.canPop(context)
+                Navigator.canPop(context) && canPop
                     ? Align(
                         alignment: Alignment.topLeft,
                         child: FloatingActionButton(

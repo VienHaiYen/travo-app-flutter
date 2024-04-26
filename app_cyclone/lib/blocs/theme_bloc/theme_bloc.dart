@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
   ThemeBloc() : super(ThemeState.light()) {
     on<ChangeThemeEvent>((event, emit) {
-      emit(state.name == ThemeState.light().name
-          ? ThemeState.dark()
-          : ThemeState.light());
+      emit(event.name == "dark" ? ThemeState.dark() : ThemeState.light());
     });
   }
 }

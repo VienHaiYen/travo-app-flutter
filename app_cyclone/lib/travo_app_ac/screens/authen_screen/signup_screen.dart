@@ -97,7 +97,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             const SizedBox(height: 20),
             Container(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               padding: const EdgeInsets.only(top: 9),
               child: IntlPhoneField(
                 controller: _phoneController,
@@ -110,22 +110,26 @@ class _SignupScreenState extends State<SignupScreen> {
                 },
                 autovalidateMode: AutovalidateMode.always,
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                    color: Color.fromARGB(255, 33, 34, 34)),
-                decoration: const InputDecoration(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  // color: Color.fromARGB(255, 33, 34, 34)
+                ),
+                decoration: InputDecoration(
                     labelText: 'Phone Number',
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor),
                     ),
                     disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor),
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).cardColor),
                     ),
-                    errorBorder: OutlineInputBorder(
+                    errorBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.red),
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     )),
@@ -199,10 +203,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     onPressed: () {},
                     icon: const Icon(
                       Icons.mail,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
-                    color: Colors.white,
-                    textColor: Colors.black),
+                    color: const Color.fromARGB(255, 143, 141, 141),
+                    textColor: Colors.white),
                 const SizedBox(width: 20),
                 CustomIconButton(
                     text: "Facebook",

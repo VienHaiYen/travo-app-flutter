@@ -26,7 +26,7 @@ class _PromoCodeScreenState extends State<PromoCodeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
           child: Column(children: [
             MyHeader(
@@ -102,7 +102,8 @@ class _PromoCodeScreenState extends State<PromoCodeScreen> {
         right: 10,
       ),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(30)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(30)),
       child: Row(children: [
         Expanded(
           flex: 7,

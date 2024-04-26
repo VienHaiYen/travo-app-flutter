@@ -7,9 +7,7 @@ import 'package:app_cyclone/travo_app_ac/models/hotel.dart';
 import 'package:app_cyclone/travo_app_ac/service/hotel_service.dart';
 import 'package:app_cyclone/widgets/hotel_list_item.dart';
 import 'package:app_cyclone/widgets/my_header.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HotelScreen extends StatefulWidget {
   HotelScreen({super.key});
@@ -56,7 +54,7 @@ class _HotelScreenState extends State<HotelScreen> {
     getHotels();
 
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: Column(
           children: [
             Stack(

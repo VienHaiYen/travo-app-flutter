@@ -21,7 +21,8 @@ class CommonTextfield extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.only(top: 7),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10)),
       child: TextFormField(
         controller: controller,
         enabled: changeable ?? true,
@@ -38,27 +39,27 @@ class CommonTextfield extends StatelessWidget {
         autofocus: false,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-            color: Color.fromARGB(255, 33, 34, 34)),
+          fontWeight: FontWeight.bold,
+          fontSize: 15,
+        ),
         decoration: InputDecoration(
           labelText: label,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Theme.of(context).cardColor,
           hintText: '',
           contentPadding:
               const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 0),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: Theme.of(context).cardColor),
             borderRadius: BorderRadius.circular(7),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: Theme.of(context).cardColor),
             borderRadius: BorderRadius.circular(7),
           ),
           disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white),
+            borderSide: BorderSide(color: Theme.of(context).cardColor),
             borderRadius: BorderRadius.circular(7),
           ),
           errorBorder: OutlineInputBorder(

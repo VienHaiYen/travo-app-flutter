@@ -20,7 +20,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           widget.icon ?? Container(),
@@ -42,8 +43,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
                         _showDatePicker();
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shadowColor: Colors.white,
+                          backgroundColor: Theme.of(context).cardColor,
+                          shadowColor: Theme.of(context).cardColor,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 0,
                           )),

@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: CustomScrollView(
           slivers: <Widget>[
             SliverToBoxAdapter(
@@ -108,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 10.0),
                         child: MyHeader(
+                          canPop: false,
                           topWidget: BlocBuilder<LogInBloc, LogInState>(
                               builder: (context, state) {
                             return state.currentUser!.name == ""
@@ -153,9 +154,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                         ),
-                                        const Icon(
+                                        Icon(
                                           CupertinoIcons.bell,
-                                          color: Colors.white,
+                                          color: Theme.of(context).cardColor,
                                           size: 30.0,
                                         ),
                                         const SizedBox(width: 20),
@@ -221,16 +222,14 @@ class _HomeScreenState extends State<HomeScreen> {
               stream: _streamController.stream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    (context, index) => Container(
-                      height: 200,
-                      child: Column(
-                        children: [
-                          const CircularProgressIndicator(),
-                          Expanded(child: Container())
-                        ],
-                      ),
+                  return SliverToBoxAdapter(
+                      child: Container(
+                    height: 200,
+                    child: Column(
+                      children: [
+                        const CircularProgressIndicator(),
+                        Expanded(child: Container())
+                      ],
                     ),
                   ));
                 } else if (snapshot.hasError) {
@@ -239,24 +238,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 } else if (snapshot.hasData) {
                   return BlocBuilder<FavoriteBloc, FavoriteState>(
                       builder: (context, state) {
-                    return SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return MasonryGridView.count(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          physics: const ScrollPhysics(),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 4,
-                          crossAxisSpacing: 2,
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return PlaceListItem(item: snapshot.data![index]);
-                          },
-                        );
-                      },
-                      childCount: snapshot.data!.length,
-                    ));
+                    return SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200.0,
+                        mainAxisSpacing: 2,
+                        crossAxisSpacing: 0,
+                        childAspectRatio: 1.4,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                          return PlaceListItem(item: snapshot.data![index]);
+                        },
+                        childCount: snapshot.data!.length,
+                      ),
+                    );
                   });
                 } else {
                   return Container();
